@@ -1,0 +1,1 @@
+This pill will display position that the group is currently recruiting.

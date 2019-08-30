@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>@yield('title') | Global Comics</title>
   @include('ui.partials._stylesheet')
+  @stack('head')
 </head>
 
 <body class="@yield('class') sidebar-collapse">

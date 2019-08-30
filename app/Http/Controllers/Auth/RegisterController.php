@@ -33,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -81,6 +81,33 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'verifyToken' => Str::random(40),
         ]);
+        
+        $thisUser = User::findOrFail($user->id);
+        $this->sendVerifyEmail($thisUser);
+
         return $user;
+    }
+
+    /**
+     * Send verification email to latest created user
+     */
+    public function sendVerifyEmail($thisUser)
+    {
+        Mail::to($thisUser['email'])->send(new verifyEmailToken($thisUser));
+    }
+
+    public function emailSent($email, $verifyToken)
+    {
+        // return $verifyToken;
+        $user = User::where(['email' => $email, 'verifyToken' => $verifyToken])->first();
+
+        if ($user)
+        {
+            User::where(['email' => $email, 'verifyToken' => $verifyToken])->update(['status' => '1','verifyToken' => NULL]);
+            Session::flash('status','Verification Completed! You can now login');
+            return redirect(route('login'));
+        }else {
+            return 'User not found';
+        }
     }
 }

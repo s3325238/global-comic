@@ -12,6 +12,7 @@ class verifyEmailToken extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $user;
     /**
      * Create a new message instance.
      *

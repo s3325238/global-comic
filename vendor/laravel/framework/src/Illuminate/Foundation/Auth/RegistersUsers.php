@@ -17,7 +17,7 @@ trait RegistersUsers
      */
     public function showRegistrationForm()
     {
-        return view('auth.register');
+        return view('ui.pages.register');
     }
 
     /**
@@ -32,7 +32,7 @@ trait RegistersUsers
 
         event(new Registered($user = $this->create($request->all())));
 
-        $this->guard()->login($user);
+        return redirect(route('login'));
 
         return $this->registered($request, $user)
                         ?: redirect($this->redirectPath());

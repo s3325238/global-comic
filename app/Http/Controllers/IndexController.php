@@ -14,7 +14,7 @@ class IndexController extends Controller
     /**
      * Need to remove when making auth
      */
-    public function testLogin(){
-        return view('ui.pages.login');
-    }
+    // public function testLogin(){
+    //     return view('ui.pages.login');
+    // }
 }

@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
+use Mail;
+use Session;
+use App\Mail\verifyEmailToken;
 
 class RegisterController extends Controller
 {
@@ -51,7 +56,9 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'max:255', 'confirmed'],
+            'language' => ['required'],
         ]);
     }
 
@@ -63,10 +70,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        Session::flash('status','Register Successfully! Please verify your email!');
+        $user = User::create([
+            // 'name' => $data['name'],
+            // 'email' => $data['email'],
+            // 'password' => Hash::make($data['password']),
             'name' => $data['name'],
             'email' => $data['email'],
+            'language' => $data['language'],
             'password' => Hash::make($data['password']),
+            'verifyToken' => Str::random(40),
         ]);
+        return $user;
     }
 }

@@ -45,9 +45,9 @@
                 </li>
             </ul>
             <ul class="navbar-nav navbar-center ml-auto">
+                @guest
                 <li class="button-container nav-item iframe-extern">
-                    <a href="{{ route('testLogin') }}"
-                        class="btn btn-info btn-round btn-block">
+                    <a href="{{ route('login') }}" class="btn btn-info btn-round btn-block">
                         <i class="fas fa-sign-in-alt"></i> Login
                     </a>
                 </li>
@@ -56,11 +56,32 @@
                     <div class="divider"></div>
                 </li>
                 <li class="button-container nav-item iframe-extern">
-                    <a href="https://www.creative-tim.com/product/material-kit-pro?ref=presentation" target="_blank"
-                        class="btn btn-rose btn-round btn-block">
-                        <i class="fas fa-registered"></i> Register
+                    <a href="{{ route('register') }}" class="btn btn-rose btn-round btn-block">
+                        <i class="fas fa-registered"></i> Sign up
                     </a>
                 </li>
+                @else
+
+                <li class="dropdown nav-item">
+                    <a href="#pablo" class="profile-photo dropdown-toggle nav-link" data-toggle="dropdown">
+                        <div class="profile-photo-small">
+                            <img src="./assets/img/faces/avatar.jpg" alt="Circle Image"
+                                class="rounded-circle img-fluid">&nbsp;{{ Auth::user()->name }}
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#pablo" class="dropdown-item">Dashboard</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+                @endguest
             </ul>
         </div>
     </div>

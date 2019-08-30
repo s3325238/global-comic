@@ -16,6 +16,8 @@ Route::get('locale/{locale}', function ($locale) {
     return redirect()->back();
 });
 
+Auth::routes();
+
 Route::group(['prefix' => '/'], function () {
     Route::get('/','IndexController@index')->name('home');
 
@@ -32,5 +34,9 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/translate-group/single','TranslateGroupController@show')->name('singleGroup');
 });
 
+// Route::get('login','AuthController@showLoginForm')->middleware('guest')->name('custom.login');
 
-Route::get('test-login','IndexController@testLogin')->name('testLogin');
+// Route::get('register','AuthController@showRegisterForm')->middleware('guest')->name('custom.register');
+// Route::post('register','AuthController@register')->middleware('guest')->name('custom.register');
+
+// Route::get('test-login','IndexController@testLogin')->name('testLogin');

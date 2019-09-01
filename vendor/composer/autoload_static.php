@@ -421,6 +421,7 @@ class ComposerStaticInitc05027b658e0bd4fbc8a4de7a1521463
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
         'App\\Rules\\Captcha' => __DIR__ . '/../..' . '/app/Rules/Captcha.php',
+        'App\\Settings' => __DIR__ . '/../..' . '/app/Settings.php',
         'App\\TranslateGroup' => __DIR__ . '/../..' . '/app/TranslateGroup.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'BeyondCode\\DumpServer\\DumpServerCommand' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',

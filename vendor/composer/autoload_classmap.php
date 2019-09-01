@@ -36,6 +36,7 @@ return array(
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\Role' => $baseDir . '/app/Role.php',
     'App\\Rules\\Captcha' => $baseDir . '/app/Rules/Captcha.php',
+    'App\\Settings' => $baseDir . '/app/Settings.php',
     'App\\TranslateGroup' => $baseDir . '/app/TranslateGroup.php',
     'App\\User' => $baseDir . '/app/User.php',
     'BeyondCode\\DumpServer\\DumpServerCommand' => $vendorDir . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',

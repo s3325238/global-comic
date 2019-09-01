@@ -40,6 +40,6 @@ class Captcha implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return 'Please verify that you are a human.';
     }
 }

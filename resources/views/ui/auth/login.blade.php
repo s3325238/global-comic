@@ -76,8 +76,18 @@
                             </button>
                         </div>
                         <hr>
+                        {{-- @if (Route::has('password.request'))
+                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                            {{ __('Forgot Your Password?') }}
+                        </a>
+                        @endif --}}
                         <div class="card-footer justify-content-center">
-                            <a href="#pablo" class="btn btn-danger btn-link btn-lg btn-block">Forgot your password?</a>
+                            @if (Route::has('password.request'))
+                                <a class="btn btn-danger btn-link btn-lg btn-block" href="{{ route('password.request') }}">
+                                    {{ __('Forgot Your Password?') }}
+                                </a>
+                            @endif
+                            {{-- <a href="#pablo" class="btn btn-danger btn-link btn-lg btn-block">Forgot your password?</a> --}}
                         </div>
 
                     </div>

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use App\Rules\Captcha;
 
+use App\Settings;
+
 trait SendsPasswordResetEmails
 {
     /**
@@ -15,7 +17,8 @@ trait SendsPasswordResetEmails
      */
     public function showLinkRequestForm()
     {
-        return view('ui.auth.email');
+        $key = Settings::find(1)->CAPTCHA_KEY;
+        return view('ui.auth.email',compact('key'));
     }
 
     /**

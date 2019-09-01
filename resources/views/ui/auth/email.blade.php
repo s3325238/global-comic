@@ -74,7 +74,7 @@
                             <span class="bmd-form-group">
                                 <div class="input-group row">
                                     <div class="col-md-8">
-                                        <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_KEY') }}"></div>
+                                        <div class="g-recaptcha" data-sitekey="{{ $key }}"></div>
                                     </div>
                                 </div>
                             </span>

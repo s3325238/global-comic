@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use ReCaptcha\ReCaptcha;
 use Illuminate\Contracts\Validation\Rule;
+use App\Settings;
 
 class Captcha implements Rule
 {
@@ -27,7 +28,8 @@ class Captcha implements Rule
     public function passes($attribute, $value)
     {
         //
-        $captcha = new ReCaptcha(env('CAPTCHA_SECRET'));
+        $secret = Settings::find(1)->CAPTCHA_SECRET;
+        $captcha = new ReCaptcha($secret);
         $response = $captcha->verify($value, $_SERVER['REMOTE_ADDR']);
  
         return $response->isSuccess();

@@ -12,6 +12,20 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('users')->insert([
+            'name' => 'Super Admin',
+            'email' => 'leonguyen0202@gmail.com',
+            'language' => 'en',
+            'password' => '$2y$10$3B4Xw.mY9DtpkTOsczTjyeWJM42Tr8N7gVIgEHfT9pxJjS5gn/MAC', // password 123456
+            'verifyToken' => NULL,
+            'status' => 1,
+            'avatar' => 'default-avatar.png',
+            'role_id' => '99',
+            
+            'remember_token' => Str::random(10),
+            'created_at' => now(),
+            'updated_at' => now(),
+
+        ]);
     }
 }

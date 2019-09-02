@@ -15,6 +15,8 @@ class CreateTranslateGroupsTable extends Migration
     {
         Schema::create('translate_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('group_name');
+            $table->string('language_translate',3);
             $table->timestamps();
         });
     }

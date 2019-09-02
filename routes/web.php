@@ -38,7 +38,8 @@ Route::get('verify/{emai}/{verifyToken}','Auth\RegisterController@emailSent')->n
 
 // Dashboard
 Route::group([ 'prefix' => 'dashboard','middleware' => ['auth', 'dashboard'] ], function() {
-    
+    Route::get('/','Dashboard\IndexController@index')->name('dashboard');
+    Route::get('/inbox','Dashboard\IndexController@mail')->name('inbox');
 });
 
 //  Error Handling Page

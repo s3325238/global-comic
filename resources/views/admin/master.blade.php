@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <script src="https://kit.fontawesome.com/33730d10d7.js"></script>
+    @stack('customCSS')
 </head>
 
 <body class="@yield('body-class')">

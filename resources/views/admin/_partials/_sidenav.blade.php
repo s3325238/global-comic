@@ -5,44 +5,50 @@
       Tip 2: you can also add an image using data-image tag
   -->
     <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-            CT
+        <a href="{{ route('home') }}" class="simple-text logo-mini">
+            GC
         </a>
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-            Creative Tim
+        <a href="{{ route('home') }}" class="simple-text logo-normal">
+            Global Comics
         </a>
     </div>
     <div class="sidebar-wrapper">
         <div class="user">
             <div class="photo">
-                <img src="../assets/img/faces/avatar.jpg" />
+                <img src="{{ asset('img/upload/avatar/').'/'. Auth::user()->avatar }}" />
             </div>
             <div class="user-info">
                 <a data-toggle="collapse" href="#collapseExample" class="username">
                     <span>
-                        Tania Andrew
+                        {{ Auth::user()->name }}
                         <b class="caret"></b>
                     </span>
                 </a>
                 <div class="collapse" id="collapseExample">
                     <ul class="nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> MP </span>
-                                <span class="sidebar-normal"> My Profile </span>
+                            <a class="nav-link" href="{{ route('inbox') }}">
+                                <span class="sidebar-mini"> <i class="fas fa-envelope"></i> </span>
+                                <span class="sidebar-normal"> Mail </span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> EP </span>
-                                <span class="sidebar-normal"> Edit Profile </span>
+                                <span class="sidebar-mini"> <i class="fas fa-address-card"></i> </span>
+                                <span class="sidebar-normal"> Profile Page </span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> S </span>
-                                <span class="sidebar-normal"> Settings </span>
+                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                          document.getElementById('logout-form').submit();">
+                                <span class="sidebar-mini">
+                                    <i class="material-icons">logout</i>
+                                </span>
+                                <span class="sidebar-normal"> Logout </span>
                             </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </li>
                     </ul>
                 </div>
@@ -50,11 +56,51 @@
         </div>
         <ul class="nav">
             <li class="nav-item active ">
-                <a class="nav-link" href="../examples/dashboard.html">
+                <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="material-icons">dashboard</i>
                     <p> Dashboard </p>
                 </a>
             </li>
+            <div class="dropdown-divider"></div>
+            <p class="h6">Translate Group</p>
+
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#allGroups">
+                    <i class="fas fa-object-group"></i>
+                    <p> All Groups
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="allGroups">
+                    <ul class="nav">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/pages/pricing.html">
+                                <span class="sidebar-mini"> VI </span>
+                                <span class="sidebar-normal"> Vietnamese Group </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/pages/rtl.html">
+                                <span class="sidebar-mini"> EN </span>
+                                <span class="sidebar-normal"> English Group </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/pages/timeline.html">
+                                <span class="sidebar-mini"> JP </span>
+                                <span class="sidebar-normal"> Japanese Group </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/pages/login.html">
+                                <span class="sidebar-mini"> KR </span>
+                                <span class="sidebar-normal"> Korean Group </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#pagesExamples">
                     <i class="material-icons">image</i>

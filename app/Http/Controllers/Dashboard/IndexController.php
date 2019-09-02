@@ -11,4 +11,14 @@ class IndexController extends Controller
     {
         $this->middleware('dashboard');
     }
+
+    public function index()
+    {
+        return view('admin.index');
+    }
+
+    public function mail()
+    {
+        return view('admin.mail_box.inbox');
+    }
 }

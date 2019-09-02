@@ -63,14 +63,15 @@
                 @else
 
                 <li class="dropdown nav-item">
+                    {{-- {{ Auth::user()->name }}&nbsp; --}}
                     <a href="#pablo" class="profile-photo dropdown-toggle nav-link" data-toggle="dropdown">
                         <div class="profile-photo-small">
-                            <img src="./assets/img/faces/avatar.jpg" alt="Circle Image"
-                                class="rounded-circle img-fluid">&nbsp;{{ Auth::user()->name }}
+                            <img src="/img/upload/avatar/{{ Auth::user()->avatar }}" alt="Circle Image"
+                                class="rounded-circle img-fluid">
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#pablo" class="dropdown-item">Dashboard</a>
+                        <a href="#CpanelOrDashboard" class="dropdown-item">Dashboard</a>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}

@@ -35,3 +35,11 @@ Route::group(['prefix' => '/'], function () {
 });
 
 Route::get('verify/{emai}/{verifyToken}','Auth\RegisterController@emailSent')->name('emailSent');
+
+// Dashboard
+Route::group([ 'prefix' => 'dashboard','middleware' => ['auth', 'dashboard'] ], function() {
+    
+});
+
+//  Error Handling Page
+Route::get('page-not-found',['as' => 'notfound', 'uses' => 'ErrorHandlingController@notfound']);

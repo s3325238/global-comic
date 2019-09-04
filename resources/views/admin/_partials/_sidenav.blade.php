@@ -55,7 +55,7 @@
             </div>
         </div>
         <ul class="nav">
-            <li class="nav-item active ">
+            <li class="nav-item {{ setSideBarActive(['dashboard'],'active') }} ">
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="material-icons">dashboard</i>
                     <p> Dashboard </p>
@@ -283,16 +283,16 @@
                 {{-- </div> --}}
 
                 {{-- <div class="user"> --}}
-                    <li class="nav-item ">
-                        <a class="nav-link" data-toggle="collapse" href="#permission">
+                    <li class="nav-item {{ setSideBarActive(['dashboard/permission*'],'active') }} ">
+                        <a class="nav-link" data-toggle="collapse" href="#permission" aria-expanded="{{ setSideBarActive(['dashboard/permission*'],'true') }}">
                             <i class="fas fa-universal-access"></i>
                             <p> Permission
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="permission">
+                        <div class="collapse {{ setSideBarActive(['dashboard/permission*'],'show') }}" id="permission">
                             <ul class="nav">
-                                <li class="nav-item ">
+                                <li class="nav-item {{ setSideBarActive(['dashboard/permission/create'],'active') }} ">
                                     <a class="nav-link" href="{{ route('permission.create') }}">
                                         <span class="sidebar-mini">
                                             <i class="fas fa-plus-circle"></i>

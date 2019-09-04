@@ -13,6 +13,7 @@ class SettingTableSeeder extends Seeder
     public function run()
     {
         DB::table('settings')->insert([
+            'MAIL_USERNAME' => 'global.comics.no.reply@gmail.com',
             'CAPTCHA_KEY' => "6Lch3rUUAAAAALd1R2-B5Q01W-R2l6BMXdtyDkRS",
             'CAPTCHA_SECRET' => "6Lch3rUUAAAAALfX-Q2kF4TstYl3MY8T8puvnlcu",
             'created_at' => date('Y-m-d H:i:s'),

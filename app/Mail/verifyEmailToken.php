@@ -3,6 +3,8 @@
 namespace App\Mail;
 
 use App\User;
+use App\Settings;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -30,9 +32,11 @@ class verifyEmailToken extends Mailable
      */
     public function build()
     {
+        $setting = Settings::find(1);
+        $mail_username = $setting->MAIL_USERNAME;
         return $this->subject('Global Comics | Please verify your email address')
             ->from(
-                env('MAIL_USERNAME','leonguyen0202@gmail.com'),
+                $mail_username,
                 'Global Comics Email Verification Service'
             )
             ->view('mail.verifyEmailHTML');

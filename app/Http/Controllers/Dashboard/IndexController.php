@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Http\Request;
-use Auth;
 use App\Http\Controllers\Controller;
+use Auth;
 use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
@@ -16,17 +15,18 @@ class IndexController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
+        // $user = Auth::user();
+        $index_title = "Dashboard";
 
-        if ($user->can('isAdmin')) {
+        if (Auth::user()->can('isAdmin')) {
             $users_by_language = DB::table('users')
-                ->select('language',DB::raw('count(*) as total'))
-                ->where('role_id','=','1')
+                ->select('language', DB::raw('count(*) as total'))
+                ->where('role_id', '=', '1')
                 ->groupBy('language')
                 ->get();
-            return view('admin.index',compact(['users_by_language']));
-        }else {
-            return view('admin.index');
+            return view('admin.index', compact(['users_by_language','index_title']));
+        } else {
+            return view('admin.index',compact(['index_title']));
         }
     }
 

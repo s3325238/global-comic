@@ -14,9 +14,9 @@ class CreateRolesTable extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->integer('id');
+            $table->integer('id')->unique();
             // 15
-            $table->string('role_name',15);
+            $table->string('role_name',15)->unique();
             // Manga Permission
             $table->boolean('create_manga')->default(false);
             $table->boolean('view_manga')->default(false);

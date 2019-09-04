@@ -62,6 +62,7 @@
                 </a>
             </li>
             <div class="user"></div>
+            <!-- Group Management -->
             @can('isAdmin', Auth::user())
             <div class="user">
                 <li class="nav-item ">
@@ -102,11 +103,12 @@
                 </li>
             </div>
             @endcan
+            <!-- Manga Management -->
             <div class="user">
                 <li class="nav-item ">
                     <a class="nav-link" data-toggle="collapse" href="#pagesExamples">
-                        <i class="material-icons">image</i>
-                        <p> Picture
+                        <i class="fas fa-image"></i>
+                        <p> Manga List
                             <b class="caret"></b>
                         </p>
                     </a>
@@ -164,114 +166,153 @@
                     </div>
                 </li>
             </div>
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
-                    <i class="material-icons">apps</i>
-                    <p> Components
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="componentsExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" data-toggle="collapse" href="#componentsCollapse">
-                                <span class="sidebar-mini"> MLT </span>
-                                <span class="sidebar-normal"> Multi Level Collapse
-                                    <b class="caret"></b>
-                                </span>
-                            </a>
-                            <div class="collapse" id="componentsCollapse">
-                                <ul class="nav">
-                                    <li class="nav-item ">
-                                        <a class="nav-link" href="#0">
-                                            <span class="sidebar-mini"> E </span>
-                                            <span class="sidebar-normal"> Example </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/components/buttons.html">
-                                <span class="sidebar-mini"> B </span>
-                                <span class="sidebar-normal"> Buttons </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/components/grid.html">
-                                <span class="sidebar-mini"> GS </span>
-                                <span class="sidebar-normal"> Grid System </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/components/panels.html">
-                                <span class="sidebar-mini"> P </span>
-                                <span class="sidebar-normal"> Panels </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/components/sweet-alert.html">
-                                <span class="sidebar-mini"> SA </span>
-                                <span class="sidebar-normal"> Sweet Alert </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/components/notifications.html">
-                                <span class="sidebar-mini"> N </span>
-                                <span class="sidebar-normal"> Notifications </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/components/icons.html">
-                                <span class="sidebar-mini"> I </span>
-                                <span class="sidebar-normal"> Icons </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/components/typography.html">
-                                <span class="sidebar-mini"> T </span>
-                                <span class="sidebar-normal"> Typography </span>
-                            </a>
-                        </li>
-                    </ul>
+            <!-- Video Management -->
+            <div class="user">
+                <li class="nav-item ">
+                    <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
+                        <i class="fas fa-video"></i>
+                        <p> All video groups
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="componentsExamples">
+                        <ul class="nav">
+                            <li class="nav-item ">
+                                <a class="nav-link" data-toggle="collapse" href="#componentsCollapse">
+                                    <span class="sidebar-mini"> MLT </span>
+                                    <span class="sidebar-normal"> Multi Level Collapse
+                                        <b class="caret"></b>
+                                    </span>
+                                </a>
+                                <div class="collapse" id="componentsCollapse">
+                                    <ul class="nav">
+                                        <li class="nav-item ">
+                                            <a class="nav-link" href="#0">
+                                                <span class="sidebar-mini"> E </span>
+                                                <span class="sidebar-normal"> Example </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/components/buttons.html">
+                                    <span class="sidebar-mini"> B </span>
+                                    <span class="sidebar-normal"> Buttons </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/components/grid.html">
+                                    <span class="sidebar-mini"> GS </span>
+                                    <span class="sidebar-normal"> Grid System </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/components/panels.html">
+                                    <span class="sidebar-mini"> P </span>
+                                    <span class="sidebar-normal"> Panels </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/components/sweet-alert.html">
+                                    <span class="sidebar-mini"> SA </span>
+                                    <span class="sidebar-normal"> Sweet Alert </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/components/notifications.html">
+                                    <span class="sidebar-mini"> N </span>
+                                    <span class="sidebar-normal"> Notifications </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/components/icons.html">
+                                    <span class="sidebar-mini"> I </span>
+                                    <span class="sidebar-normal"> Icons </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/components/typography.html">
+                                    <span class="sidebar-mini"> T </span>
+                                    <span class="sidebar-normal"> Typography </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+            <!-- User & permission management -->
+            @can('isAdmin', Auth::user())
+                <div class="user">
+                    <li class="nav-item ">
+                        <a class="nav-link" data-toggle="collapse" href="#users">
+                                <i class="fas fa-users"></i>
+                            <p> User Management
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="users">
+                            <ul class="nav">
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="../examples/forms/regular.html">
+                                        <span class="sidebar-mini"> RF </span>
+                                        <span class="sidebar-normal"> Regular Forms </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="../examples/forms/extended.html">
+                                        <span class="sidebar-mini"> EF </span>
+                                        <span class="sidebar-normal"> Extended Forms </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="../examples/forms/validation.html">
+                                        <span class="sidebar-mini"> VF </span>
+                                        <span class="sidebar-normal"> Validation Forms </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="../examples/forms/wizard.html">
+                                        <span class="sidebar-mini"> W </span>
+                                        <span class="sidebar-normal"> Wizard </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                {{-- </div> --}}
+
+                {{-- <div class="user"> --}}
+                    <li class="nav-item ">
+                        <a class="nav-link" data-toggle="collapse" href="#permission">
+                            <i class="fas fa-universal-access"></i>
+                            <p> Permission
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="permission">
+                            <ul class="nav">
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="{{ route('permission.create') }}">
+                                        <span class="sidebar-mini">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </span>
+                                        <span class="sidebar-normal"> Add new permission </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="../examples/forms/extended.html">
+                                        <span class="sidebar-mini">
+                                            <i class="fas fa-tasks"></i>
+                                        </span>
+                                        <span class="sidebar-normal"> Permission Lists </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 </div>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#formsExamples">
-                    <i class="material-icons">content_paste</i>
-                    <p> Forms
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="formsExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/forms/regular.html">
-                                <span class="sidebar-mini"> RF </span>
-                                <span class="sidebar-normal"> Regular Forms </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/forms/extended.html">
-                                <span class="sidebar-mini"> EF </span>
-                                <span class="sidebar-normal"> Extended Forms </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/forms/validation.html">
-                                <span class="sidebar-mini"> VF </span>
-                                <span class="sidebar-normal"> Validation Forms </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/forms/wizard.html">
-                                <span class="sidebar-mini"> W </span>
-                                <span class="sidebar-normal"> Wizard </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+            @endcan
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#tablesExamples">
                     <i class="material-icons">grid_on</i>

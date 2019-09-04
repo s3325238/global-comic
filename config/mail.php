@@ -86,9 +86,9 @@ return [
     |
     */
     
-    'username' => env('MAIL_USERNAME','global.comics.no.reply@gmail.com'),
+    'username' => env('MAIL_USERNAME'),
     
-    'password' => env('MAIL_PASSWORD','Chicken@92'),
+    'password' => env('MAIL_PASSWORD'),
 
     /*
     |--------------------------------------------------------------------------

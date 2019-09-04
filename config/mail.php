@@ -1,5 +1,7 @@
 <?php
 
+// use App\Settings;
+
 return [
 
     /*
@@ -83,10 +85,10 @@ return [
     | connection. You may also set the "password" value below this one.
     |
     */
-
-    'username' => env('MAIL_USERNAME'),
-
-    'password' => env('MAIL_PASSWORD'),
+    
+    'username' => env('MAIL_USERNAME','global.comics.no.reply@gmail.com'),
+    
+    'password' => env('MAIL_PASSWORD','Chicken@92'),
 
     /*
     |--------------------------------------------------------------------------

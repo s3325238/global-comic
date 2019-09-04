@@ -24,7 +24,13 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        $this->registerSideBarPermission();
 
         //
+    }
+
+    public function registerSideBarPermission()
+    {
+        Gate::define('isAdmin','App\Policies\sideBarPermissionPolicy@isAdmin');
     }
 }

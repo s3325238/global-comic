@@ -61,106 +61,109 @@
                     <p> Dashboard </p>
                 </a>
             </li>
-            <div class="dropdown-divider"></div>
-            <p class="h6">Translate Group</p>
-
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#allGroups">
-                    <i class="fas fa-object-group"></i>
-                    <p> All Groups
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="allGroups">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/pages/pricing.html">
-                                <span class="sidebar-mini"> VI </span>
-                                <span class="sidebar-normal"> Vietnamese Group </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/pages/rtl.html">
-                                <span class="sidebar-mini"> EN </span>
-                                <span class="sidebar-normal"> English Group </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/pages/timeline.html">
-                                <span class="sidebar-mini"> JP </span>
-                                <span class="sidebar-normal"> Japanese Group </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/pages/login.html">
-                                <span class="sidebar-mini"> KR </span>
-                                <span class="sidebar-normal"> Korean Group </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#pagesExamples">
-                    <i class="material-icons">image</i>
-                    <p> Pages
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="pagesExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/pages/pricing.html">
-                                <span class="sidebar-mini"> P </span>
-                                <span class="sidebar-normal"> Pricing </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/pages/rtl.html">
-                                <span class="sidebar-mini"> RS </span>
-                                <span class="sidebar-normal"> RTL Support </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/pages/timeline.html">
-                                <span class="sidebar-mini"> T </span>
-                                <span class="sidebar-normal"> Timeline </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/pages/login.html">
-                                <span class="sidebar-mini"> LP </span>
-                                <span class="sidebar-normal"> Login Page </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/pages/register.html">
-                                <span class="sidebar-mini"> RP </span>
-                                <span class="sidebar-normal"> Register Page </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/pages/lock.html">
-                                <span class="sidebar-mini"> LSP </span>
-                                <span class="sidebar-normal"> Lock Screen Page </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/pages/user.html">
-                                <span class="sidebar-mini"> UP </span>
-                                <span class="sidebar-normal"> User Profile </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/pages/error.html">
-                                <span class="sidebar-mini"> E </span>
-                                <span class="sidebar-normal"> Error Page </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+            <div class="user"></div>
+            @can('isAdmin', Auth::user())
+            <div class="user">
+                <li class="nav-item ">
+                    <a class="nav-link" data-toggle="collapse" href="#allGroups">
+                        <i class="fas fa-object-group"></i>
+                        <p> All Groups
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="allGroups">
+                        <ul class="nav">
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/pages/pricing.html">
+                                    <span class="sidebar-mini"> VI </span>
+                                    <span class="sidebar-normal"> Vietnamese Group </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/pages/rtl.html">
+                                    <span class="sidebar-mini"> EN </span>
+                                    <span class="sidebar-normal"> English Group </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/pages/timeline.html">
+                                    <span class="sidebar-mini"> JP </span>
+                                    <span class="sidebar-normal"> Japanese Group </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/pages/login.html">
+                                    <span class="sidebar-mini"> KR </span>
+                                    <span class="sidebar-normal"> Korean Group </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+            @endcan
+            <div class="user">
+                <li class="nav-item ">
+                    <a class="nav-link" data-toggle="collapse" href="#pagesExamples">
+                        <i class="material-icons">image</i>
+                        <p> Picture
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="pagesExamples">
+                        <ul class="nav">
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/pages/pricing.html">
+                                    <span class="sidebar-mini"> P </span>
+                                    <span class="sidebar-normal"> Pricing </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/pages/rtl.html">
+                                    <span class="sidebar-mini"> RS </span>
+                                    <span class="sidebar-normal"> RTL Support </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/pages/timeline.html">
+                                    <span class="sidebar-mini"> T </span>
+                                    <span class="sidebar-normal"> Timeline </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/pages/login.html">
+                                    <span class="sidebar-mini"> LP </span>
+                                    <span class="sidebar-normal"> Login Page </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/pages/register.html">
+                                    <span class="sidebar-mini"> RP </span>
+                                    <span class="sidebar-normal"> Register Page </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/pages/lock.html">
+                                    <span class="sidebar-mini"> LSP </span>
+                                    <span class="sidebar-normal"> Lock Screen Page </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/pages/user.html">
+                                    <span class="sidebar-mini"> UP </span>
+                                    <span class="sidebar-normal"> User Profile </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../examples/pages/error.html">
+                                    <span class="sidebar-mini"> E </span>
+                                    <span class="sidebar-normal"> Error Page </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
                     <i class="material-icons">apps</i>

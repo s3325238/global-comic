@@ -28,6 +28,10 @@ class ComposerStaticInitc05027b658e0bd4fbc8a4de7a1521463
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
+        'b' => 
+        array (
+            'browner12\\helpers\\' => 18,
+        ),
         'X' => 
         array (
             'XdgBaseDir\\' => 11,
@@ -143,6 +147,10 @@ class ComposerStaticInitc05027b658e0bd4fbc8a4de7a1521463
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'browner12\\helpers\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/browner12/helpers/src',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -400,12 +408,17 @@ class ComposerStaticInitc05027b658e0bd4fbc8a4de7a1521463
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\Dashboard\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/IndexController.php',
+        'App\\Http\\Controllers\\Dashboard\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/RoleController.php',
+        'App\\Http\\Controllers\\ErrorHandlingController' => __DIR__ . '/../..' . '/app/Http/Controllers/ErrorHandlingController.php',
         'App\\Http\\Controllers\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/IndexController.php',
         'App\\Http\\Controllers\\MangaController' => __DIR__ . '/../..' . '/app/Http/Controllers/MangaController.php',
         'App\\Http\\Controllers\\TranslateGroupController' => __DIR__ . '/../..' . '/app/Http/Controllers/TranslateGroupController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
+        'App\\Http\\Middleware\\AdminAccessOnly' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminAccessOnly.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
+        'App\\Http\\Middleware\\DashboardAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/DashboardAuthenticated.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\Localization' => __DIR__ . '/../..' . '/app/Http/Middleware/Localization.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
@@ -414,6 +427,8 @@ class ComposerStaticInitc05027b658e0bd4fbc8a4de7a1521463
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Mail\\verifyEmailToken' => __DIR__ . '/../..' . '/app/Mail/verifyEmailToken.php',
         'App\\Manga' => __DIR__ . '/../..' . '/app/Manga.php',
+        'App\\Policies\\GroupPermissionPolicy' => __DIR__ . '/../..' . '/app/Policies/GroupPermissionPolicy.php',
+        'App\\Policies\\sideBarPermissionPolicy' => __DIR__ . '/../..' . '/app/Policies/sideBarPermissionPolicy.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -3951,6 +3966,8 @@ class ComposerStaticInitc05027b658e0bd4fbc8a4de7a1521463
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
+        'browner12\\helpers\\Commands\\HelperMakeCommand' => __DIR__ . '/..' . '/browner12/helpers/src/Commands/HelperMakeCommand.php',
+        'browner12\\helpers\\HelperServiceProvider' => __DIR__ . '/..' . '/browner12/helpers/src/HelperServiceProvider.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',

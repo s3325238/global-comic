@@ -175,6 +175,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * Helper artisan command
+         */
+        browner12\helpers\HelperServiceProvider::class,
+
     ],
 
     /*

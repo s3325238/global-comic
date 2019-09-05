@@ -21,7 +21,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $index_title = "Permission Lists";
+
+        return view('admin.permission.lists',compact(['index_title']));
     }
 
     /**

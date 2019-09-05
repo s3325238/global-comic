@@ -300,8 +300,8 @@
                                         <span class="sidebar-normal"> Add new permission </span>
                                     </a>
                                 </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="../examples/forms/extended.html">
+                                <li class="nav-item {{ setSideBarActive(['dashboard/permission'],'active') }}">
+                                    <a class="nav-link" href="{{ route('permission.index') }}">
                                         <span class="sidebar-mini">
                                             <i class="fas fa-tasks"></i>
                                         </span>

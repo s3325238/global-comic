@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\Facades\DB;
 
+use App\Role;
+
 class IndexController extends Controller
 {
     public function __construct()
@@ -17,6 +19,10 @@ class IndexController extends Controller
     {
         // $user = Auth::user();
         $index_title = "Dashboard";
+
+        $role = Role::select('id', 'role_name', 'created_at', 'updated_at')->get();
+
+        // dd($role);
 
         if (Auth::user()->can('isAdmin')) {
             $users_by_language = DB::table('users')

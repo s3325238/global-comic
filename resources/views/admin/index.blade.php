@@ -2,10 +2,18 @@
 
 @section('title','Dashboard')
 
+@push('customJs')
+    <!-- Plugin for the momentJs  -->
+    <script src="{{ asset('admin/js/plugins/moment.min.js') }}"></script>
+    <!-- Chartist JS -->
+    <script src="{{ asset('admin/js/plugins/chartist.min.js') }}"></script>
+    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+    <script src="{{ asset('admin/js/plugins/jquery-jvectormap.js') }}"></script>
+    <!-- Library for adding dinamically elements -->
+    <script src="{{ asset('admin/js/plugins/arrive.min.js') }}"></script>
+@endpush
+
 @section('content')
-
-
-
 
 <div class="content">
     <div class="content">
@@ -429,10 +437,5 @@
         </div>
     </div>
 </div>
-
-
-
-
-
 
 @endsection

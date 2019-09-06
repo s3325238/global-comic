@@ -20,7 +20,9 @@
                         <div class="card-body">
                             <div class="toolbar">
                                 <!--        Here you can write extra buttons/actions for the toolbar              -->
-                                <!--                    <button class="btn btn-primary">Add new</button>-->
+                                <a href="{{ route('permission.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus-circle"></i>&nbsp;&nbsp;Add new
+                                </a>
                             </div>
                             <br>
                             <div class="material-datatables">
@@ -97,7 +99,31 @@
                     searchPlaceholder: "Search records",
                 }
             });
+
         });
+
+        // Press edit button
+        // $(document).on('click','.edit', function(e) {
+        //     e.preventDefault();
+        //     var id = $(this).attr('id');
+            
+        //     console.log(id);
+
+        //     $.ajax({
+        //         url:'{!! route('api.permission.lists.edit') !!}',
+        //         method: "GET" ,
+        //         data:{
+        //             id:id
+        //         },
+        //         success:function(data) {
+        //             console.log(data);
+        //         },
+        //         error: function(xhr, status, error){
+        //             var errorMessage = xhr.status + ': ' + xhr.statusText
+        //             alert('Error - ' + errorMessage);
+        //         }
+        //     })
+        // });
         // Delete a record
         $(document).on('click', '.remove', function(e){
 

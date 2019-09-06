@@ -30,7 +30,7 @@ class Permission extends Controller
             })
             ->addColumn('action', function ($role) {
                 return '<a href="#" class="btn btn-link btn-info btn-just-icon info" id="' . $role->id . '"><i class="material-icons">info</i></a>
-                        <a href="#" class="btn btn-link btn-warning btn-just-icon edit" id="' . $role->id . '"><i class="material-icons">dvr</i></a>
+                        <a href="'.route('permission.edit',$role->id).'" class="btn btn-link btn-warning btn-just-icon edit" id="' . $role->id . '"><i class="material-icons">dvr</i></a>
                         <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $role->id . '"><i class="material-icons">close</i></a>';
             })
             ->editColumn('created_at', function (Role $role) {
@@ -40,6 +40,19 @@ class Permission extends Controller
                 return $role->updated_at->diffForHumans();
             })
             ->make(true);
+    }
+
+    function editData(Request $request)
+    {
+        $id = $request->input('id');
+
+        $role = Role::find($id);
+        
+        $permission = [];
+
+        $index_title = "Add new permission";
+
+        return view('admin.permission.edit',compact(['role','permission','index_title']))->render();
     }
 
     function removeData(Request $request)
@@ -54,7 +67,7 @@ class Permission extends Controller
 
         if ($role->delete()) {
             return redirect()->back();
-//            return request()->session()->flash('alert-success', 'Successful delete record!');
+
         } else {
             return request()->session()->flash('alert-danger', 'Failed to delete record!');
         }

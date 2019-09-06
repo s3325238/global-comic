@@ -48,6 +48,7 @@ Route::group([ 'prefix' => 'dashboard','middleware' => ['auth', 'dashboard'] ], 
 // Api Group
 Route::group(['prefix' => 'api', 'middleware' => ['auth','dashboard','admin']], function(){
     Route::get('/permission/lists','Api\Permission@getLists')->name('api.permission.lists');
+    Route::get('/permission/lists/edit', 'Api\Permission@editData')->name('api.permission.lists.edit');
     Route::get('/permission/lists/remove', 'Api\Permission@removeData')->name('api.permission.lists.remove');
 });
 

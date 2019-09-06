@@ -4,12 +4,20 @@ namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 use App\Role;
 
 class RoleController extends Controller
 {
+    protected $columns = array(
+        'create_manga', 'view_manga', 'update_manga', 'delete_manga',
+        'create_group', 'view_group', 'update_group', 'delete_group',
+        'create_user', 'view_user', 'update_user', 'delete_user', 'add_copyright');
+
     public function __construct()
     {
         $this->middleware(['dashboard', 'admin']);
@@ -62,8 +70,8 @@ class RoleController extends Controller
     {
         //
         $request->validate([
-            'id' => 'numeric|required|min:1|max:98|unique:roles',
-            'role_name' => 'required|string|max:15|unique:roles',
+            'id' => 'numeric|required|min:1|max:98',
+            'role_name' => 'required|string|max:15',
         ]);
         
         $role = new Role();
@@ -126,7 +134,28 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::find($id);
+
+        $index_title = "Edit permission";
+
+        $permission = [];
+
+        $test = Role::where('id','=',$id)->exclude(['id','role_name','created_at', 'updated_at'])->first();
+
+        $newArray = array_keys($test->toArray());
+
+        foreach ($newArray as $key => $value) {
+            if ($test->$value == '1') {
+                array_push($permission,$value);
+            }
+        }
+
+        if ($role) {
+            return view('admin.permission.edit',compact(['role','index_title','permission']));
+        }else {
+            return redirect()->route('dashboard');
+        }
+        
     }
 
     /**
@@ -138,7 +167,24 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $based = [];
+        $diff = [];
+        
+        $request->validate([
+            'id' => 'numeric|required|min:1',
+            'role_name' => 'required|string',
+        ]);
+
+        $role = role_helper(Role::find($id), $based, $diff, $this->columns, $request->mangas, $request->groups, $request->users, $request->others);
+
+        if ($role->update()) {
+            return redirect()->route('permission.index');
+        } else {
+            return redirect()->back()->with('errors','Fail!');
+        }
+        
+
+        
     }
 
     /**

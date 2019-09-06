@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title','Add new permission')
+@section('title','Edit permission')
 
 @section('content')
     <div class="content">
@@ -22,8 +22,9 @@
                 @endif
                 {{-- <div class="col-md-12"> --}}
                 <div class="row">
-                    <form action="{{ isset($role) ? route('permission.update',$role->id) : route('permission.store') }}" method="{{ isset($role) ? "PUT" : "POST" }}">
+                    <form action="{{ route('permission.update',$role->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="col-md-12">
                             <div class="card ">
                                 <div class="card-header card-header-rose card-header-text">
@@ -36,13 +37,13 @@
                                         <label class="col-sm-1 col-form-label">ID</label>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <input type="number" class="form-control" name="id" placeholder="ID number..." value="{{ old('id') }}">
+                                                <input type="number" class="form-control" name="id" placeholder="ID number..." value="{{ $role->id }}">
                                             </div>
                                         </div>
                                         <label class="col-sm-2 col-form-label">Permission Name</label>
                                         <div class="col-md-7">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" name="role_name" placeholder="Permission name..." value="{{ old('role_name') }}">
+                                                <input type="text" class="form-control" value="{{ $role->role_name }}" name="role_name" placeholder="Permission name...">
                                             </div>
                                         </div>
                                     </div>
@@ -54,7 +55,7 @@
                             <div class="card ">
                                 <div class="card-header card-header-rose card-header-text">
                                     <div class="card-text">
-                                        <h4 class="card-title">Access Permission</h4>
+                                        <h4 class="card-title">Edit Access Permission</h4>
                                     </div>
                                 </div>
                                 <div class="card-body ">
@@ -76,7 +77,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-save"></i>&nbsp;&nbsp;Save</button>
+                            <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-save"></i>&nbsp;&nbsp;Update</button>
                         </div>
                     </form>
                 </div>

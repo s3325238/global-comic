@@ -49,7 +49,7 @@ if (!function_exists('role_helper')) {
             }
         }
 
-        //
+        // Compare and get differences
         $diff = array_diff($columns,$based);
 
         foreach ($diff as $value) {

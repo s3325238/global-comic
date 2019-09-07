@@ -33,6 +33,7 @@ class IndexController extends Controller
 
     public function mail()
     {
-        return view('admin.mail_box.inbox');
+        $index_title = "Inbox";
+        return view('admin.mail_box.inbox',compact(['index_title']));
     }
 }

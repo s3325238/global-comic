@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+
+// Database
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -76,40 +80,11 @@ class RoleController extends Controller
         
         $role = new Role();
 
+        $role = add_role_helper($role, $request->mangas, $request->groups, $request->users, $request->others);
+
         $role->id = $request->id;
         $role->role_name = $request->role_name;
 
-        if (isset($request->mangas)) {
-            foreach ($request->mangas as $manga) {
-
-                $role->$manga = TRUE;
-                
-            }
-        }
-        
-        if (isset($request->groups)) {
-            foreach ($request->groups as $group) {
-
-                $role->$group = TRUE;
-                
-            }
-        }
-
-        if (isset($request->users)) {
-            foreach ($request->users as $user) {
-
-                $role->$user = TRUE;
-                
-            }
-        }
-
-        if (isset($request->others)) {
-            foreach ($request->others as $other) {
-                
-                $role->$other = TRUE;
-                
-            }
-        }
         $role->save();
         
         return redirect(route('dashboard'));
@@ -196,5 +171,6 @@ class RoleController extends Controller
     public function destroy($id)
     {
         //
+        $table->$type($name);
     }
 }

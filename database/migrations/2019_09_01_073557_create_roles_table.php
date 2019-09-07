@@ -32,7 +32,10 @@ class CreateRolesTable extends Migration
             $table->boolean('view_group')->default(false);
             $table->boolean('update_group')->default(false);
             $table->boolean('delete_group')->default(false);
+
+            // Other permission
             $table->boolean('add_copyright')->default(false);
+            $table->boolean('view_settings')->default(false);
             $table->timestamps();
         });
     }

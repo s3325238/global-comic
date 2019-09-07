@@ -2,6 +2,11 @@
 
 @section('title','Add new permission')
 
+@push('customJs')
+    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <script src="{{ asset('admin/js/plugins/bootstrap-selectpicker.js') }}"></script>
+@endpush
+
 @section('content')
     <div class="content">
         <div class="content">

@@ -58,4 +58,43 @@ if (!function_exists('role_helper')) {
 
         return $role;
     }
+} 
+if (!function_exists('add_role_helper')) {
+    function add_role_helper($role, $mangas, $groups, $users, $others) {
+
+        if ($mangas != NULL) {
+            foreach ($mangas as $manga) {
+
+                $role->$manga = TRUE;
+                
+            }
+        }
+
+        if ($groups != NULL) {
+            foreach ($groups as $group) {
+
+                $role->$group = TRUE;
+                
+            }
+        }
+
+        if ($users != NULL) {
+            foreach ($users as $user) {
+
+                $role->$user = TRUE;
+                
+            }
+        }
+
+        if ($others != NULL) {
+            foreach ($others as $other) {
+
+                $role->$other = TRUE;
+                
+            }
+        }
+
+        return $role;
+
+    }
 }

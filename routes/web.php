@@ -43,7 +43,6 @@ Route::group([ 'prefix' => 'dashboard','middleware' => ['auth', 'dashboard'] ], 
 
     Route::resource('permission','Dashboard\RoleController')->middleware('admin');
 
-    
 });
 // Api Group
 Route::group(['prefix' => 'api', 'middleware' => ['auth','dashboard','admin']], function(){
@@ -54,3 +53,6 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth','dashboard','admin']], 
 
 //  Error Handling Page
 Route::get('page-not-found',['as' => 'notfound', 'uses' => 'ErrorHandlingController@notfound']);
+
+// Testing route
+// Route::post('add-column','Dashboard\RoleController@newPermission')->name('test.add.column');

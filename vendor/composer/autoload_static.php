@@ -444,6 +444,7 @@ class ComposerStaticInitc05027b658e0bd4fbc8a4de7a1521463
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Relationship' => __DIR__ . '/../..' . '/app/Relationship.php',
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
         'App\\Rules\\Captcha' => __DIR__ . '/../..' . '/app/Rules/Captcha.php',
         'App\\Settings' => __DIR__ . '/../..' . '/app/Settings.php',

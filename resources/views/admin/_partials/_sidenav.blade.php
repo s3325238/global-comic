@@ -254,6 +254,44 @@
                         <div class="collapse" id="users">
                             <ul class="nav">
                                 <li class="nav-item ">
+                                    <a class="nav-link" data-toggle="collapse" href="#userRegion">
+                                        <span class="sidebar-mini"> 
+                                            <i class="fas fa-globe"></i> 
+                                        </span>
+                                        <span class="sidebar-normal"> User Regions
+                                            <b class="caret"></b>
+                                        </span>
+                                    </a>
+                                    <div class="collapse" id="userRegion">
+                                        <ul class="nav">
+                                            <li class="nav-item ">
+                                                <a class="nav-link" href="#0">
+                                                    <span class="sidebar-mini"> VI </span>
+                                                    <span class="sidebar-normal"> Vietnamese </span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item ">
+                                                <a class="nav-link" href="#0">
+                                                    <span class="sidebar-mini"> EN </span>
+                                                    <span class="sidebar-normal"> English </span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item ">
+                                                <a class="nav-link" href="#0">
+                                                    <span class="sidebar-mini"> JP </span>
+                                                    <span class="sidebar-normal"> Japanese </span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item ">
+                                                <a class="nav-link" href="#0">
+                                                    <span class="sidebar-mini"> KR </span>
+                                                    <span class="sidebar-normal"> Korean </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item ">
                                     <a class="nav-link" href="../examples/forms/regular.html">
                                         <span class="sidebar-mini"> RF </span>
                                         <span class="sidebar-normal"> Regular Forms </span>
@@ -290,22 +328,22 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse {{ setSideBarActive(['dashboard/permission*'],'show') }}" id="permission">
+                        <div class="collapse {{ setSideBarActive(['dashboard/permission*'],'show active') }}" id="permission">
                             <ul class="nav">
                                 <li class="nav-item {{ setSideBarActive(['dashboard/permission/create'],'active') }} ">
                                     <a class="nav-link" href="{{ route('permission.create') }}">
                                         <span class="sidebar-mini">
                                             <i class="fas fa-plus-circle"></i>
                                         </span>
-                                        <span class="sidebar-normal"> Add new permission </span>
+                                        <span class="sidebar-normal"> Add new role </span>
                                     </a>
                                 </li>
-                                <li class="nav-item {{ setSideBarActive(['dashboard/permission'],'active') }}">
+                                <li class="nav-item {{ setSideBarActive(['dashboard/permission','dashboard/permission/*/edit'],'active') }}">
                                     <a class="nav-link" href="{{ route('permission.index') }}">
                                         <span class="sidebar-mini">
                                             <i class="fas fa-tasks"></i>
                                         </span>
-                                        <span class="sidebar-normal"> Permission Lists </span>
+                                        <span class="sidebar-normal"> Role Lists </span>
                                     </a>
                                 </li>
                             </ul>
@@ -375,8 +413,8 @@
             </li>
             <li class="nav-item ">
                 <a class="nav-link" href="../examples/widgets.html">
-                    <i class="material-icons">widgets</i>
-                    <p> Widgets </p>
+                    <i class="fas fa-cogs"></i>
+                    <p> Settings </p>
                 </a>
             </li>
             <li class="nav-item ">

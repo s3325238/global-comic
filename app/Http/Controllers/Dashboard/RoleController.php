@@ -20,7 +20,8 @@ class RoleController extends Controller
     protected $columns = array(
         'create_manga', 'view_manga', 'update_manga', 'delete_manga',
         'create_group', 'view_group', 'update_group', 'delete_group',
-        'create_user', 'view_user', 'update_user', 'delete_user', 'add_copyright');
+        'create_user', 'view_user', 'update_user', 'delete_user', 
+        'add_copyright','view_settings');
 
     public function __construct()
     {
@@ -87,7 +88,7 @@ class RoleController extends Controller
 
         $role->save();
         
-        return redirect(route('dashboard'));
+        return redirect(route('permission.index'));
     }
 
     /**
@@ -128,7 +129,7 @@ class RoleController extends Controller
         if ($role) {
             return view('admin.permission.edit',compact(['role','index_title','permission']));
         }else {
-            return redirect()->route('dashboard');
+            return redirect()->route('permission.index');
         }
         
     }

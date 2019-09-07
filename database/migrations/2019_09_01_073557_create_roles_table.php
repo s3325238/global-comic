@@ -36,6 +36,7 @@ class CreateRolesTable extends Migration
             // Other permission
             $table->boolean('add_copyright')->default(false);
             $table->boolean('view_settings')->default(false);
+            
             $table->timestamps();
         });
     }

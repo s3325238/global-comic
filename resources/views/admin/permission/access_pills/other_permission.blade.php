@@ -22,47 +22,21 @@
                     <td>Add Copyright</td>
                 </tr>
     
-                {{-- <tr>
-                    <td>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="" checked>
-                                <span class="form-check-sign">
-                                <span class="check"></span>
-                                </span>
-                            </label>
-                        </div>
-                    </td>
-                    <td>Create Manga</td>
-                </tr>
-    
                 <tr>
                     <td>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="" checked>
+                                <input class="form-check-input" 
+                                        name="others[]" type="checkbox"
+                                        value="view_settings" {{ in_array('view_settings',$permission)? "checked": "" }}>
                                 <span class="form-check-sign">
                                 <span class="check"></span>
                                 </span>
                             </label>
                         </div>
                     </td>
-                    <td>Update Manga</td>
+                    <td>View Setting</td>
                 </tr>
-    
-                <tr>
-                    <td>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="" checked>
-                                <span class="form-check-sign">
-                                <span class="check"></span>
-                                </span>
-                            </label>
-                        </div>
-                    </td>
-                    <td>Delete Manga</td>
-                </tr> --}}
             </table>
         </div>
     </div>

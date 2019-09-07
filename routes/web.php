@@ -42,6 +42,7 @@ Route::group([ 'prefix' => 'dashboard','middleware' => ['auth', 'dashboard'] ], 
     Route::get('/inbox','Dashboard\IndexController@mail')->name('inbox');
 
     Route::resource('permission','Dashboard\RoleController')->middleware('admin');
+    Route::resource('user','Dashboard\UserController')->middleware('admin');
 
 });
 // Api Group

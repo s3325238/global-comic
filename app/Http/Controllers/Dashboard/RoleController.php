@@ -75,7 +75,7 @@ class RoleController extends Controller
     {
         //
         $request->validate([
-            'id' => 'numeric|required|min:1|max:98',
+            'id' => 'numeric|required|min:1|max:98|unique:roles',
             'role_name' => 'required|string|max:15',
         ]);
         
@@ -116,12 +116,16 @@ class RoleController extends Controller
 
         $permission = [];
 
-        $test = Role::where('id','=',$id)->exclude(['id','role_name','created_at', 'updated_at'])->first();
+        $selected = Role::where('id','=',$id)->exclude(['id','role_name','created_at', 'updated_at'])->first();
 
-        $newArray = array_keys($test->toArray());
+        if ($selected == NULL) {
+            return redirect(route('permission.index'));
+        }
 
-        foreach ($newArray as $key => $value) {
-            if ($test->$value == '1') {
+        $permission_arr = array_keys($selected->toArray());
+
+        foreach ($permission_arr as $key => $value) {
+            if ($selected->$value == '1') {
                 array_push($permission,$value);
             }
         }

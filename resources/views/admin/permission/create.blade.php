@@ -27,7 +27,7 @@
                 @endif
                 {{-- <div class="col-md-12"> --}}
                 <div class="row">
-                    <form action="{{ isset($role) ? route('permission.update',$role->id) : route('permission.store') }}" method="{{ isset($role) ? "PUT" : "POST" }}">
+                    <form action="{{ route('permission.store') }}" method="{{ "POST" }}">
                         @csrf
                         <div class="col-md-12">
                             <div class="card ">
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="col-md-12">
                             <div class="card ">
                                 <div class="card-header card-header-rose card-header-text">

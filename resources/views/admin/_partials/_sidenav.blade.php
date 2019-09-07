@@ -244,14 +244,14 @@
             <!-- User & permission management -->
             @can('isAdmin', Auth::user())
                 <div class="user">
-                    <li class="nav-item ">
-                        <a class="nav-link" data-toggle="collapse" href="#users">
-                                <i class="fas fa-users"></i>
+                    <li class="nav-item {{ setSideBarActive(['dashboard/user*'],'active') }}">
+                        <a class="nav-link" data-toggle="collapse" href="#users" aria-expanded="{{ setSideBarActive(['dashboard/user*'],'true') }}">
+                            <i class="fas fa-users"></i>
                             <p> User Management
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="users">
+                        <div class="collapse {{ setSideBarActive(['dashboard/user*'],'show active') }}" id="users">
                             <ul class="nav">
                                 <li class="nav-item ">
                                     <a class="nav-link" data-toggle="collapse" href="#userRegion">
@@ -291,10 +291,12 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="../examples/forms/regular.html">
-                                        <span class="sidebar-mini"> RF </span>
-                                        <span class="sidebar-normal"> Regular Forms </span>
+                                <li class="nav-item {{ setSideBarActive(['dashboard/user/create'],'active') }} ">
+                                    <a class="nav-link" href="{{ route('user.create') }}">
+                                        <span class="sidebar-mini">
+                                            <i class="fas fa-user-plus"></i>
+                                        </span>
+                                        <span class="sidebar-normal"> Add new user </span>
                                     </a>
                                 </li>
                                 <li class="nav-item ">

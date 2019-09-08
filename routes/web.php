@@ -67,4 +67,4 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
 Route::get('page-not-found', ['as' => 'notfound', 'uses' => 'ErrorHandlingController@notfound']);
 
 // Testing route
-Route::get('test/user/api', 'Api\UserApi@getVietnameseUser')->name('api.test.user');
+// Route::get('test/user/api', 'Api\UserApi@getVietnameseUser')->name('api.test.user');

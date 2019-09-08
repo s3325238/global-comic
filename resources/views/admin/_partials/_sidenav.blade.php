@@ -261,76 +261,22 @@
                                         <span class="sidebar-normal"> User Lists </span>
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item ">
-                                    <a class="nav-link" data-toggle="collapse" href="#userRegion">
-                                        <span class="sidebar-mini"> 
-                                            <i class="fas fa-globe"></i> 
-                                        </span>
-                                        <span class="sidebar-normal"> User Regions
-                                            <b class="caret"></b>
-                                        </span>
-                                    </a>
-                                    <div class="collapse" id="userRegion">
-                                        <ul class="nav">
-                                            <li class="nav-item ">
-                                                <a class="nav-link" href="#0">
-                                                    <span class="sidebar-mini"> VI </span>
-                                                    <span class="sidebar-normal"> Vietnamese </span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item ">
-                                                <a class="nav-link" href="#0">
-                                                    <span class="sidebar-mini"> EN </span>
-                                                    <span class="sidebar-normal"> English </span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item ">
-                                                <a class="nav-link" href="#0">
-                                                    <span class="sidebar-mini"> JP </span>
-                                                    <span class="sidebar-normal"> Japanese </span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item ">
-                                                <a class="nav-link" href="#0">
-                                                    <span class="sidebar-mini"> KR </span>
-                                                    <span class="sidebar-normal"> Korean </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li> --}}
-                                {{-- <li class="nav-item {{ setSideBarActive(['dashboard/user'],'active') }} ">
-                                    <a class="nav-link" href="{{ route('user.index') }}">
+                                <li class="nav-item  ">
+                                    <a class="nav-link" href="#">
+                                            {{-- {{ setSideBarActive(['dashboard/user'],'active') }} --}}
+                                            {{-- {{ route('user.index') }} --}}
                                         <span class="sidebar-mini">
-                                            <i class="fas fa-users"></i>
+                                                <i class="fas fa-shield-alt"></i>
                                         </span>
-                                        <span class="sidebar-normal"> All users index </span>
+                                        <span class="sidebar-normal"> User Status </span>
                                     </a>
-                                </li> --}}
+                                </li>
                                 <li class="nav-item {{ setSideBarActive(['dashboard/user/create'],'active') }} ">
                                     <a class="nav-link" href="{{ route('user.create') }}">
                                         <span class="sidebar-mini">
                                             <i class="fas fa-user-plus"></i>
                                         </span>
                                         <span class="sidebar-normal"> Add new user </span>
-                                    </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="../examples/forms/extended.html">
-                                        <span class="sidebar-mini"> EF </span>
-                                        <span class="sidebar-normal"> Extended Forms </span>
-                                    </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="../examples/forms/validation.html">
-                                        <span class="sidebar-mini"> VF </span>
-                                        <span class="sidebar-normal"> Validation Forms </span>
-                                    </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="../examples/forms/wizard.html">
-                                        <span class="sidebar-mini"> W </span>
-                                        <span class="sidebar-normal"> Wizard </span>
                                     </a>
                                 </li>
                             </ul>

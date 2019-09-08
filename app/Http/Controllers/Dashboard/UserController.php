@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $index_title = "User Lists Management";
+        $index_title = "Active User Lists Management";
         return view('admin.user.index',compact(['index_title']));
     }
 
@@ -26,7 +26,8 @@ class UserController extends Controller
     public function create()
     {
         $index_title = "Add new user";
-        return view('admin.user.create',compact(['index_title']));
+        $status = [];
+        return view('admin.user.create',compact(['index_title','status']));
     }
 
     /**

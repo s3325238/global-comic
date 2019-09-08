@@ -8,85 +8,153 @@
 @endpush
 
 @section('content')
-{{-- <div class="content"> --}}
 <div class="content">
     <div class="container-fluid">
         @if (count($errors) > 0)
-        @foreach ($errors->all() as $error)
-        <div class="row">
-            <div class="col-md-6 ml-auto mr-auto justify-content-center">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>{{ $error }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            @foreach ($errors->all() as $error)
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto justify-content-center">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{ $error }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+        {{-- <div class="row">
+            <div class="card card-nav-tabs">
+                <div class="card-header card-header-rose">
+                    General Information
+                </div>
+                <div class="card-body">
+                    <form action="#" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Username</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Email address</label>
+                                    <input type="email" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Password</label>
+                                    <input type="password" name="password" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>
-        @endforeach
-        @endif
-        <div class="row ">
-            <form action="" method="post">
-                @csrf
-                <div class="col-md-12">
-                    <div class="card w-100">
-                        <div class="card-header card-header-rose card-header-text">
-                            <div class="card-text">
-                                <h4 class="card-title">General Input</h4>
-                            </div>
+        </div> --}}
+        <form action="#" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-nav-tabs">
+                        <div class="card-header card-header-rose">
+                            General Information
                         </div>
-                        <div class="card-body ">
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <input type="text" name="name" id="name" class="form-control"
-                                        placeholder="Username">
+                        <div class="card-body">
+                            
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Username</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Email address</label>
+                                            <input type="email" class="form-control">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <input type="email" name="email" id="email" class="form-control"
-                                        placeholder="Email Address">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Password</label>
+                                            <input type="password" name="password" class="form-control">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Confirm Password</label>
+                                            <input type="password" name="password_confirmation" class="form-control" />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card w-100">
-                        <div class="card-header card-header-rose card-header-text">
-                            <div class="card-text">
-                                <h4 class="card-title">Detail Information</h4>
-                            </div>
-                        </div>
-                        <div class="card-body ">
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    {{-- <div class="form-group"> --}}
-                                    {{-- <label for="language" class="col-md-6 col-sm-6">Language</label> --}}
-                                    {{-- <div class="col-md-6 col-sm-6"> --}}
-                                        <select class="selectpicker form-control" name="language" id="language" title="Select language" data-style="btn btn-primary btn-round">
-                                            <option>Mustard</option>
-                                            <option>Ketchup</option>
-                                            <option>Relish</option>
-                                        </select>
-                                    {{-- </div> --}}
-                                    
-                                    {{-- </div> --}}
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Save</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <input type="password" name="password" class="form-control" placeholder="Password">
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
+                <div class="col-md-6">
+                    <div class="card card-nav-tabs">
+                        <div class="card-header card-header-success">
+                            Detail Information
+                        </div>
+                        <div class="card-body">
+                            <table class="table" cellspacing="0" cellpadding="0" style="border:none;">
+                                <tr style="border: none;">
+                                    <td style="border: none;">Status</td>
+                                    <td style="border: none;">
+                                        <select class="selectpicker" data-style="btn btn-primary btn-round" title="Choose Status">
+                                            {{-- <option disabled selected>Single Option</option> --}}
+                                            <option value="2">Activate</option>
+                                            <option value="3">Deactivate</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr style="border: none;">
+                                    <td style="border: none;">Permission</td>
+                                    <td style="border: none;">
+                                        <select class="selectpicker" data-style="btn btn-primary btn-round" title="Choose Permission">
+                                            {{-- <option disabled selected>Single Option</option> --}}
+                                            <option value="2">Foobar</option>
+                                            <option value="3">Is great</option>
+                                            <option value="4">Is awesome</option>
+                                            <option value="5">Is wow</option>
+                                            <option value="6">Boom !</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr style="border: none;">
+                                        <td style="border: none;">Language</td>
+                                        <td style="border: none;">
+                                            <select class="selectpicker" data-style="btn btn-primary btn-round" title="Choose Language">
+                                                {{-- <option disabled selected>Single Option</option> --}}
+                                                <option value="2">Foobar</option>
+                                                <option value="3">Is great</option>
+                                                <option value="4">Is awesome</option>
+                                                <option value="5">Is wow</option>
+                                                <option value="6">Boom !</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-{{-- </div> --}}
 @endsection

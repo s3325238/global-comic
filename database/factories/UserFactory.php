@@ -23,7 +23,7 @@ $factory->define(User::class, function (Faker $faker) {
         'language' => $faker->randomElement(['vi', 'jp', 'en', 'kr']),
         'password' => '$2y$10$3B4Xw.mY9DtpkTOsczTjyeWJM42Tr8N7gVIgEHfT9pxJjS5gn/MAC', // password
         'verifyToken' => null,
-        'status' => 1,
+        'status' => $faker->randomElement([0,1]),
         'avatar' => 'default-avatar.png',
         'role_id' => '1',
         'remember_token' => Str::random(60),

@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title','User Lists Management')
+@section('title','Active User Lists Management')
 
 @section('content')
 <div class="content">
@@ -12,7 +12,10 @@
                     <div class="nav-tabs-wrapper">
                         <ul class="nav nav-tabs" data-tabs="tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#vietnamese" data-toggle="tab">Vietnamese</a>
+                                <a class="nav-link active" href="#un_verified" data-toggle="tab">Not verified</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#vietnamese" data-toggle="tab">Vietnamese</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#english" data-toggle="tab">English</a>
@@ -29,7 +32,11 @@
             </div>
             <div class="card-body ">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="vietnamese">
+                    <div class="tab-pane active" id="un_verified">
+                        @include('admin.user.tab_pills.un_verified_tab')
+                        {{-- @include('admin.user.tab_pills.vietnamese_tab') --}}
+                    </div>
+                    <div class="tab-pane" id="vietnamese">
                         @include('admin.user.tab_pills.vietnamese_tab')
                         {{-- @include('admin.user.tab_pills.english_tab') --}}
                     </div>
@@ -152,6 +159,35 @@
             processing: true,
             serverSide: true,
             ajax: '{!! route('api.user.korean') !!}',
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'name', name: 'name' },
+                { data: 'email', name: 'email' },
+                { data: 'created_at', name: 'created_at' },
+                { data: 'updated_at', name: 'updated_at' },
+                {
+                    data: 'action',
+                    className:"text-center",
+                    orderable:false,
+                    searchable: false
+                },
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        });
+
+        $('#notactive').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{!! route('api.user.not.verified') !!}',
             "pagingType": "full_numbers",
             "lengthMenu": [
                 [10, 25, 50, -1],

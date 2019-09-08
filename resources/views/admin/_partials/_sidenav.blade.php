@@ -258,7 +258,7 @@
                                         <span class="sidebar-mini">
                                             <i class="fas fa-tasks"></i>
                                         </span>
-                                        <span class="sidebar-normal"> User Lists </span>
+                                        <span class="sidebar-normal"> Active User Lists </span>
                                     </a>
                                 </li>
                                 <li class="nav-item  ">

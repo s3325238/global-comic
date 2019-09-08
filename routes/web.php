@@ -59,6 +59,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
         Route::get('english','Api\UserApi@getEnglishUser')->name('api.user.english');
         Route::get('japanese','Api\UserApi@getJapaneseUser')->name('api.user.japanese');
         Route::get('korean','Api\UserApi@getKoreanUser')->name('api.user.korean');
+        Route::get('unverified','Api\UserApi@getUnVerified')->name('api.user.not.verified');
         Route::get('/lists/remove','Api\UserApi@userRemove')->name('api.user.lists.remove'); 
     });
 });

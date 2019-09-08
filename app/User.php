@@ -58,6 +58,16 @@ class User extends Authenticatable
         return $query->where('role_id','=',$role_id);
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', '=', TRUE);
+    }
+
+    public function scopeNot_active($query)
+    {
+        return $query->where('status', '=', FALSE);
+    }
+
     public function role()
     {
         return $this->belongsTo('App\Roles', 'role_id');

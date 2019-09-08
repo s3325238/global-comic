@@ -176,6 +176,6 @@ class RoleController extends Controller
     public function destroy($id)
     {
         //
-        $table->$type($name);
+        
     }
 }

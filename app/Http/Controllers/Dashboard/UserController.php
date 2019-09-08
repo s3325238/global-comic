@@ -14,7 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $index_title = "User Lists Management";
+        return view('admin.user.index',compact(['index_title']));
     }
 
     /**

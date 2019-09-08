@@ -253,7 +253,15 @@
                         </a>
                         <div class="collapse {{ setSideBarActive(['dashboard/user*'],'show active') }}" id="users">
                             <ul class="nav">
-                                <li class="nav-item ">
+                                <li class="nav-item {{ setSideBarActive(['dashboard/user'],'active') }} ">
+                                    <a class="nav-link" href="{{ route('user.index') }}">
+                                        <span class="sidebar-mini">
+                                            <i class="fas fa-tasks"></i>
+                                        </span>
+                                        <span class="sidebar-normal"> User Lists </span>
+                                    </a>
+                                </li>
+                                {{-- <li class="nav-item ">
                                     <a class="nav-link" data-toggle="collapse" href="#userRegion">
                                         <span class="sidebar-mini"> 
                                             <i class="fas fa-globe"></i> 
@@ -290,7 +298,15 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </li>
+                                </li> --}}
+                                {{-- <li class="nav-item {{ setSideBarActive(['dashboard/user'],'active') }} ">
+                                    <a class="nav-link" href="{{ route('user.index') }}">
+                                        <span class="sidebar-mini">
+                                            <i class="fas fa-users"></i>
+                                        </span>
+                                        <span class="sidebar-normal"> All users index </span>
+                                    </a>
+                                </li> --}}
                                 <li class="nav-item {{ setSideBarActive(['dashboard/user/create'],'active') }} ">
                                     <a class="nav-link" href="{{ route('user.create') }}">
                                         <span class="sidebar-mini">

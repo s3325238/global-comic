@@ -15,10 +15,11 @@ class CreateTranslateGroupsTable extends Migration
     {
         Schema::create('translate_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('group_name');
+            $table->string('name');
+            $table->string('slug');
             $table->string('language_translate',3);
-            $table->integer('follows');
-            $table->integer('points');
+            $table->integer('follows')->default("0");
+            $table->integer('points')->default("0");
             $table->timestamps();
         });
     }

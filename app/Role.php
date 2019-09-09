@@ -18,6 +18,11 @@ class Role extends Model
         return $query->select(array_diff($this->columns, (array) $value));
     }
 
+    public function scopeAdmin($query)
+    {
+        return $query->where('id','!=','99');
+    }
+
     public function users()
     {
         return $this->hasMany('App\User');

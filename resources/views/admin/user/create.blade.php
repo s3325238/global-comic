@@ -14,7 +14,7 @@
             @foreach ($errors->all() as $error)
                 <div class="row">
                     <div class="col-md-6 ml-auto mr-auto justify-content-center">
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <div class="alert alert-danger alert-dismissible fade show errorAlert" id="errorAlert" role="alert">
                             <strong>{{ $error }}</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -24,40 +24,8 @@
                 </div>
             @endforeach
         @endif
-        {{-- <div class="row">
-            <div class="card card-nav-tabs">
-                <div class="card-header card-header-rose">
-                    General Information
-                </div>
-                <div class="card-body">
-                    <form action="#" method="post">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Username</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Email address</label>
-                                    <input type="email" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Password</label>
-                                    <input type="password" name="password" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> --}}
-        <form action="#" method="post">
+        <form action="{{ route('user.store') }}" method="post">
+            @csrf
             <div class="row">
                 <div class="col-md-6">
                     <div class="card card-nav-tabs">
@@ -70,13 +38,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="bmd-label-floating">Username</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" name="name" class="form-control" value="{{ old('name') }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="bmd-label-floating">Email address</label>
-                                            <input type="email" class="form-control">
+                                            <input type="email" name="email" class="form-control" value="{{ old('email') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -112,40 +80,37 @@
                             Detail Information
                         </div>
                         <div class="card-body">
-                            <table class="table" cellspacing="0" cellpadding="0" style="border:none;">
-                                <tr style="border: none;">
-                                    <td style="border: none;">Status</td>
-                                    <td style="border: none;">
-                                        <select class="selectpicker" data-style="btn btn-primary btn-round" title="Choose Status">
+                            <table class="table customTableBorder" cellspacing="0" cellpadding="0" style="border:none;">
+                                <tr>
+                                    <td >Status</td>
+                                    <td >
+                                        <select class="selectpicker" name="status" data-style="btn btn-primary btn-round" title="Choose Status">
                                             {{-- <option disabled selected>Single Option</option> --}}
-                                            <option value="2">Activate</option>
-                                            <option value="3">Deactivate</option>
+                                            <option value="1">Activate</option>
+                                            <option value="0">Deactivate</option>
                                         </select>
                                     </td>
                                 </tr>
-                                <tr style="border: none;">
-                                    <td style="border: none;">Permission</td>
-                                    <td style="border: none;">
-                                        <select class="selectpicker" data-style="btn btn-primary btn-round" title="Choose Permission">
+                                <tr >
+                                    <td >Permission</td>
+                                    <td >
+                                        <select class="selectpicker" name="role" data-style="btn btn-primary btn-round" title="Choose Permission">
                                             {{-- <option disabled selected>Single Option</option> --}}
-                                            <option value="2">Foobar</option>
-                                            <option value="3">Is great</option>
-                                            <option value="4">Is awesome</option>
-                                            <option value="5">Is wow</option>
-                                            <option value="6">Boom !</option>
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}">{{ $role->role_name }}</option>
+                                            @endforeach
                                         </select>
                                     </td>
                                 </tr>
-                                <tr style="border: none;">
-                                        <td style="border: none;">Language</td>
-                                        <td style="border: none;">
-                                            <select class="selectpicker" data-style="btn btn-primary btn-round" title="Choose Language">
+                                <tr >
+                                        <td >Language</td>
+                                        <td >
+                                            <select class="selectpicker" name="language" data-style="btn btn-primary btn-round" title="Choose Language">
                                                 {{-- <option disabled selected>Single Option</option> --}}
-                                                <option value="2">Foobar</option>
-                                                <option value="3">Is great</option>
-                                                <option value="4">Is awesome</option>
-                                                <option value="5">Is wow</option>
-                                                <option value="6">Boom !</option>
+                                                <option value="vi">Vietnamese</option>
+                                                <option value="en">English</option>
+                                                <option value="jp">Japanese</option>
+                                                <option value="Korean">Korean</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -158,3 +123,13 @@
     </div>
 </div>
 @endsection
+
+@push('customJs')
+    <script>
+        $(document).ready(function() {
+            $(".errorAlert").fadeTo(2000, 700).slideUp(700, function(){
+                $(".errorAlert").slideUp(700);
+            });
+        });
+    </script>
+@endpush

@@ -161,7 +161,7 @@
                                 <p class="card-category">
                                     User type
                                 </p>
-                                <h3 class="card-title">Statistic</h3>
+                                <h3 class="card-title">Manga->Group->Copyright</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">

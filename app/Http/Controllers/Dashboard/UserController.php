@@ -2,8 +2,22 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
+// Verify Email
+use Mail;
+use Session;
+use App\Mail\verifyEmailToken;
+
+use File;
+
+// Model
+use App\User;
+use App\Role;
 
 class UserController extends Controller
 {
@@ -26,8 +40,11 @@ class UserController extends Controller
     public function create()
     {
         $index_title = "Add new user";
-        $status = [];
-        return view('admin.user.create',compact(['index_title','status']));
+
+        $roles = Role::select('id','role_name')->admin()->get() ;
+
+        // $status = [];
+        return view('admin.user.create',compact(['index_title','roles']));
     }
 
     /**
@@ -39,6 +56,52 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|max:255|confirmed',
+            'status' => 'required',
+            'role' => 'required',
+            'language' => 'required',
+        ]);
+
+        $user = new User();
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+
+        $user->status = $request->status;
+        if ($request->status == 0) {
+            $user->verifyToken = Str::random(40);
+        }
+
+        $user->role_id = $request->role;
+        $user->language = $request->language;
+
+        $user->save();
+
+        if ($user->verifyToken != NULL) {
+
+            $thisUser = User::findOrFail($user->id);
+
+            $this->sendVerifyEmail($thisUser);
+
+        }
+        // Test folder create
+        $slug = 'tales-of-demon-and-god';
+        $manga_path = public_path('upload/manga/vi/'.$slug);
+        $video_path = public_path('upload/video');
+   
+        if(!File::isDirectory($manga_path)){
+            File::makeDirectory($manga_path, 0777, true, true);
+        }
+
+        if(!File::isDirectory($video_path)){
+            File::makeDirectory($video_path, 0777, true, true);
+        }
+
+        return redirect(route('user.index'));
     }
 
     /**
@@ -84,5 +147,13 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Send verification email to latest created user
+     */
+    protected function sendVerifyEmail($thisUser)
+    {
+        Mail::to($thisUser['email'])->send(new verifyEmailToken($thisUser));
     }
 }

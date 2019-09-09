@@ -28,10 +28,10 @@
             </form>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#pablo">
-                        <i class="material-icons">dashboard</i>
+                    <a class="nav-link refresh" href="">
+                        <i class="material-icons">refresh</i>
                         <p class="d-lg-none d-md-block">
-                            Stats
+                            Refresh
                         </p>
                     </a>
                 </li>

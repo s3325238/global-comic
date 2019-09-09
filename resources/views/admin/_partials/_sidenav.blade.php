@@ -101,6 +101,12 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item {{ setSideBarActive(['dashboard/group/create'],'active') }} ">
+                    <a class="nav-link" href="{{ route('group.create') }}">
+                            <span class="sidebar-mini"> <i class="fas fa-plus-circle"></i> </span>
+                        <span class="sidebar-normal"> Add new group </span>
+                    </a>
+                </li>
             </div>
             @endcan
             <!-- Manga Management -->

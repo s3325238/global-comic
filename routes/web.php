@@ -43,6 +43,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
 
     Route::resource('permission', 'Dashboard\RoleController')->middleware('admin');
     Route::resource('user', 'Dashboard\UserController')->middleware('admin');
+    Route::resource('group', 'Dashboard\GroupController')->middleware('admin');
 
 });
 // Api Group

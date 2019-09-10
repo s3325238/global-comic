@@ -21,6 +21,10 @@ use App\Role;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['admin']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -87,18 +91,6 @@ class UserController extends Controller
 
             $this->sendVerifyEmail($thisUser);
 
-        }
-        // Test folder create
-        $slug = 'tales-of-demon-and-god';
-        $manga_path = public_path('upload/manga/vi/'.$slug);
-        $video_path = public_path('upload/video');
-   
-        if(!File::isDirectory($manga_path)){
-            File::makeDirectory($manga_path, 0777, true, true);
-        }
-
-        if(!File::isDirectory($video_path)){
-            File::makeDirectory($video_path, 0777, true, true);
         }
 
         return redirect(route('user.index'));

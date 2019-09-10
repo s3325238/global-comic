@@ -34,6 +34,7 @@ class RolesTableSeeder extends Seeder
 
                 'add_copyright' => false,
                 'view_settings' => false,
+                'assign_task' => false,
 
                 "created_at" => date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s')
@@ -59,6 +60,7 @@ class RolesTableSeeder extends Seeder
 
                 'add_copyright' => true,
                 'view_settings' => true,
+                'assign_task' => true,
 
                 "created_at" => date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s')

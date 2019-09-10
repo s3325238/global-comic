@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\TranslateGroup;
+use File;
+use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
+    protected $path = 'upload/group/';
+
+    public function __construct()
+    {
+        $this->middleware(['admin']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +24,7 @@ class GroupController extends Controller
     public function index()
     {
         $index_title = "Groups Management";
-        return view('admin.group.index',compact(['index_title']));
+        return view('admin.group.index', compact(['index_title']));
     }
 
     /**
@@ -28,7 +37,7 @@ class GroupController extends Controller
         //
         $index_title = "Add new group";
 
-        return view('admin.group.create',compact(['index_title']));
+        return view('admin.group.create', compact(['index_title']));
     }
 
     /**
@@ -40,6 +49,32 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|unique:translate_groups',
+            'language' => 'required|string|max:3',
+        ]);
+        $messages = [
+            'slug.required' => 'Group has existed in database',
+        ];
+
+        if (!File::isDirectory($this->path)) {
+            File::makeDirectory($this->path, 0777, true, true);
+        }
+
+        $group = new TranslateGroup();
+
+        $group->name = $request->name;
+
+        $group->slug = $request->slug;
+
+        $group->language_translate = $request->language;
+
+        $group->logo = file_upload($this->path, $request->logo);
+
+        $group->save();
+
+        return redirect(route('dashboard'));
     }
 
     /**

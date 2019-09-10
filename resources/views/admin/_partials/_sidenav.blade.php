@@ -55,198 +55,45 @@
             </div>
         </div>
         <ul class="nav">
-            <li class="nav-item {{ setSideBarActive(['dashboard'],'active') }} ">
-                <a class="nav-link" href="{{ route('dashboard') }}">
-                    <i class="material-icons">dashboard</i>
-                    <p> Dashboard </p>
-                </a>
-            </li>
-            <div class="user"></div>
+            <div class="user">
+                <li class="nav-item {{ setSideBarActive(['dashboard'],'active') }} ">
+                    <a class="nav-link" href="{{ route('dashboard') }}">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <p> Dashboard </p>
+                    </a>
+                </li>
+                <li class="nav-item {{ setSideBarActive(['dashboard/task'],'active') }}">
+                    <a class="nav-link" href="{{ route('task.index') }}">
+                        <i class="fas fa-tasks"></i>
+                        <p> Tasks Management </p>
+                    </a>
+                </li>
+            </div>
             <!-- Group Management -->
             @can('isAdmin', Auth::user())
-            <div class="user">
-                <li class="nav-item ">
-                    <a class="nav-link" data-toggle="collapse" href="#allGroups">
-                        <i class="fas fa-object-group"></i>
-                        <p> All Groups
-                            <b class="caret"></b>
-                        </p>
-                    </a>
-                    <div class="collapse" id="allGroups">
-                        <ul class="nav">
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/pages/pricing.html">
-                                    <span class="sidebar-mini"> VI </span>
-                                    <span class="sidebar-normal"> Vietnamese Group </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/pages/rtl.html">
-                                    <span class="sidebar-mini"> EN </span>
-                                    <span class="sidebar-normal"> English Group </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/pages/timeline.html">
-                                    <span class="sidebar-mini"> JP </span>
-                                    <span class="sidebar-normal"> Japanese Group </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/pages/login.html">
-                                    <span class="sidebar-mini"> KR </span>
-                                    <span class="sidebar-normal"> Korean Group </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item {{ setSideBarActive(['dashboard/group/create'],'active') }} ">
-                    <a class="nav-link" href="{{ route('group.create') }}">
-                            <span class="sidebar-mini"> <i class="fas fa-plus-circle"></i> </span>
-                        <span class="sidebar-normal"> Add new group </span>
-                    </a>
-                </li>
-            </div>
+                <div class="user">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span class="sidebar-mini">
+                                <i class="fas fa-list-alt"></i>
+                            </span>
+                            <span class="sidebar-normal"> 
+                                <p> Group Lists </p> 
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ setSideBarActive(['dashboard/group/create'],'active') }} ">
+                        <a class="nav-link" href="{{ route('group.create') }}">
+                            <span class="sidebar-mini"> 
+                                <i class="fas fa-plus-circle"></i> 
+                            </span>
+                            <span class="sidebar-normal"> 
+                                <p> Add new group </p> 
+                            </span>
+                        </a>
+                    </li>
+                </div>
             @endcan
-            <!-- Manga Management -->
-            <div class="user">
-                <li class="nav-item ">
-                    <a class="nav-link" data-toggle="collapse" href="#pagesExamples">
-                        <i class="fas fa-image"></i>
-                        <p> Manga List
-                            <b class="caret"></b>
-                        </p>
-                    </a>
-                    <div class="collapse" id="pagesExamples">
-                        <ul class="nav">
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/pages/pricing.html">
-                                    <span class="sidebar-mini"> P </span>
-                                    <span class="sidebar-normal"> Pricing </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/pages/rtl.html">
-                                    <span class="sidebar-mini"> RS </span>
-                                    <span class="sidebar-normal"> RTL Support </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/pages/timeline.html">
-                                    <span class="sidebar-mini"> T </span>
-                                    <span class="sidebar-normal"> Timeline </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/pages/login.html">
-                                    <span class="sidebar-mini"> LP </span>
-                                    <span class="sidebar-normal"> Login Page </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/pages/register.html">
-                                    <span class="sidebar-mini"> RP </span>
-                                    <span class="sidebar-normal"> Register Page </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/pages/lock.html">
-                                    <span class="sidebar-mini"> LSP </span>
-                                    <span class="sidebar-normal"> Lock Screen Page </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/pages/user.html">
-                                    <span class="sidebar-mini"> UP </span>
-                                    <span class="sidebar-normal"> User Profile </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/pages/error.html">
-                                    <span class="sidebar-mini"> E </span>
-                                    <span class="sidebar-normal"> Error Page </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </div>
-            <!-- Video Management -->
-            <div class="user">
-                <li class="nav-item ">
-                    <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
-                        <i class="fas fa-video"></i>
-                        <p> All video groups
-                            <b class="caret"></b>
-                        </p>
-                    </a>
-                    <div class="collapse" id="componentsExamples">
-                        <ul class="nav">
-                            <li class="nav-item ">
-                                <a class="nav-link" data-toggle="collapse" href="#componentsCollapse">
-                                    <span class="sidebar-mini"> MLT </span>
-                                    <span class="sidebar-normal"> Multi Level Collapse
-                                        <b class="caret"></b>
-                                    </span>
-                                </a>
-                                <div class="collapse" id="componentsCollapse">
-                                    <ul class="nav">
-                                        <li class="nav-item ">
-                                            <a class="nav-link" href="#0">
-                                                <span class="sidebar-mini"> E </span>
-                                                <span class="sidebar-normal"> Example </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/components/buttons.html">
-                                    <span class="sidebar-mini"> B </span>
-                                    <span class="sidebar-normal"> Buttons </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/components/grid.html">
-                                    <span class="sidebar-mini"> GS </span>
-                                    <span class="sidebar-normal"> Grid System </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/components/panels.html">
-                                    <span class="sidebar-mini"> P </span>
-                                    <span class="sidebar-normal"> Panels </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/components/sweet-alert.html">
-                                    <span class="sidebar-mini"> SA </span>
-                                    <span class="sidebar-normal"> Sweet Alert </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/components/notifications.html">
-                                    <span class="sidebar-mini"> N </span>
-                                    <span class="sidebar-normal"> Notifications </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/components/icons.html">
-                                    <span class="sidebar-mini"> I </span>
-                                    <span class="sidebar-normal"> Icons </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/components/typography.html">
-                                    <span class="sidebar-mini"> T </span>
-                                    <span class="sidebar-normal"> Typography </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </div>
             <!-- User & permission management -->
             @can('isAdmin', Auth::user())
                 <div class="user">
@@ -262,7 +109,7 @@
                                 <li class="nav-item {{ setSideBarActive(['dashboard/user'],'active') }} ">
                                     <a class="nav-link" href="{{ route('user.index') }}">
                                         <span class="sidebar-mini">
-                                            <i class="fas fa-tasks"></i>
+                                            <i class="fas fa-list-alt"></i>
                                         </span>
                                         <span class="sidebar-normal"> Active User Lists </span>
                                     </a>
@@ -274,7 +121,7 @@
                                         <span class="sidebar-mini">
                                                 <i class="fas fa-shield-alt"></i>
                                         </span>
-                                        <span class="sidebar-normal"> User Status </span>
+                                        <span class="sidebar-normal"> Group Lead </span>
                                     </a>
                                 </li>
                                 <li class="nav-item {{ setSideBarActive(['dashboard/user/create'],'active') }} ">
@@ -288,9 +135,6 @@
                             </ul>
                         </div>
                     </li>
-                {{-- </div> --}}
-
-                {{-- <div class="user"> --}}
                     <li class="nav-item {{ setSideBarActive(['dashboard/permission*'],'active') }} ">
                         <a class="nav-link" data-toggle="collapse" href="#permission" aria-expanded="{{ setSideBarActive(['dashboard/permission*'],'true') }}">
                             <i class="fas fa-universal-access"></i>
@@ -311,7 +155,7 @@
                                 <li class="nav-item {{ setSideBarActive(['dashboard/permission','dashboard/permission/*/edit'],'active') }}">
                                     <a class="nav-link" href="{{ route('permission.index') }}">
                                         <span class="sidebar-mini">
-                                            <i class="fas fa-tasks"></i>
+                                            <i class="fas fa-list-alt"></i>
                                         </span>
                                         <span class="sidebar-normal"> Role Lists </span>
                                     </a>

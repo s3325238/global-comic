@@ -1,6 +1,6 @@
 <?php
 
-if (!function_exists('role_helper')) {
+if (!function_exists('role_update_helper')) {
 
     /**
      * description
@@ -8,7 +8,7 @@ if (!function_exists('role_helper')) {
      * @param
      * @return
      */
-    function role_helper($role, Array $based, Array $diff, Array $columns ,$mangas, $groups, $users, $others)
+    function role_update_helper($role, Array $based, Array $diff, Array $columns ,$mangas, $groups, $users, $others)
     {
         if ($mangas != NULL) {
             

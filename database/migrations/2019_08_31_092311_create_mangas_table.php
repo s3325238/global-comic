@@ -15,8 +15,9 @@ class CreateMangasTable extends Migration
     {
         Schema::create('mangas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('title');
             $table->string('slug');
+            $table->string('language','3');
             $table->timestamps();
         });
     }

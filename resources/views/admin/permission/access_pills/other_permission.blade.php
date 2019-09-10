@@ -37,6 +37,21 @@
                     </td>
                     <td>View Setting</td>
                 </tr>
+                <tr>
+                    <td>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" 
+                                        name="others[]" type="checkbox"
+                                        value="assign_task" {{ in_array('assign_task',$permission)? "checked": "" }}>
+                                <span class="form-check-sign">
+                                <span class="check"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </td>
+                    <td>Assign Task</td>
+                </tr>
             </table>
         </div>
     </div>

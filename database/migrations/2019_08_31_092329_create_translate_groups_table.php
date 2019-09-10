@@ -18,6 +18,7 @@ class CreateTranslateGroupsTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('language_translate',3);
+            $table->string('logo')->default('default.png');
             $table->integer('follows')->default("0");
             $table->integer('points')->default("0");
             $table->timestamps();

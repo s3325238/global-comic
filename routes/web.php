@@ -38,12 +38,25 @@ Route::get('verify/{emai}/{verifyToken}', 'Auth\RegisterController@emailSent')->
 
 // Dashboard
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], function () {
+    
     Route::get('/', 'Dashboard\IndexController@index')->name('dashboard');
+    
     Route::get('/inbox', 'Dashboard\IndexController@mail')->name('inbox');
 
-    Route::resource('permission', 'Dashboard\RoleController')->middleware('admin');
-    Route::resource('user', 'Dashboard\UserController')->middleware('admin');
-    Route::resource('group', 'Dashboard\GroupController')->middleware('admin');
+    Route::post('/tasks', 'Dashboard\IndexController@add_task')->name('add.task');
+
+    Route::get('/check_slug', 'Dashboard\IndexController@check_slug')->name('check_slug');
+    
+    // Testing route resource
+    Route::resources([
+        'permission' => 'Dashboard\RoleController',
+        'user' => 'Dashboard\UserController',
+        'group' => 'Dashboard\GroupController'
+    ],[
+        'except' => ['show', 'destroy']
+    ]);
+
+    Route::resource('task', 'Dashboard\TasksController')->except(['create', 'destroy']);
 
 });
 // Api Group
@@ -56,12 +69,12 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
     });
 
     Route::group(['prefix' => 'user'], function () {
-        Route::get('vietnamese','Api\UserApi@getVietnameseUser')->name('api.user.vietnamese');
-        Route::get('english','Api\UserApi@getEnglishUser')->name('api.user.english');
-        Route::get('japanese','Api\UserApi@getJapaneseUser')->name('api.user.japanese');
-        Route::get('korean','Api\UserApi@getKoreanUser')->name('api.user.korean');
-        Route::get('unverified','Api\UserApi@getUnVerified')->name('api.user.not.verified');
-        Route::get('/lists/remove','Api\UserApi@userRemove')->name('api.user.lists.remove'); 
+        Route::get('vietnamese', 'Api\UserApi@getVietnameseUser')->name('api.user.vietnamese');
+        Route::get('english', 'Api\UserApi@getEnglishUser')->name('api.user.english');
+        Route::get('japanese', 'Api\UserApi@getJapaneseUser')->name('api.user.japanese');
+        Route::get('korean', 'Api\UserApi@getKoreanUser')->name('api.user.korean');
+        Route::get('unverified', 'Api\UserApi@getUnVerified')->name('api.user.not.verified');
+        Route::get('/lists/remove', 'Api\UserApi@userRemove')->name('api.user.lists.remove');
     });
 });
 
@@ -70,3 +83,7 @@ Route::get('page-not-found', ['as' => 'notfound', 'uses' => 'ErrorHandlingContro
 
 // Testing route
 // Route::get('test/user/api', 'Api\UserApi@getVietnameseUser')->name('api.test.user');
+
+/**
+ * 
+ */

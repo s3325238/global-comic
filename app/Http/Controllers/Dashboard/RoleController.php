@@ -2,30 +2,29 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Role;
 
 // Database
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-
-use App\Role;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
-    protected $columns = array(
-        'create_manga', 'view_manga', 'update_manga', 'delete_manga',
-        'create_group', 'view_group', 'update_group', 'delete_group',
-        'create_user', 'view_user', 'update_user', 'delete_user', 
-        'add_copyright','view_settings');
+    protected function getColumns()
+    {
+        return array_diff(
+            Schema::getColumnListing('roles'), 
+            ['id', 'role_name', 'created_at', 'updated_at']
+        );
+        // return $column_diff;
+    }
 
     public function __construct()
     {
-        $this->middleware(['dashboard', 'admin']);
+        $this->middleware(['admin']);
     }
     /**
      * Display a listing of the resource.
@@ -36,7 +35,7 @@ class RoleController extends Controller
     {
         $index_title = "Permission Lists";
 
-        return view('admin.permission.lists',compact(['index_title']));
+        return view('admin.permission.lists', compact(['index_title']));
     }
 
     /**
@@ -48,7 +47,7 @@ class RoleController extends Controller
     {
         $index_title = "Add new permission";
         $permission = [];
-        return view('admin.permission.create',compact(['index_title','permission']));
+        return view('admin.permission.create', compact(['index_title', 'permission']));
     }
 
     /**
@@ -78,7 +77,7 @@ class RoleController extends Controller
             'id' => 'numeric|required|min:1|max:98|unique:roles',
             'role_name' => 'required|string|max:15',
         ]);
-        
+
         $role = new Role();
 
         $role = add_role_helper($role, $request->mangas, $request->groups, $request->users, $request->others);
@@ -87,7 +86,7 @@ class RoleController extends Controller
         $role->role_name = $request->role_name;
 
         $role->save();
-        
+
         return redirect(route('permission.index'));
     }
 
@@ -116,9 +115,9 @@ class RoleController extends Controller
 
         $permission = [];
 
-        $selected = Role::where('id','=',$id)->exclude(['id','role_name','created_at', 'updated_at'])->first();
+        $selected = Role::where('id', '=', $id)->exclude(['id', 'role_name', 'created_at', 'updated_at'])->first();
 
-        if ($selected == NULL) {
+        if ($selected == null) {
             return redirect(route('permission.index'));
         }
 
@@ -126,16 +125,16 @@ class RoleController extends Controller
 
         foreach ($permission_arr as $key => $value) {
             if ($selected->$value == '1') {
-                array_push($permission,$value);
+                array_push($permission, $value);
             }
         }
 
         if ($role) {
-            return view('admin.permission.edit',compact(['role','index_title','permission']));
-        }else {
+            return view('admin.permission.edit', compact(['role', 'index_title', 'permission']));
+        } else {
             return redirect()->route('permission.index');
         }
-        
+
     }
 
     /**
@@ -149,22 +148,20 @@ class RoleController extends Controller
     {
         $based = [];
         $diff = [];
-        
+
         $request->validate([
             'id' => 'numeric|required|min:1',
             'role_name' => 'required|string',
         ]);
 
-        $role = role_helper(Role::find($id), $based, $diff, $this->columns, $request->mangas, $request->groups, $request->users, $request->others);
+        $role = role_update_helper(Role::find($id), $based, $diff, $this->getColumns(), $request->mangas, $request->groups, $request->users, $request->others);
 
         if ($role->update()) {
             return redirect()->route('permission.index');
         } else {
-            return redirect()->back()->with('errors','Fail!');
+            return redirect()->back()->with('errors', 'Fail!');
         }
-        
 
-        
     }
 
     /**
@@ -176,6 +173,6 @@ class RoleController extends Controller
     public function destroy($id)
     {
         //
-        
+
     }
 }

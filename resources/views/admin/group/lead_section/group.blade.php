@@ -5,9 +5,9 @@
         </div>
     </div>
     <div class="card-body">
-        <select class="selectpicker" id="group_name" name="group_name"
+        <select class="selectpicker group_name" id="group_name" name="group_name"
             data-style="btn btn-primary btn-round" data-width="100%" title="Choose Group">
-            
+            <option disabled selected> Choose Group</option>
         </select>
     </div>
 </div>

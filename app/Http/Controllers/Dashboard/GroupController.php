@@ -9,6 +9,10 @@ use DB;
 use Illuminate\Http\Request;
 use \Illuminate\Http\Response;
 
+use Illuminate\Support\Arr;
+
+use App\User;
+
 class GroupController extends Controller
 {
     protected $path = 'upload/group/';
@@ -47,10 +51,6 @@ class GroupController extends Controller
         $index_title = "Add new leader";
 
         return view('admin.group.leadForm', compact(['index_title']));
-
-        // $groups = TranslateGroup::select_language('vi')->no_leader()->get();
-
-        // return view('admin.group.leadForm', compact(['index_title','groups']));
     }
 
     /**
@@ -101,12 +101,61 @@ class GroupController extends Controller
     {
         $groups = TranslateGroup::select('id','name')->select_language($request->language)->no_leader()->get();
         return response()->json($groups);
-        // $output = [];
-        // foreach( $groups as $group )
-        // {
-        //     $output[$group->id] = $group->name;
+    }
+
+    /**
+     * Fetch Leader by language using language options
+     * Data: language = ajax request
+     *
+     * @param  Illuminate\Http\Request;  ajax
+     * @return \Illuminate\Http\Response
+     */
+    public function loadLeaders(Request $request)
+    {
+        $array = [];
+
+        $groups = TranslateGroup::select('leader_id')->select_Language($request->language)->where('leader_id', '!=', null)->get();
+
+        foreach ($groups as $group) {
+            $array = Arr::prepend($array,$group->leader_id);;
+        }
+
+        $leaders = User::select('id','name')->language($request->language)->role_datatable('4')->whereNotIn('id', $array)->get();
+
+        // Check if exist user id in leader_id flow:
+
+        // Get all groups has leader corresponding to language translate -> return array ( select leader_id )
+        // Get all users has corresponding language with role leader -> return array ( select id )
+        // Compare 2 arrays -> get different elements -> return array
+
+        // $leaders = User::select('id','name')->language($request->language)->role_datatable('4')->get();
+
+        return response()->json($leaders);
+    }
+
+    public function updateLeader(Request $request)
+    {
+        // $request->validate([
+        //     'group_language' => 'required',
+        //     'group_name' => 'required',
+        //     'group_leader' => 'required',
+        // ]);
+
+        // $array = [];
+
+        // $groups = TranslateGroup::select('leader_id')->select_Language('vi')->where('leader_id', '!=', null)->get();
+
+        // foreach ($groups as $group) {
+        //     $array = Arr::prepend($array,$group->leader_id);;
         // }
-        // return $output;
+
+        // $users = User::select('id','name')->language('vi')->role_datatable('4')->whereNotIn('id', $array)->get();
+
+        // dd($users);
+
+        TranslateGroup::where('id',$request->group_name)->update(['leader_id' => $request->group_leader]);
+        
+        return redirect()->back();
     }
 
     /**

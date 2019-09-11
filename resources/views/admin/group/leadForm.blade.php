@@ -79,13 +79,13 @@
         }
     }
     $(document).ready(function() {
+        emptyRefreshDisabled('#group_name','4');
+        emptyRefreshDisabled('#group_leader','4');
+
         $('#group_language').change(function(){
+            emptyRefreshDisabled('#group_leader','4')
             var language = $(this).val();
             var token = $("input[name='_token']").val();
-
-            var groupName = document.getElementById("group_name");
-
-            var option = '';
 
             $.ajax({
                 url: '{!! route('loadGroups') !!}' ,
@@ -93,29 +93,43 @@
                 dataType: 'json',
                 data: {
                     language: language,
-                    // '_token': token,
-                    // format: 'json'
                 },
                 success: function(data){
-                    // option += '<option disabled selected>Choose Group</option>';
-                    // for (var i = 0; i < data.length; i++) {
-                    //     option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
-                    //     // console.log(option);
-                    //     // $('.leader_form_group').append(option);
-                    // }
-                    forEachResponse('#leader_form_group', data);
+                    forEachResponse('#group_name', data);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-
-                    console.log(language);
     
                     alert(formatErrorMessage(jqXHR, errorThrown));
 
                 }
             });
+        });
 
-            // alert(language);
-        })
+        $('#group_name').change(function(){
+            var language = $('#group_language').val();
+            // alert(lang);
+
+            $.ajax({
+                url: '{!! route('loadLeaders') !!}' ,
+                method: 'GET',
+                dataType: 'json',
+                data: {
+                    language: language,
+                },
+                success: function(data){
+                    forEachResponse('#group_leader', data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+    
+                    alert(formatErrorMessage(jqXHR, errorThrown));
+
+                }
+            });
+        });
+
+        $(".errorAlert").fadeTo(2000, 700).slideUp(700, function(){
+            $(".errorAlert").slideUp(700);
+        });
     })
 </script>
 @endpush
@@ -123,7 +137,21 @@
 @section('content')
 <div class="content">
     <div class="container-fluid">
-        <form action="" method="post">
+        @if (count($errors) > 0)
+            @foreach ($errors->all() as $error)
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto justify-content-center">
+                        <div class="alert alert-danger alert-dismissible fade show errorAlert" id="errorAlert" role="alert">
+                            <strong>{{ $error }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+        <form action="{{ route('updateLeader') }}" method="post">
             @csrf
             <div class="row">
                 <div class="col-md-4 col-sm-6">
@@ -146,23 +174,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6">
-                    {{-- @include('admin.group.lead_section.group') --}}
-                    <div class="card">
-                        <div class="card-header card-header-text card-header-info">
-                            <div class="card-text">
-                                <h4 class="card-title">Group</h4>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <select class="selectpicker leader_form_group" id="leader_form_group" name="leader_form_group"
-                                data-style="btn btn-primary btn-round" data-width="100%" title="Choose Group">
-                                <option disabled selected> Choose Group</option>
-                                {{-- @foreach ($groups as $group)
-                                    <option value="{{$group->id}}">{{ $group->name }}</option>
-                                @endforeach --}}
-                            </select>
-                        </div>
-                    </div>
+                    @include('admin.group.lead_section.group')
                 </div>
                 <div class="col-md-4 col-sm-12">
                     {{-- @include('admin.group.lead_section.leader') --}}
@@ -173,9 +185,14 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <select class="selectpicker" id="group_leader" name="group_leader"
+                            <select class="selectpicker group_leader" id="group_leader" data-live-search="true" name="group_leader"
                                 data-style="btn btn-primary btn-round" data-width="100%" title="Choose Leader">
                                 <option disabled selected> Choose Leader</option>
+                                {{-- @foreach ($leaders as $leader)
+                                    <option value="{{ $leader->id }}">
+                                        {{ $leader->name }}
+                                    </option>
+                                @endforeach --}}
                             </select>
                         </div>
                     </div>

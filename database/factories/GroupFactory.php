@@ -1,7 +1,7 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\User;
+use App\TranslateGroup;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -16,16 +16,10 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(TranslateGroup::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'language' => $faker->randomElement(['vi', 'jp', 'en', 'kr']),
-        'password' => '$2y$10$3B4Xw.mY9DtpkTOsczTjyeWJM42Tr8N7gVIgEHfT9pxJjS5gn/MAC', // password
-        'verifyToken' => null,
-        'status' => $faker->randomElement([0,1]),
-        'avatar' => 'default-avatar.png',
-        'role_id' => $faker->numberBetween(1,5),
-        'remember_token' => Str::random(60),
+        'language_translate' => $faker->randomElement(['vi', 'jp', 'en', 'kr']),
+        'leader_id' => $faker->unique()->numberBetween(1,150),
     ];
 });

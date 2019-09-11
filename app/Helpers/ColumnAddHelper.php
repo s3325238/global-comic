@@ -1,6 +1,8 @@
 <?php
 
-if (!function_exists('role_table_column')) {
+use Illuminate\Support\Arr;
+
+if (!function_exists('array_helper')) {
 
     /**
      * description
@@ -8,8 +10,21 @@ if (!function_exists('role_table_column')) {
      * @param
      * @return
      */
-    function role_table_column($column_type, $column_name)
+    function array_helper($users, $groups)
     {
-
+        $different = [];
+        $duplicate = [];
+        foreach ($users as $user) {
+            foreach ($groups as $group) {
+                if ($user->id == $group->leader_id) {
+                    // echo '#1';
+                    // die();
+                    $duplicate = Arr::prepend($duplicate, $user->id, $user->name);
+                } else {
+                    $different = Arr::prepend($different,$user->id,$user->name);
+                }
+            }
+        }
+        return $duplicate;
     }
 }

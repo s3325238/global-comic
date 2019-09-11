@@ -62,7 +62,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
         Route::get('leader', 'Dashboard\GroupController@leaderForm')->name('group.leader');
 
         Route::get('/get/group', 'Dashboard\GroupController@loadGroups')->name('loadGroups');
-        // Route::post('/get/group', 'Dashboard\GroupController@loadGroups')->name('loadGroups');
+        Route::get('/get/leader', 'Dashboard\GroupController@loadLeaders')->name('loadLeaders');
+
+        Route::post('/leader/update', 'Dashboard\GroupController@updateLeader')->name('updateLeader');
     });
 
     // Route::get('group/leader', 'Dashboard\GroupController@leaderForm')->name('group.leader');

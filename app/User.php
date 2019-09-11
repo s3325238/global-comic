@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -14,7 +13,7 @@ class User extends Authenticatable
      * List of columns in the table
      * Used for scopeExclude function
      */
-    protected $columns = array('id','name','email','status','role_id','language','created_at','updated_at');
+    protected $columns = array('id', 'name', 'email', 'status', 'role_id', 'language', 'created_at', 'updated_at');
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'language', 'verifyToken'
+        'name', 'email', 'password', 'language', 'verifyToken',
     ];
 
     /**
@@ -48,24 +47,31 @@ class User extends Authenticatable
         return $query->select(array_diff($this->columns, (array) $value));
     }
 
-    public function scopeLanguage($query,$lang)
+    public function scopeLanguage($query, $lang)
     {
         return $query->where('language', '=', $lang);
     }
 
-    public function scopeRole_Datatable($query,$role_id)
+    // Language, role, user id != leader_id ( reference to Translate_groups table )
+    public function scopeExclude_leader_in_group($query, $value = array())
     {
-        return $query->where('role_id','=',$role_id);
+        // return $query->select(array_diff((array) $leader_id, (array) $value));
+        // return $query->diff(User::whereIn('id', (array) $value)->get());
+    }
+
+    public function scopeRole_Datatable($query, $role_id)
+    {
+        return $query->where('role_id', '=', $role_id);
     }
 
     public function scopeActive($query)
     {
-        return $query->where('status', '=', TRUE);
+        return $query->where('status', '=', true);
     }
 
     public function scopeNot_active($query)
     {
-        return $query->where('status', '=', FALSE);
+        return $query->where('status', '=', false);
     }
 
     public function role()

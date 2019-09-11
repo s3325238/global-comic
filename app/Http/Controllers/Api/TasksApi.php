@@ -9,7 +9,6 @@ use App\Tasks;
 
 class TasksApi extends Controller
 {
-    //
     public function getPersonalTask()
     {
         $task = Tasks::select('id','description','priority')->personal()->orWhere->assigned()->status('0')->get();
@@ -23,15 +22,11 @@ class TasksApi extends Controller
 
         $task = Tasks::find($id);
 
-        // $task->update(['status',true]);
-
         if ($task->update(['status',true])) {
             return redirect()->back();
 
         } else {
             return request()->session()->flash('alert-danger', 'Failed to delete record!');
         }
-
-        // return redirect()->back();
     }
 }

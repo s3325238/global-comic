@@ -20,6 +20,6 @@ $factory->define(TranslateGroup::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'language_translate' => $faker->randomElement(['vi', 'jp', 'en', 'kr']),
-        'leader_id' => $faker->unique()->numberBetween(1,150),
+        // 'leader_id' => $faker->unique()->numberBetween(1,150),
     ];
 });

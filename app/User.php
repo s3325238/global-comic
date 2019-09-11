@@ -52,13 +52,6 @@ class User extends Authenticatable
         return $query->where('language', '=', $lang);
     }
 
-    // Language, role, user id != leader_id ( reference to Translate_groups table )
-    public function scopeExclude_leader_in_group($query, $value = array())
-    {
-        // return $query->select(array_diff((array) $leader_id, (array) $value));
-        // return $query->diff(User::whereIn('id', (array) $value)->get());
-    }
-
     public function scopeRole_Datatable($query, $role_id)
     {
         return $query->where('role_id', '=', $role_id);

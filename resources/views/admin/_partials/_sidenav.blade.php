@@ -82,15 +82,43 @@
                             </span>
                         </a>
                     </li>
-                    <li class="nav-item {{ setSideBarActive(['dashboard/group/create'],'active') }} ">
-                        <a class="nav-link" href="{{ route('group.create') }}">
-                            <span class="sidebar-mini"> 
-                                <i class="fas fa-plus-circle"></i> 
-                            </span>
-                            <span class="sidebar-normal"> 
-                                <p> Add new group </p> 
-                            </span>
+
+
+                    <li class="nav-item {{ setSideBarActive(['dashboard/group*'],'active') }}">
+                        <a class="nav-link" data-toggle="collapse" href="#groupAction" aria-expanded="{{ setSideBarActive(['dashboard/group*'],'true') }}">
+                            <i class="fas fa-bars"></i>
+                            <p> Group action
+                                <b class="caret"></b>
+                            </p>
                         </a>
+                        <div class="collapse {{ setSideBarActive(['dashboard/group*'],'show active') }}" id="groupAction">
+                            <ul class="nav">
+                                <li class="nav-item {{ setSideBarActive(['dashboard/group/create'],'active') }}">
+                                    <a class="nav-link" href="{{ route('group.create') }}">
+                                        <span class="sidebar-mini">
+                                            <i class="fas fa-plus-circle"></i> 
+                                        </span>
+                                        <span class="sidebar-normal"> Add new group </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  {{ setSideBarActive(['dashboard/group/leader'],'active') }}">
+                                    <a class="nav-link" href="{{ route('group.leader') }}">
+                                        <span class="sidebar-mini">
+                                            <i class="fas fa-user-graduate"></i> 
+                                        </span>
+                                        <span class="sidebar-normal"> Add new leader </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span class="sidebar-mini">
+                                            <i class="fas fa-copyright"></i> 
+                                        </span>
+                                        <span class="sidebar-normal"> Add new copyright </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </div>
             @endcan
@@ -109,9 +137,9 @@
                                 <li class="nav-item {{ setSideBarActive(['dashboard/user'],'active') }} ">
                                     <a class="nav-link" href="{{ route('user.index') }}">
                                         <span class="sidebar-mini">
-                                            <i class="fas fa-list-alt"></i>
+                                            <i class="fas fa-user-tie"></i>
                                         </span>
-                                        <span class="sidebar-normal"> Active User Lists </span>
+                                        <span class="sidebar-normal"> Normal User Lists </span>
                                     </a>
                                 </li>
                                 <li class="nav-item  ">
@@ -119,7 +147,7 @@
                                             {{-- {{ setSideBarActive(['dashboard/user'],'active') }} --}}
                                             {{-- {{ route('user.index') }} --}}
                                         <span class="sidebar-mini">
-                                                <i class="fas fa-shield-alt"></i>
+                                            <i class="fas fa-user-shield"></i>
                                         </span>
                                         <span class="sidebar-normal"> Group Lead </span>
                                     </a>

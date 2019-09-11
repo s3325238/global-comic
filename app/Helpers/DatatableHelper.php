@@ -2,6 +2,7 @@
 use Yajra\DataTables\DataTables;
 use App\User;
 use App\Role;
+use App\Tasks;
 
 if (!function_exists('user_data_table')) {
 
@@ -68,7 +69,31 @@ if (!function_exists('personal_task_data_table')) {
     # Get user_id == Auth::id()
     function personal_task_data_table($task)
     {
-        # code...
+        return DataTables::of($task)
+            ->addColumn('description', function ($task) {
+                return $task->description;
+            })
+            ->editColumn('priority', function(Tasks $task){
+                if ($task->priority == '0') {
+                    return '<span class="badge badge-pill badge-info">Normal</span>';
+                } else {
+                    return '<span class="badge badge-pill badge-danger">Urgent</span>';
+                }
+            })
+            ->addColumn('action', function ($task) {
+                return '<form action="'.route('task.update',$task->id).'" method="POST">'.csrf_field().'
+                    <input type="hidden" name="_method" value="PUT">
+                    <button type="submit" class="btn btn-success update"><i class="fas fa-check-circle"></i>&nbsp;Complete</button>
+                </form>';
+            })
+            ->rawColumns(['priority','action'])
+            ->make(true);
     }
 
 }
+/**
+ 
+ */
+
+// <a href="" class="btn btn-success update" id="' . $task->id . '"><i class="fas fa-check-circle"></i>&nbsp;Complete</a>
+// '.route('task.update',$task->id).'

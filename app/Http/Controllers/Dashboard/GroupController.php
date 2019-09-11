@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\TranslateGroup;
 use File;
+use DB;
 use Illuminate\Http\Request;
+use \Illuminate\Http\Response;
 
 class GroupController extends Controller
 {
@@ -38,6 +40,17 @@ class GroupController extends Controller
         $index_title = "Add new group";
 
         return view('admin.group.create', compact(['index_title']));
+    }
+
+    public function leaderForm()
+    {
+        $index_title = "Add new leader";
+
+        return view('admin.group.leadForm', compact(['index_title']));
+
+        // $groups = TranslateGroup::select_language('vi')->no_leader()->get();
+
+        // return view('admin.group.leadForm', compact(['index_title','groups']));
     }
 
     /**
@@ -74,7 +87,26 @@ class GroupController extends Controller
 
         $group->save();
 
-        return redirect(route('dashboard'));
+        return redirect(route('group.leader'));
+    }
+
+    /**
+     * Fetch Group by language using language options
+     * Data: language = ajax request, leader = Null
+     *
+     * @param  Illuminate\Http\Request;  ajax
+     * @return \Illuminate\Http\Response
+     */
+    public function loadGroups(Request $request)
+    {
+        $groups = TranslateGroup::select('id','name')->select_language($request->language)->no_leader()->get();
+        return response()->json($groups);
+        // $output = [];
+        // foreach( $groups as $group )
+        // {
+        //     $output[$group->id] = $group->name;
+        // }
+        // return $output;
     }
 
     /**

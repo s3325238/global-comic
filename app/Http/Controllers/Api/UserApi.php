@@ -73,4 +73,11 @@ class UserApi extends Controller
             return request()->session()->flash('alert-danger', 'Failed to delete record!');
         }
     }
+
+    function getVietnameseLead()
+    {
+        $user = User::select('id', 'name', 'email', 'created_at', 'updated_at')->role_datatable('2')->language('vi')->active()->get();
+
+        return user_data_table($user);
+    }
 }

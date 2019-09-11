@@ -19,6 +19,11 @@ class Tasks extends Model
         return $query->where('assigned','=',Auth::id());
     }
 
+    public function scopeStatus($query,$status)
+    {
+        return $query->where('status','=', $status);
+    }
+
     public function auth_tasks()
     {
         return $this->belongsTo('App\Tasks','user_id');

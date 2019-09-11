@@ -53,7 +53,7 @@
                                     <td>Translate Language</td>
                                     <td>
                                         <select class="selectpicker" name="language"
-                                            data-style="btn btn-primary btn-round" title="Choose Language">
+                                            data-style="btn btn-primary btn-round" data-width="100%" title="Choose Language">
                                             {{-- <option disabled selected>Single Option</option> --}}
                                             <option value="vi">Vietnamese</option>
                                             <option value="en">English</option>

@@ -34,6 +34,7 @@ class TasksController extends Controller
         $task = new Tasks();
 
         $task->description = $request->description;
+        $task->priority = $request->priority;
         $task->user_id = Auth::id();
         
         if ($request->member != NULL) {
@@ -65,7 +66,9 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Tasks::where('id',$id)->update(['status' => true]);
+
+        return redirect()->back();
     }
 
     /**

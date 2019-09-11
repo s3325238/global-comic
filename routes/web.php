@@ -38,25 +38,35 @@ Route::get('verify/{emai}/{verifyToken}', 'Auth\RegisterController@emailSent')->
 
 // Dashboard
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], function () {
-    
+
     Route::get('/', 'Dashboard\IndexController@index')->name('dashboard');
-    
+
     Route::get('/inbox', 'Dashboard\IndexController@mail')->name('inbox');
 
     Route::post('/tasks', 'Dashboard\IndexController@add_task')->name('add.task');
 
     Route::get('/check_slug', 'Dashboard\IndexController@check_slug')->name('check_slug');
-    
+
     // Testing route resource
     Route::resources([
         'permission' => 'Dashboard\RoleController',
         'user' => 'Dashboard\UserController',
-        'group' => 'Dashboard\GroupController'
-    ],[
-        'except' => ['show', 'destroy']
+        'group' => 'Dashboard\GroupController',
+    ], [
+        'except' => ['show', 'destroy'],
     ]);
 
-    Route::resource('task', 'Dashboard\TasksController')->except(['create', 'destroy']);
+    Route::apiResource('task', 'Dashboard\TasksController')->except(['show', 'destroy']);
+
+    Route::group(['prefix' => 'group'], function () {
+        Route::get('leader', 'Dashboard\GroupController@leaderForm')->name('group.leader');
+
+        Route::get('/get/group', 'Dashboard\GroupController@loadGroups')->name('loadGroups');
+        // Route::post('/get/group', 'Dashboard\GroupController@loadGroups')->name('loadGroups');
+    });
+
+    // Route::get('group/leader', 'Dashboard\GroupController@leaderForm')->name('group.leader');
+    // Route::resource('task', 'Dashboard\TasksController')->except(['create', 'show' ,'destroy']);
 
 });
 // Api Group
@@ -76,6 +86,11 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
         Route::get('unverified', 'Api\UserApi@getUnVerified')->name('api.user.not.verified');
         Route::get('/lists/remove', 'Api\UserApi@userRemove')->name('api.user.lists.remove');
     });
+
+    Route::group(['prefix' => 'task'], function () {
+        Route::get('personal', 'Api\TasksApi@getPersonalTask')->name('api.task.personal');
+        // Route::get('personal/update','Api\TasksApi@getTaskAjaxUpdate')->name('api.task.ajax.update');
+    });
 });
 
 //  Error Handling Page
@@ -85,5 +100,5 @@ Route::get('page-not-found', ['as' => 'notfound', 'uses' => 'ErrorHandlingContro
 // Route::get('test/user/api', 'Api\UserApi@getVietnameseUser')->name('api.test.user');
 
 /**
- * 
+ *
  */

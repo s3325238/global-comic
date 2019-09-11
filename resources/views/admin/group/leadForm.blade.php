@@ -155,7 +155,8 @@
                         </div>
                         <div class="card-body">
                             <select class="selectpicker leader_form_group" id="leader_form_group" name="leader_form_group"
-                                data-style="btn btn-primary btn-round" data-width="100%">
+                                data-style="btn btn-primary btn-round" data-width="100%" title="Choose Group">
+                                <option disabled selected> Choose Group</option>
                                 {{-- @foreach ($groups as $group)
                                     <option value="{{$group->id}}">{{ $group->name }}</option>
                                 @endforeach --}}
@@ -174,7 +175,7 @@
                         <div class="card-body">
                             <select class="selectpicker" id="group_leader" name="group_leader"
                                 data-style="btn btn-primary btn-round" data-width="100%" title="Choose Leader">
-                                
+                                <option disabled selected> Choose Leader</option>
                             </select>
                         </div>
                     </div>

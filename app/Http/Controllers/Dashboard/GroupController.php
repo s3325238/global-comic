@@ -122,36 +122,16 @@ class GroupController extends Controller
 
         $leaders = User::select('id','name')->language($request->language)->role_datatable('4')->whereNotIn('id', $array)->get();
 
-        // Check if exist user id in leader_id flow:
-
-        // Get all groups has leader corresponding to language translate -> return array ( select leader_id )
-        // Get all users has corresponding language with role leader -> return array ( select id )
-        // Compare 2 arrays -> get different elements -> return array
-
-        // $leaders = User::select('id','name')->language($request->language)->role_datatable('4')->get();
-
         return response()->json($leaders);
     }
 
     public function updateLeader(Request $request)
     {
-        // $request->validate([
-        //     'group_language' => 'required',
-        //     'group_name' => 'required',
-        //     'group_leader' => 'required',
-        // ]);
-
-        // $array = [];
-
-        // $groups = TranslateGroup::select('leader_id')->select_Language('vi')->where('leader_id', '!=', null)->get();
-
-        // foreach ($groups as $group) {
-        //     $array = Arr::prepend($array,$group->leader_id);;
-        // }
-
-        // $users = User::select('id','name')->language('vi')->role_datatable('4')->whereNotIn('id', $array)->get();
-
-        // dd($users);
+        $request->validate([
+            'group_language' => 'required',
+            'group_name' => 'required',
+            'group_leader' => 'required',
+        ]);
 
         TranslateGroup::where('id',$request->group_name)->update(['leader_id' => $request->group_leader]);
         

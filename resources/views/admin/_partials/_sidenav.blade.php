@@ -72,8 +72,8 @@
             <!-- Group Management -->
             @can('isAdmin', Auth::user())
                 <div class="user">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                    <li class="nav-item {{ setSideBarActive(['dashboard/group'],'active') }}">
+                        <a class="nav-link" href="{{ route('group.index') }}">
                             <span class="sidebar-mini">
                                 <i class="fas fa-list-alt"></i>
                             </span>
@@ -84,24 +84,24 @@
                     </li>
 
 
-                    <li class="nav-item {{ setSideBarActive(['dashboard/group*'],'active') }}">
-                        <a class="nav-link" data-toggle="collapse" href="#groupAction" aria-expanded="{{ setSideBarActive(['dashboard/group*'],'true') }}">
+                    <li class="nav-item {{ setSideBarActive(['dashboard/group/action*'],'active') }}">
+                        <a class="nav-link" data-toggle="collapse" href="#groupAction" aria-expanded="{{ setSideBarActive(['dashboard/group/action*'],'true') }}">
                             <i class="fas fa-bars"></i>
                             <p> Group action
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse {{ setSideBarActive(['dashboard/group*'],'show active') }}" id="groupAction">
+                        <div class="collapse {{ setSideBarActive(['dashboard/group/action*'],'show active') }}" id="groupAction">
                             <ul class="nav">
-                                <li class="nav-item {{ setSideBarActive(['dashboard/group/create'],'active') }}">
-                                    <a class="nav-link" href="{{ route('group.create') }}">
+                                <li class="nav-item {{ setSideBarActive(['dashboard/group/action/create'],'active') }}">
+                                    <a class="nav-link" href="{{ route('group.action.create') }}">
                                         <span class="sidebar-mini">
                                             <i class="fas fa-plus-circle"></i> 
                                         </span>
                                         <span class="sidebar-normal"> Add new group </span>
                                     </a>
                                 </li>
-                                <li class="nav-item  {{ setSideBarActive(['dashboard/group/leader'],'active') }}">
+                                <li class="nav-item  {{ setSideBarActive(['dashboard/group/action/leader'],'active') }}">
                                     <a class="nav-link" href="{{ route('group.leader') }}">
                                         <span class="sidebar-mini">
                                             <i class="fas fa-user-graduate"></i> 

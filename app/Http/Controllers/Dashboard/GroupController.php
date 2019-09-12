@@ -12,6 +12,7 @@ use \Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 
 use App\User;
+use App\Roles;
 
 class GroupController extends Controller
 {
@@ -29,7 +30,16 @@ class GroupController extends Controller
      */
     public function index()
     {
+        // $role_relationship_test = User::findOrFail(5);
+
+        // dd($role_relationship_test->role->role_name);
+
+        // $group_lead_test = TranslateGroup::findOrFail(1501);
+
+        // dd($group_lead_test->user_lead->name);
+
         $index_title = "Groups Management";
+
         return view('admin.group.index', compact(['index_title']));
     }
 
@@ -114,7 +124,7 @@ class GroupController extends Controller
     {
         $array = [];
 
-        $groups = TranslateGroup::select('leader_id')->select_Language($request->language)->where('leader_id', '!=', null)->get();
+        $groups = TranslateGroup::select('leader_id')->select_Language($request->language)->leader('!=',null)->get();
 
         foreach ($groups as $group) {
             $array = Arr::prepend($array,$group->leader_id);;

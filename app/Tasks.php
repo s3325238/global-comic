@@ -7,7 +7,7 @@ use Auth;
 
 class Tasks extends Model
 {
-    //
+    protected $table = 'tasks';
 
     public function scopePersonal($query)
     {

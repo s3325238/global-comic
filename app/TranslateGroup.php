@@ -10,7 +10,7 @@ class TranslateGroup extends Model
 {
     use Sluggable;
 
-    protected $table = 'translate_groups' ;
+    protected $table = 'translate_groups';
 
     protected function getColumns()
     {
@@ -29,9 +29,9 @@ class TranslateGroup extends Model
         return $query->where('language_translate', '=', $lang);
     }
 
-    public function scopeNo_leader($query)
+    public function scopeLeader($query, $operator, $value)
     {
-        return $query->where('leader_id', '=', null);
+        return $query->where('leader_id',$operator, $value);
     }
 
     public function sluggable()
@@ -46,5 +46,10 @@ class TranslateGroup extends Model
     public function related()
     {
         return $this->belongsTo('App\Relationship', 'id');
+    }
+
+    public function user_lead()
+    {
+        return $this->hasOne('App\User', 'id', 'leader_id');
     }
 }

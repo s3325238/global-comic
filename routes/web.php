@@ -59,12 +59,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
     Route::apiResource('task', 'Dashboard\TasksController')->except(['show', 'destroy']);
 
     Route::group(['prefix' => 'group'], function () {
-        Route::get('leader', 'Dashboard\GroupController@leaderForm')->name('group.leader');
 
-        Route::get('/get/group', 'Dashboard\GroupController@loadGroups')->name('loadGroups');
-        Route::get('/get/leader', 'Dashboard\GroupController@loadLeaders')->name('loadLeaders');
+        Route::group(['prefix' => 'action'], function () {
+            Route::get('create', 'Dashboard\GroupController@create')->name('group.action.create');
 
-        Route::post('/leader/update', 'Dashboard\GroupController@updateLeader')->name('updateLeader');
+            Route::get('leader', 'Dashboard\GroupController@leaderForm')->name('group.leader');
+
+            Route::get('/get/group', 'Dashboard\GroupController@loadGroups')->name('loadGroups');
+            Route::get('/get/leader', 'Dashboard\GroupController@loadLeaders')->name('loadLeaders');
+
+            Route::post('/leader/update', 'Dashboard\GroupController@updateLeader')->name('updateLeader');
+        });
     });
 
     // Route::get('group/leader', 'Dashboard\GroupController@leaderForm')->name('group.leader');
@@ -89,9 +94,12 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
         Route::get('/lists/remove', 'Api\UserApi@userRemove')->name('api.user.lists.remove');
     });
 
+    Route::group(['prefix' => 'group'], function () {
+        Route::get('vietnamese', 'Api\GroupApi@getVietnameseGroup')->name('api.group.vietnamese');
+    });
+
     Route::group(['prefix' => 'task'], function () {
         Route::get('personal', 'Api\TasksApi@getPersonalTask')->name('api.task.personal');
-        // Route::get('personal/update','Api\TasksApi@getTaskAjaxUpdate')->name('api.task.ajax.update');
     });
 });
 

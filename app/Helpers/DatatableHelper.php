@@ -1,8 +1,9 @@
 <?php
-use Yajra\DataTables\DataTables;
-use App\User;
 use App\Role;
 use App\Tasks;
+use App\User;
+use App\TranslateGroup;
+use Yajra\DataTables\DataTables;
 
 if (!function_exists('user_data_table')) {
 
@@ -51,7 +52,7 @@ if (!function_exists('role_data_table')) {
             })
             ->addColumn('action', function ($role) {
                 return '<a href="#" class="btn btn-link btn-info btn-just-icon info" id="' . $role->id . '"><i class="material-icons">info</i></a>
-                        <a href="'.route('permission.edit',$role->id).'" class="btn btn-link btn-warning btn-just-icon edit" id="' . $role->id . '"><i class="material-icons">dvr</i></a>
+                        <a href="' . route('permission.edit', $role->id) . '" class="btn btn-link btn-warning btn-just-icon edit" id="' . $role->id . '"><i class="material-icons">dvr</i></a>
                         <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $role->id . '"><i class="material-icons">close</i></a>';
             })
             ->editColumn('created_at', function (Role $role) {
@@ -65,7 +66,7 @@ if (!function_exists('role_data_table')) {
 }
 
 if (!function_exists('personal_task_data_table')) {
-    
+
     # Get user_id == Auth::id()
     function personal_task_data_table($task)
     {
@@ -73,7 +74,7 @@ if (!function_exists('personal_task_data_table')) {
             ->addColumn('description', function ($task) {
                 return $task->description;
             })
-            ->editColumn('priority', function(Tasks $task){
+            ->editColumn('priority', function (Tasks $task) {
                 if ($task->priority == '0') {
                     return '<span class="badge badge-pill badge-info">Normal</span>';
                 } else {
@@ -81,18 +82,48 @@ if (!function_exists('personal_task_data_table')) {
                 }
             })
             ->addColumn('action', function ($task) {
-                return '<form action="'.route('task.update',$task->id).'" method="POST">'.csrf_field().'
+                return '<form action="' . route('task.update', $task->id) . '" method="POST">' . csrf_field() . '
                     <input type="hidden" name="_method" value="PUT">
                     <button type="submit" class="btn btn-success update"><i class="fas fa-check-circle"></i>&nbsp;Complete</button>
                 </form>';
             })
-            ->rawColumns(['priority','action'])
+            ->rawColumns(['priority', 'action'])
             ->make(true);
     }
 
 }
+
+if (!function_exists('group_data_table')) {
+    function group_data_table($groups)
+    {
+        return DataTables::of($groups)
+            ->addColumn('id', function ($groups) {
+                return $groups->id;
+            })
+            ->addColumn('name', function ($groups) {
+                return $groups->name;
+            })
+            ->editColumn('leader_id', function (TranslateGroup $groups){
+                return $groups->user_lead->email;
+            })
+            ->addColumn('follows', function ($groups) {
+                return $groups->follows;
+            })
+            ->addColumn('points', function ($groups) {
+                return $groups->points;
+            })
+            ->addColumn('action', function ($groups) {
+                return '<a href="#" class="btn btn-link btn-warning btn-just-icon edit" id="' . $groups->id . '"><i class="material-icons">edit</i></a>
+                        <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $groups->id . '"><i class="material-icons">delete</i></a>';
+            })
+            ->editColumn('created_at', function (TranslateGroup $groups) {
+                return $groups->created_at->diffForHumans();
+            })
+            ->make(true);
+    }
+}
 /**
- 
+
  */
 
 // <a href="" class="btn btn-success update" id="' . $task->id . '"><i class="fas fa-check-circle"></i>&nbsp;Complete</a>

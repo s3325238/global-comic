@@ -5,6 +5,89 @@
 @section('content')
 <div class="content">
     <div class="container-fluid">
+        <div class="card card-nav-tabs card-plain">
+            <div class="card-header card-header-primary">
+                <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                        <ul class="nav nav-tabs" data-tabs="tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#vietnamese" data-toggle="tab">Vietnamese</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#english" data-toggle="tab">English</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#japanese" data-toggle="tab">Japanese</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#korean" data-toggle="tab">Korean</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body ">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="vietnamese">
+                        @include('admin.group.tab_pills.vietnamese_group')
+                    </div>
+                    <div class="tab-pane" id="english">
+                        @include('admin.group.tab_pills.english_group')
+                    </div>
+                    <div class="tab-pane" id="japanese">
+                        @include('admin.group.tab_pills.japanese_group')
+                    </div>
+                    <div class="tab-pane" id="korean">
+                        @include('admin.group.tab_pills.korean_group')
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
+
+@push('customJs')
+<script src="{{ asset('admin/js/plugins/jquery.dataTables.min.js') }}"></script>
+<!-- Forms Validations Plugin -->
+<script src="{{ asset('admin/js/plugins/jquery.validate.min.js') }}"></script>
+<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+<script src="{{ asset('admin/js/plugins/bootstrap-selectpicker.js') }}"></script>
+<!-- Plugin for Sweet Alert -->
+<script src="{{ asset('admin/js/plugins/sweetalert2.js') }}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#vi_group').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{!! route('api.group.vietnamese') !!}',
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'name', name: 'name' },
+                { data: 'leader_id', name: 'leader_id' },
+                { data: 'follows', name: 'follows' },
+                { data: 'points', name: 'points' },
+                { data: 'created_at', name: 'created_at' },
+                {
+                    data: 'action',
+                    className:"text-center",
+                    orderable:false,
+                    searchable: false
+                },
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        });
+    })
+</script>
+@endpush

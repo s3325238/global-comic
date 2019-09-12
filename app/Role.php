@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+    protected $table = 'roles';
+    
     protected function getColumns()
     {
         return Schema::getColumnListing('roles');

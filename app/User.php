@@ -67,9 +67,14 @@ class User extends Authenticatable
         return $query->where('status', '=', false);
     }
 
+    public function lead()
+    {
+        return $this->hasOne('App\TranslateGroup','leader_id');
+    }
+
     public function role()
     {
-        return $this->belongsTo('App\Roles', 'role_id');
+        return $this->belongsTo('App\Role');
     }
 
     public function tasks()

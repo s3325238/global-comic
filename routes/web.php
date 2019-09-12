@@ -91,11 +91,20 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
         Route::get('japanese', 'Api\UserApi@getJapaneseUser')->name('api.user.japanese');
         Route::get('korean', 'Api\UserApi@getKoreanUser')->name('api.user.korean');
         Route::get('unverified', 'Api\UserApi@getUnVerified')->name('api.user.not.verified');
+
         Route::get('/lists/remove', 'Api\UserApi@userRemove')->name('api.user.lists.remove');
     });
 
     Route::group(['prefix' => 'group'], function () {
-        Route::get('vietnamese', 'Api\GroupApi@getVietnameseGroup')->name('api.group.vietnamese');
+        Route::group(['prefix' => 'table'], function () {
+            Route::get('vietnamese', 'Api\GroupApi@getVietnameseGroup')->name('api.group.table.vietnamese');
+            Route::get('english', 'Api\GroupApi@getEnglishGroup')->name('api.group.table.english');
+            Route::get('japanese', 'Api\GroupApi@getJapaneseGroup')->name('api.group.table.japanese');
+            Route::get('korean', 'Api\GroupApi@getKoreanGroup')->name('api.group.table.korean');
+
+            Route::get('/lists/remove', 'Api\GroupApi@groupRemove')->name('api.group.table.lists.remove');
+        });
+        
     });
 
     Route::group(['prefix' => 'task'], function () {

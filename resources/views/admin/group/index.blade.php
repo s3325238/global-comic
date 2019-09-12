@@ -58,11 +58,25 @@
 <script src="{{ asset('admin/js/plugins/sweetalert2.js') }}"></script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#vi_group').DataTable({
+    function table_view(target) {
+
+        var url = '';
+
+        if (target == 'vi') {
+            url = '{!! route('api.group.table.vietnamese') !!}';
+        } else if (target == 'en') {
+            url = '{!! route('api.group.table.english') !!}';
+        } else if (target == 'jp') {
+            url = '{!! route('api.group.table.japanese') !!}';
+        } else if (target == 'kr') {
+            url = '{!! route('api.group.table.korean') !!}';
+        }
+
+
+        $('#'+target).DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('api.group.vietnamese') !!}',
+            ajax: url,
             "pagingType": "full_numbers",
             "lengthMenu": [
                 [10, 25, 50, -1],
@@ -87,7 +101,64 @@
                 search: "_INPUT_",
                 searchPlaceholder: "Search records",
             }
+        })
+    };
+    $(document).ready(function () {
+        table_view('vi');
+        table_view('en');
+        table_view('jp');
+        table_view('kr');
+    });
+
+    // Delete a record
+    $(document).on('click', '.remove', function(e){
+
+        e.preventDefault();
+
+        var id = $(this).attr('id');
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                // console.log(id);
+                Swal.fire(
+                    {
+                        type: 'success',
+                        title: 'Successfully delete data!',
+                        html: '<span class="text-success">Your page will be refreshed shortly.</span>',
+                        showConfirmButton: false,
+                    },
+                    $.ajax({
+                        url:'{!! route('api.group.table.lists.remove') !!}',
+                        method: "GET" ,
+                        data:{
+                            id:id
+                        },
+                        success:function(data)
+                        {
+                            // console.log(data);
+
+                            location.reload();
+                        }
+                    })
+                )
+            }else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Cancel button is pressed
+                Swal.fire({
+                    type: 'info',
+                    title: 'Your data is safe!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
         });
-    })
+    });
 </script>
 @endpush

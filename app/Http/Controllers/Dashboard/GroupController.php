@@ -30,14 +30,6 @@ class GroupController extends Controller
      */
     public function index()
     {
-        // $role_relationship_test = User::findOrFail(5);
-
-        // dd($role_relationship_test->role->role_name);
-
-        // $group_lead_test = TranslateGroup::findOrFail(1501);
-
-        // dd($group_lead_test->user_lead->name);
-
         $index_title = "Groups Management";
 
         return view('admin.group.index', compact(['index_title']));

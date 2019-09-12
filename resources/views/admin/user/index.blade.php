@@ -67,151 +67,57 @@
 <script src="{{ asset('admin/js/plugins/sweetalert2.js') }}"></script>
 
 <script type="text/javascript">
+    function table_view(target) {
+        var url;
+
+        if (target == 'vi') {
+            url = '{!! route('api.user.vietnamese') !!}';
+        } else if (target == 'en') {
+            url = '{!! route('api.user.english') !!}';
+        } else if (target == 'jp') {
+            url = '{!! route('api.user.japanese') !!}';
+        } else if (target == 'kr') {
+            url = '{!! route('api.user.korean') !!}';
+        } else {
+            url = '{!! route('api.user.not.verified') !!}';
+        }
+
+        $('#'+target).DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: url,
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'name', name: 'name' },
+                { data: 'email', name: 'email' },
+                { data: 'created_at', name: 'created_at' },
+                { data: 'updated_at', name: 'updated_at' },
+                {
+                    data: 'action',
+                    className:"text-center",
+                    orderable:false,
+                    searchable: false
+                },
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        });
+    }
+
     $(document).ready(function () {
-        $('#vi').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{!! route('api.user.vietnamese') !!}',
-            "pagingType": "full_numbers",
-            "lengthMenu": [
-                [10, 25, 50, -1],
-                [10, 25, 50, "All"]
-            ],
-            columns: [
-                { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
-                { data: 'email', name: 'email' },
-                { data: 'created_at', name: 'created_at' },
-                { data: 'updated_at', name: 'updated_at' },
-                {
-                    data: 'action',
-                    className:"text-center",
-                    orderable:false,
-                    searchable: false
-                },
-            ],
-            responsive: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search records",
-            }
-        });
-
-        $('#en').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{!! route('api.user.english') !!}',
-            "pagingType": "full_numbers",
-            "lengthMenu": [
-                [10, 25, 50, -1],
-                [10, 25, 50, "All"]
-            ],
-            columns: [
-                { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
-                { data: 'email', name: 'email' },
-                { data: 'created_at', name: 'created_at' },
-                { data: 'updated_at', name: 'updated_at' },
-                {
-                    data: 'action',
-                    className:"text-center",
-                    orderable:false,
-                    searchable: false
-                },
-            ],
-            responsive: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search records",
-            }
-        });
-
-        $('#jp').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{!! route('api.user.japanese') !!}',
-            "pagingType": "full_numbers",
-            "lengthMenu": [
-                [10, 25, 50, -1],
-                [10, 25, 50, "All"]
-            ],
-            columns: [
-                { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
-                { data: 'email', name: 'email' },
-                { data: 'created_at', name: 'created_at' },
-                { data: 'updated_at', name: 'updated_at' },
-                {
-                    data: 'action',
-                    className:"text-center",
-                    orderable:false,
-                    searchable: false
-                },
-            ],
-            responsive: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search records",
-            }
-        });
-
-        $('#kr').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{!! route('api.user.korean') !!}',
-            "pagingType": "full_numbers",
-            "lengthMenu": [
-                [10, 25, 50, -1],
-                [10, 25, 50, "All"]
-            ],
-            columns: [
-                { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
-                { data: 'email', name: 'email' },
-                { data: 'created_at', name: 'created_at' },
-                { data: 'updated_at', name: 'updated_at' },
-                {
-                    data: 'action',
-                    className:"text-center",
-                    orderable:false,
-                    searchable: false
-                },
-            ],
-            responsive: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search records",
-            }
-        });
-
-        $('#notactive').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{!! route('api.user.not.verified') !!}',
-            "pagingType": "full_numbers",
-            "lengthMenu": [
-                [10, 25, 50, -1],
-                [10, 25, 50, "All"]
-            ],
-            columns: [
-                { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
-                { data: 'email', name: 'email' },
-                { data: 'created_at', name: 'created_at' },
-                { data: 'updated_at', name: 'updated_at' },
-                {
-                    data: 'action',
-                    className:"text-center",
-                    orderable:false,
-                    searchable: false
-                },
-            ],
-            responsive: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search records",
-            }
-        });
+        table_view('vi');
+        table_view('en');
+        table_view('jp');
+        table_view('kr');
+        table_view('notactive');
 
     });
 
@@ -264,7 +170,6 @@
                 })
             }
         });
-
-});
+    });
 </script>
 @endpush

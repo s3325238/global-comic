@@ -125,6 +125,16 @@
                         </span>
                     </a>
                 </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">
+                        <span class="sidebar-mini">
+                            <i class="material-icons">event_available</i>
+                        </span>
+                        <span class="sidebar-normal"> 
+                            <p> Available Manga Lists </p> 
+                        </span>
+                    </a>
+                </li>
                 <li class="nav-item {{ setSideBarActive(['dashboard/manga/action*'],'active') }}">
                     <a class="nav-link" data-toggle="collapse" href="#mangaAction" aria-expanded="false">
                         <i class="fas fa-bars"></i>
@@ -225,66 +235,6 @@
                     </li>
                 </div>
             @endcan
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#tablesExamples">
-                    <i class="material-icons">grid_on</i>
-                    <p> Tables
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="tablesExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/tables/regular.html">
-                                <span class="sidebar-mini"> RT </span>
-                                <span class="sidebar-normal"> Regular Tables </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/tables/extended.html">
-                                <span class="sidebar-mini"> ET </span>
-                                <span class="sidebar-normal"> Extended Tables </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/tables/datatables.net.html">
-                                <span class="sidebar-mini"> DT </span>
-                                <span class="sidebar-normal"> DataTables.net </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#mapsExamples">
-                    <i class="material-icons">place</i>
-                    <p> Maps
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="mapsExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/maps/google.html">
-                                <span class="sidebar-mini"> GM </span>
-                                <span class="sidebar-normal"> Google Maps </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/maps/fullscreen.html">
-                                <span class="sidebar-mini"> FSM </span>
-                                <span class="sidebar-normal"> Full Screen Map </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/maps/vector.html">
-                                <span class="sidebar-mini"> VM </span>
-                                <span class="sidebar-normal"> Vector Map </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
             <li class="nav-item ">
                 <a class="nav-link" href="../examples/widgets.html">
                     <i class="fas fa-cogs"></i>

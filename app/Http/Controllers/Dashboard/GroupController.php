@@ -206,4 +206,16 @@ class GroupController extends Controller
     {
         //
     }
+
+    public function resetFollows($lang)
+    {
+        # code...
+        TranslateGroup::query()->select_Language($lang)
+                    ->update([
+                        'follows' => '0',
+                        'points' => '0'
+                    ]);
+
+        return redirect()->back();
+    }
 }

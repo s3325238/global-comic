@@ -32,16 +32,16 @@
                     <div class="card-body ">
                         <div class="tab-content">
                             <div class="tab-pane active" id="vietnamese">
-                                @include('admin.manga.pills.vietnamese')
+                                {!! make_manga_data_table('vi') !!}
                             </div>
                             <div class="tab-pane" id="english">
-                                @include('admin.manga.pills.english')
+                                {!! make_manga_data_table('en') !!}
                             </div>
                             <div class="tab-pane" id="japanese">
-                                @include('admin.manga.pills.japanese')
+                                {!! make_manga_data_table('jp') !!}
                             </div>
                             <div class="tab-pane" id="korean">
-                                @include('admin.manga.pills.korean')
+                                {!! make_manga_data_table('kr') !!}
                             </div>
                         </div>
                     </div>
@@ -68,14 +68,13 @@
 
         if (target == 'vi') {
             url = '{!! route('api.manga.trade_mark.table.vietnamese') !!}';
+        } else if (target == 'en') {
+            url = '{!! route('api.manga.trade_mark.table.english') !!}';
+        } else if (target == 'jp') {
+            url = '{!! route('api.manga.trade_mark.table.japanese') !!}';
+        } else if (target == 'kr') {
+            url = '{!! route('api.manga.trade_mark.table.korean') !!}';
         }
-        // } else if (target == 'en') {
-        //     url = '{!! route('api.group.table.english') !!}';
-        // } else if (target == 'jp') {
-        //     url = '{!! route('api.group.table.japanese') !!}';
-        // } else if (target == 'kr') {
-        //     url = '{!! route('api.group.table.korean') !!}';
-        // }
 
 
         $('#'+target).DataTable({
@@ -109,9 +108,9 @@
     };
     $(document).ready(function () {
         table_view('vi');
-        // table_view('en');
-        // table_view('jp');
-        // table_view('kr');
+        table_view('en');
+        table_view('jp');
+        table_view('kr');
     });
 
     // Delete a record

@@ -32,16 +32,16 @@
                     <div class="card-body ">
                         <div class="tab-content">
                             <div class="tab-pane active" id="vietnamese">
-                                @include('admin.group.tab_pills.vietnamese_group')
+                                {!! make_group_data_table('vi') !!}
                             </div>
                             <div class="tab-pane" id="english">
-                                @include('admin.group.tab_pills.english_group')
+                                {!! make_group_data_table('en') !!}
                             </div>
                             <div class="tab-pane" id="japanese">
-                                @include('admin.group.tab_pills.japanese_group')
+                                {!! make_group_data_table('jp') !!}
                             </div>
                             <div class="tab-pane" id="korean">
-                                @include('admin.group.tab_pills.korean_group')
+                                {!! make_group_data_table('kr') !!}
                             </div>
                         </div>
                     </div>

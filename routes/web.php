@@ -82,6 +82,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
             Route::get('/get/leader', 'Dashboard\GroupController@loadLeaders')->name('group.loadLeaders');
 
             Route::post('/leader/update', 'Dashboard\GroupController@updateLeader')->name('updateLeader');
+
+            Route::post('reset/{language}','Dashboard\GroupController@resetFollows')->name('follows.reset');
         });
     });
 
@@ -89,6 +91,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
     // Route::resource('task', 'Dashboard\TasksController')->except(['create', 'show' ,'destroy']);
 
 });
+
 // Api Group
 Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']], function () {
 
@@ -123,6 +126,9 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
     Route::group(['prefix' => 'manga'], function () {
         Route::group(['prefix' => 'table'], function () {
             Route::get('vietnamese', 'Api\MangaApi@getVietnameseTradeMarks')->name('api.manga.trade_mark.table.vietnamese');
+            Route::get('english', 'Api\MangaApi@getEnglishTradeMarks')->name('api.manga.trade_mark.table.english');
+            Route::get('japanese', 'Api\MangaApi@getJapaneseTradeMarks')->name('api.manga.trade_mark.table.japanese');
+            Route::get('korean', 'Api\MangaApi@getKoreanTradeMarks')->name('api.manga.trade_mark.table.korean');
         });
     });
 

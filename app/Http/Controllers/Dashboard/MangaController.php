@@ -73,10 +73,6 @@ class MangaController extends Controller
      */
     public function index()
     {
-        //
-        // $vi = Trade_marks::select('id','group_id','manga_id','created_at','updated_at')->language('vi')->get();
-
-        // dd($vi);
         return view('admin.manga.index');
     }
 
@@ -87,8 +83,6 @@ class MangaController extends Controller
      */
     public function create()
     {
-        //
-
         return view('admin.manga.create');
     }
 
@@ -129,9 +123,7 @@ class MangaController extends Controller
 
         $manga->save();
 
-        // return redirect(route('group.leader'));
-
-        return redirect(route('dashboard'));
+        return redirect(route('manga.action.create.trade_mark'));
     }
 
     /**
@@ -156,7 +148,7 @@ class MangaController extends Controller
 
         if ($trade_mark->save()) {
             # code...
-            return redirect(route('dashboard'));
+            return redirect(route('manga.index'));
         } else {
             return redirect()->back();
         }

@@ -6,6 +6,82 @@ use App\Trade_marks;
 use App\TranslateGroup;
 use Yajra\DataTables\DataTables;
 
+if (!function_exists('make_manga_data_table')) {
+    function make_manga_data_table($id)
+    {
+        return '<div class="material-datatables">
+        <table id="'.$id.'" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%"
+            style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID&nbsp;&nbsp;&nbsp;</th>
+                    <th>Group Name</th>
+                    <th>Manga Name</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+    
+                    <th class="disabled-sorting text-center">Actions</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>ID&nbsp;&nbsp;&nbsp;</th>
+                    <th>Group Name</th>
+                    <th>Manga Name</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+    
+                    <th class="text-center">Actions</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>';
+    }
+}
+
+if (!function_exists('make_group_data_table')) {
+    
+    function make_group_data_table($id)
+    {
+        # code...
+        return '<div class="row">
+            <div class="col-md-12">
+                <form action="'.route('follows.reset',$id).'" method="post">
+                    '. csrf_field() .'
+                    <button type="submit" class="btn btn-danger">Reset follows & points</button>
+                </form>
+            </div>
+        </div>
+        <div class="material-datatables">
+        <table id="'.$id.'" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+        <thead>
+            <tr>
+            <th>ID&nbsp;&nbsp;&nbsp;</th>
+            <th>Name</th>
+            <th>Leader Email</th>
+            <th>Follows</th>
+            <th>Points</th>
+            <th>Created At</th>
+            <th class="disabled-sorting text-center">Actions</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>ID&nbsp;&nbsp;&nbsp;</th>
+                <th>Name</th>
+                <th>Leader Email</th>
+                <th>Follows</th>
+                <th>Points</th>
+                <th>Created At</th>
+
+                <th class="text-center">Actions</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>';
+    }
+}
+
 if (!function_exists('user_data_table')) {
 
     /**

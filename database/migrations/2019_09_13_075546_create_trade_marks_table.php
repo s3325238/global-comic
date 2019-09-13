@@ -21,8 +21,8 @@ class CreateTradeMarksTable extends Migration
 
             $table->string('language',3)->nullable(false);
 
-            $table->foreign('group_id')->references('id')->on('translate_groups');
-            $table->foreign('manga_id')->references('id')->on('mangas');
+            $table->foreign('group_id')->references('id')->on('translate_groups')->onDelete('cascade');
+            $table->foreign('manga_id')->references('id')->on('mangas')->onDelete('cascade');
 
             $table->timestamps();
         });

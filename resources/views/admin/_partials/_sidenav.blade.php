@@ -142,8 +142,8 @@
                                     <span class="sidebar-normal"> Add new manga </span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
+                            <li class="nav-item {{ setSideBarActive(['dashboard/manga/action/trade_mark/create'],'active') }}">
+                                <a class="nav-link" href="{{route('manga.action.create.trade_mark')}}">
                                     <span class="sidebar-mini">
                                         <i class="fas fa-copyright"></i> 
                                     </span>

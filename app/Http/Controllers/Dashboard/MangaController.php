@@ -21,6 +21,12 @@ class MangaController extends Controller
     {
         return Settings::findOrFail(1)->VIDEO_PATH;
     }
+
+    protected function getFullPath($root_path, Request $request)
+    {
+        return $root_path.$request->language.'/'.$request->slug;
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -44,6 +50,18 @@ class MangaController extends Controller
     }
 
     /**
+     * Show the form for creating a new trademark.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function tradeMark()
+    {
+        //
+
+        return view('admin.manga.trademark');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -57,15 +75,22 @@ class MangaController extends Controller
             'language' => 'required|string|max:3',
         ]);
 
-        if (!File::isDirectory($this->getMangaPath() . $request->language . '/' . $request->slug)) {
-            File::makeDirectory($this->getMangaPath() . $request->language . '/' . $request->slug, 0777, true, true);
-        }
+        make_directory( $this->getFullPath($this->getMangaPath(), $request) );
+        make_directory( $this->getFullPath($this->getVideoPath(), $request) );
 
-        if (!File::isDirectory($this->getVideoPath() . $request->language . '/' . $request->slug)) {
-            File::makeDirectory($this->getVideoPath() . $request->language . '/' . $request->slug, 0777, true, true);
-        }
+        $manga = new Manga();
+        
+        $manga->manga_title = $request->manga_title;
+        $manga->slug = $request->slug;
+        $manga->language = $request->language;
 
-        dd($request->all());
+        $manga->logo = file_upload( $this->getFullPath($this->getMangaPath(), $request), $request->logo );
+
+        $manga->save();
+
+        // return redirect(route('group.leader'));
+
+        return redirect(route('dashboard'));
     }
 
     /**

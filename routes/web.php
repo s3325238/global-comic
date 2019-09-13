@@ -62,6 +62,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
     Route::group(['prefix' => 'manga'], function () {
         Route::group(['prefix' => 'action'], function () {
             Route::get('create','Dashboard\MangaController@create')->name('manga.action.create');
+            Route::get('trade_mark/create','Dashboard\MangaController@tradeMark')->name('manga.action.create.trade_mark');
         });
     });
 

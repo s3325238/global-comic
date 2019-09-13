@@ -15,8 +15,8 @@ class CreateTranslateGroupsTable extends Migration
     {
         Schema::create('translate_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('group_name');
+            $table->string('slug');
             $table->string('language_translate',3);
             $table->integer('leader_id')->nullable();
             $table->string('logo')->default('default.png');

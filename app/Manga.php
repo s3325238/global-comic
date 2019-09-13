@@ -32,4 +32,10 @@ class Manga extends Model
             ],
         ];
     }
+
+    public function tradeMarkRegistered()
+    {
+        # code...
+        return $this->hasMany('App\Trade_marks','manga_id','id');
+    }
 }

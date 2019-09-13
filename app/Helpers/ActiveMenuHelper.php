@@ -46,6 +46,9 @@ if (!function_exists('setPageTitle')) {
             case 'dashboard/manga/action/create':
                 return "Add new manga";
                 break;
+            case 'dashboard/manga/action/trade_mark/create':
+                return "Add new trade mark";
+                break;
             // Role
             case 'dashboard/permission':
                 return "Permission Lists";

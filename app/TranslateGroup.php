@@ -43,13 +43,19 @@ class TranslateGroup extends Model
         ];
     }
 
-    public function related()
-    {
-        return $this->belongsTo('App\Relationship', 'id');
-    }
+    // public function related()
+    // {
+    //     return $this->belongsTo('App\Relationship', 'id');
+    // }
 
     public function user_lead()
     {
         return $this->hasOne('App\User', 'id', 'leader_id');
+    }
+
+    public function tradeMarkRegistered()
+    {
+        # code...
+        return $this->hasMany('App\Trade_marks','group_id','id');
     }
 }

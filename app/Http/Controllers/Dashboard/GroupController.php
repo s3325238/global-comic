@@ -82,7 +82,7 @@ class GroupController extends Controller
 
         $group = new TranslateGroup();
 
-        $group->name = $request->group_name;
+        $group->group_name = $request->group_name;
 
         $group->slug = $request->slug;
 

@@ -43,7 +43,7 @@
                                         <input type="text" id="group_name" name="group_name" value="{{ old('group_name') }}" class="form-control">
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr hidden>
                                     <td>Slug</td>
                                     <td>
                                         <input type="text" id="slug" name="slug" placeholder="slug" readonly class="form-control" />

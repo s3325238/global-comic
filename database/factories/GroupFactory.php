@@ -2,6 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\TranslateGroup;
+use App\Manga;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -18,8 +19,15 @@ use Faker\Generator as Faker;
 
 $factory->define(TranslateGroup::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'group_name' => $faker->name,
         'language_translate' => $faker->randomElement(['vi', 'jp', 'en', 'kr']),
         'leader_id' => $faker->unique()->numberBetween(1,5000),
+    ];
+});
+
+$factory->define(Manga::class, function (Faker $faker) {
+    return [
+        'manga_title' => $faker->name,
+        'language' => $faker->randomElement(['vi', 'jp', 'en', 'kr']),
     ];
 });

@@ -27,7 +27,7 @@
         @endforeach
         @endif
 
-        <form action="{{ route('group.store') }}" enctype="multipart/form-data" method="post">
+        <form action="{{ route('manga.store') }}" enctype="multipart/form-data" method="post">
             @csrf
             <div class="row">
                 <div class="col-md-6">
@@ -38,12 +38,12 @@
                         <div class="card-body">
                             <table class="table customTableBorder" cellspacing="0" cellpadding="0" style="border:none;">
                                 <tr>
-                                    <td>Group Name</td>
+                                    <td>Manga Title</td>
                                     <td>
-                                        <input type="text" id="group_name" name="group_name" value="{{ old('group_name') }}" class="form-control">
+                                        <input type="text" id="manga_title" name="manga_title" value="{{ old('manga_title') }}" class="form-control">
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr hidden>
                                     <td>Slug</td>
                                     <td>
                                         <input type="text" id="slug" name="slug" placeholder="slug" readonly class="form-control" />
@@ -52,7 +52,7 @@
                                 <tr>
                                     <td>Translate Language</td>
                                     <td>
-                                        <select class="selectpicker" name="group_language"
+                                        <select class="selectpicker" name="language"
                                             data-style="btn btn-primary btn-round" data-width="100%" title="Choose Language">
                                             {{-- <option disabled selected>Single Option</option> --}}
                                             <option value="vi">Vietnamese</option>
@@ -105,10 +105,10 @@
 
 @push('customJs')
 <script>
-    $('#group_name').change(function(e) {
+    $('#manga_title').change(function(e) {
         $.get('{{ route('check_slug') }}', 
         { 
-            'group_name': $(this).val() 
+            'manga_title': $(this).val() 
         }, 
         function( data ) {
             $('#slug').val(data.slug);

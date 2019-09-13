@@ -129,9 +129,32 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'group_name' => [
+            'required' => 'Please provide a name for the group!',
+            'min' => 'Group name cannot less than :min characters',
+            'max' => 'Group name cannot more than :max characters',
+            'string' => 'Group name cannot be only number'
         ],
+        'group_language' => [
+            'required' => 'You have not set language for the group!'
+        ],
+        'email' => [
+            'required' => 'Please provide us your email.',
+            'email' => 'Your email format is incorrect.',
+            'unique' => 'Your email has existed in our system.'
+        ],
+        'password' => [
+            'required' => 'Please provide password!',
+            'string' => 'Password cannot be only number!',
+            'confirmed' => 'You have not confirmed your password',
+            'max' => 'Password length cannot be more than :max characters'
+        ],
+        'status' => [
+            'required' => 'Please provide status.'
+        ],
+        'language' => [
+            'required' => 'You have not set the language'
+        ]
     ],
 
     /*

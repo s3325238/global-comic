@@ -52,11 +52,18 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
         'permission' => 'Dashboard\RoleController',
         'user' => 'Dashboard\UserController',
         'group' => 'Dashboard\GroupController',
+        'manga' => 'Dashboard\MangaController'
     ], [
         'except' => ['show', 'destroy'],
     ]);
 
     Route::apiResource('task', 'Dashboard\TasksController')->except(['show', 'destroy']);
+
+    Route::group(['prefix' => 'manga'], function () {
+        Route::group(['prefix' => 'action'], function () {
+            Route::get('create','Dashboard\MangaController@create')->name('manga.action.create');
+        });
+    });
 
     Route::group(['prefix' => 'group'], function () {
 
@@ -104,7 +111,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
 
             Route::get('/lists/remove', 'Api\GroupApi@groupRemove')->name('api.group.table.lists.remove');
         });
-        
+
     });
 
     Route::group(['prefix' => 'task'], function () {

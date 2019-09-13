@@ -12,20 +12,20 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 use App\Role;
 use App\Tasks;
 use App\TranslateGroup;
+use App\Manga;
 
 class IndexController extends Controller
 {
     public function __construct()
     {
+        $tasks = Tasks::select('id')->personal()->orWhere->assigned()->status('0')->get();
         $this->middleware('dashboard');
     }
-
-    protected $tasks_per_page = '2';
 
     public function index()
     {
         $index_title = "Dashboard";
-        // $tasks = Tasks::where('user_id','=',Auth::id())->paginate($this->tasks_per_page);
+        
 
         if (Auth::user()->can('isAdmin')) {
             $users_by_language = DB::table('users')
@@ -33,9 +33,9 @@ class IndexController extends Controller
                 ->where('role_id', '=', '1')
                 ->groupBy('language')
                 ->get();
-            return view('admin.index', compact(['users_by_language','index_title']));
+            return view('admin.index', compact(['users_by_language','index_title','tasks']));
         } else {
-            return view('admin.index',compact(['index_title']));
+            return view('admin.index',compact(['index_title','tasks']));
         }
     }
 
@@ -64,7 +64,14 @@ class IndexController extends Controller
 
     public function check_slug(Request $request)
     {
-        $slug = SlugService::createSlug(TranslateGroup::class, 'slug', $request->name);
+        if (isset($request->manga_title)) {
+            # code...
+            $slug = SlugService::createSlug(Manga::class, 'slug', $request->manga_title);
+        } else {
+            # code...
+            $slug = SlugService::createSlug(TranslateGroup::class, 'slug', $request->group_name);
+        }
+        // $slug = SlugService::createSlug(TranslateGroup::class, 'slug', $request->name);
 
         return response()->json(['slug' => $slug]);
     }

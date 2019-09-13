@@ -7,7 +7,15 @@
                     <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
                 </button>
             </div>
-            <a class="navbar-brand" href="#pablo">{{$index_title}}</a>
+            <span class="navbar-brand" >
+                <?php 
+                    use Illuminate\Support\Facades\Route;
+                    
+                    $currentPath= Route::getFacadeRoot()->current()->uri();
+
+                    echo setPageTitle($currentPath);
+                ?>
+            </span>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +49,7 @@
                         <i class="material-icons">notifications</i>
                         <span class="notification">5</span>
                         <p class="d-lg-none d-md-block">
-                            Some Actions
+                            Notifications
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">

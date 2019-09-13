@@ -5,41 +5,45 @@
 @section('content')
 <div class="content">
     <div class="container-fluid">
-        <div class="card card-nav-tabs card-plain">
-            <div class="card-header card-header-primary">
-                <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-                <div class="nav-tabs-navigation">
-                    <div class="nav-tabs-wrapper">
-                        <ul class="nav nav-tabs" data-tabs="tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#vietnamese" data-toggle="tab">Vietnamese</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#english" data-toggle="tab">English</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#japanese" data-toggle="tab">Japanese</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#korean" data-toggle="tab">Korean</a>
-                            </li>
-                        </ul>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-nav-tabs card-plain">
+                    <div class="card-header card-header-primary">
+                        <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#vietnamese" data-toggle="tab">Vietnamese</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#english" data-toggle="tab">English</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#japanese" data-toggle="tab">Japanese</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#korean" data-toggle="tab">Korean</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="card-body ">
-                <div class="tab-content">
-                    <div class="tab-pane active" id="vietnamese">
-                        @include('admin.group.tab_pills.vietnamese_group')
-                    </div>
-                    <div class="tab-pane" id="english">
-                        @include('admin.group.tab_pills.english_group')
-                    </div>
-                    <div class="tab-pane" id="japanese">
-                        @include('admin.group.tab_pills.japanese_group')
-                    </div>
-                    <div class="tab-pane" id="korean">
-                        @include('admin.group.tab_pills.korean_group')
+                    <div class="card-body ">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="vietnamese">
+                                @include('admin.group.tab_pills.vietnamese_group')
+                            </div>
+                            <div class="tab-pane" id="english">
+                                @include('admin.group.tab_pills.english_group')
+                            </div>
+                            <div class="tab-pane" id="japanese">
+                                @include('admin.group.tab_pills.japanese_group')
+                            </div>
+                            <div class="tab-pane" id="korean">
+                                @include('admin.group.tab_pills.korean_group')
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

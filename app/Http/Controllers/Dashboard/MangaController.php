@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Schema;
+// Model
+use App\Manga;
+use App\Settings;
 
 class MangaController extends Controller
 {
-    
-
-    public function __construct()
+    protected function getMangaPath()
     {
-        $this->middleware(['admin']);
+        return Settings::findOrFail(1)->MANGA_PATH;
+    }
+
+    protected function getVideoPath()
+    {
+        return Settings::findOrFail(1)->VIDEO_PATH;
     }
     /**
      * Display a listing of the resource.
@@ -23,7 +29,6 @@ class MangaController extends Controller
     public function index()
     {
         //
-        $columns = Schema::getColumnListing('translate_groups');
     }
 
     /**
@@ -34,6 +39,8 @@ class MangaController extends Controller
     public function create()
     {
         //
+
+        return view('admin.manga.create');
     }
 
     /**
@@ -45,15 +52,29 @@ class MangaController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'manga_title' => 'required|string|min:5|max:255',
+            'language' => 'required|string|max:3',
+        ]);
+
+        if (!File::isDirectory($this->getMangaPath() . $request->language . '/' . $request->slug)) {
+            File::makeDirectory($this->getMangaPath() . $request->language . '/' . $request->slug, 0777, true, true);
+        }
+
+        if (!File::isDirectory($this->getVideoPath() . $request->language . '/' . $request->slug)) {
+            File::makeDirectory($this->getVideoPath() . $request->language . '/' . $request->slug, 0777, true, true);
+        }
+
+        dd($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Manga  $manga
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Manga $manga)
     {
         //
     }
@@ -61,10 +82,10 @@ class MangaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Manga  $manga
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Manga $manga)
     {
         //
     }
@@ -73,10 +94,10 @@ class MangaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Manga  $manga
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Manga $manga)
     {
         //
     }
@@ -84,10 +105,10 @@ class MangaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Manga  $manga
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Manga $manga)
     {
         //
     }

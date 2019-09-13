@@ -72,7 +72,7 @@
             <!-- Group Management -->
             @can('isAdmin', Auth::user())
                 <div class="user">
-                    <li class="nav-item {{ setSideBarActive(['dashboard/group'],'active') }}">
+                    <li class="nav-item {{ setSideBarActive(['dashboard/group', 'dashboard/group/*/edit'],'active') }}">
                         <a class="nav-link" href="{{ route('group.index') }}">
                             <span class="sidebar-mini">
                                 <i class="fas fa-list-alt"></i>
@@ -82,8 +82,6 @@
                             </span>
                         </a>
                     </li>
-
-
                     <li class="nav-item {{ setSideBarActive(['dashboard/group/action*'],'active') }}">
                         <a class="nav-link" data-toggle="collapse" href="#groupAction" aria-expanded="{{ setSideBarActive(['dashboard/group/action*'],'true') }}">
                             <i class="fas fa-bars"></i>
@@ -109,19 +107,53 @@
                                         <span class="sidebar-normal"> Add new leader </span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        <span class="sidebar-mini">
-                                            <i class="fas fa-copyright"></i> 
-                                        </span>
-                                        <span class="sidebar-normal"> Add new copyright </span>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </li>
                 </div>
             @endcan
+
+            <!-- Manga & Trademark registered lists -->
+            <div class="user">
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">
+                        <span class="sidebar-mini">
+                            <i class="far fa-registered"></i>
+                        </span>
+                        <span class="sidebar-normal"> 
+                            <p> Registered Manga Lists </p> 
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item {{ setSideBarActive(['dashboard/manga/action*'],'active') }}">
+                    <a class="nav-link" data-toggle="collapse" href="#mangaAction" aria-expanded="false">
+                        <i class="fas fa-bars"></i>
+                        <p> Manga action
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse {{ setSideBarActive(['dashboard/manga/action*'],'show active') }}" id="mangaAction">
+                        <ul class="nav">
+                            <li class="nav-item {{ setSideBarActive(['dashboard/manga/action/create'],'active') }}">
+                                <a class="nav-link" href="{{route('manga.action.create')}}">
+                                    <span class="sidebar-mini">
+                                        <i class="fas fa-plus-circle"></i> 
+                                    </span>
+                                    <span class="sidebar-normal"> Add new manga </span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span class="sidebar-mini">
+                                        <i class="fas fa-copyright"></i> 
+                                    </span>
+                                    <span class="sidebar-normal"> Add new copyright </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
             <!-- User & permission management -->
             @can('isAdmin', Auth::user())
                 <div class="user">

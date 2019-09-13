@@ -4,15 +4,14 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\TranslateGroup;
+use App\User;
 use File;
-use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use \Illuminate\Http\Response;
 
-use Illuminate\Support\Arr;
-
-use App\User;
-use App\Roles;
+// Test
+use Illuminate\Support\Facades\Route;
 
 class GroupController extends Controller
 {
@@ -31,6 +30,10 @@ class GroupController extends Controller
     public function index()
     {
         $index_title = "Groups Management";
+
+        // $url = action([HomeController::class, 'index']);
+
+        // dd($url);
 
         return view('admin.group.index', compact(['index_title']));
     }
@@ -65,9 +68,9 @@ class GroupController extends Controller
     {
         //
         $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|unique:translate_groups',
-            'language' => 'required|string|max:3',
+            'group_name' => 'required|string|min:5|max:255',
+            // 'slug' => 'required|string|unique:translate_groups',
+            'group_language' => 'required|string|max:3',
         ]);
         $messages = [
             'slug.required' => 'Group has existed in database',
@@ -79,11 +82,11 @@ class GroupController extends Controller
 
         $group = new TranslateGroup();
 
-        $group->name = $request->name;
+        $group->name = $request->group_name;
 
         $group->slug = $request->slug;
 
-        $group->language_translate = $request->language;
+        $group->language_translate = $request->group_language;
 
         $group->logo = file_upload($this->path, $request->logo);
 
@@ -101,7 +104,7 @@ class GroupController extends Controller
      */
     public function loadGroups(Request $request)
     {
-        $groups = TranslateGroup::select('id','name')->select_language($request->language)->no_leader()->get();
+        $groups = TranslateGroup::select('id', 'name')->select_language($request->language)->leader('=', null)->get();
         return response()->json($groups);
     }
 
@@ -116,13 +119,13 @@ class GroupController extends Controller
     {
         $array = [];
 
-        $groups = TranslateGroup::select('leader_id')->select_Language($request->language)->leader('!=',null)->get();
+        $groups = TranslateGroup::select('leader_id')->select_Language($request->language)->leader('!=', null)->get();
 
         foreach ($groups as $group) {
-            $array = Arr::prepend($array,$group->leader_id);;
+            $array = Arr::prepend($array, $group->leader_id);
         }
 
-        $leaders = User::select('id','name')->language($request->language)->role_datatable('4')->whereNotIn('id', $array)->get();
+        $leaders = User::select('id', 'name')->language($request->language)->role_datatable('4')->whereNotIn('id', $array)->get();
 
         return response()->json($leaders);
     }
@@ -135,8 +138,8 @@ class GroupController extends Controller
             'group_leader' => 'required',
         ]);
 
-        TranslateGroup::where('id',$request->group_name)->update(['leader_id' => $request->group_leader]);
-        
+        TranslateGroup::where('id', $request->group_name)->update(['leader_id' => $request->group_leader]);
+
         return redirect()->back();
     }
 
@@ -159,7 +162,14 @@ class GroupController extends Controller
      */
     public function edit($id)
     {
-        //
+        $group = TranslateGroup::find($id);
+
+        $leaders = User::select('id', 'name', 'email')->language($group->language_translate)->role_datatable('4')->whereNotIn('id', [$group->leader_id])->get();
+
+        // dd($leaders);
+        $index_title = "Edit group";
+
+        return view('admin.group.edit', compact(['index_title', 'group', 'leaders']));
     }
 
     /**
@@ -171,7 +181,23 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $group = TranslateGroup::find($id);
+
+        $group->name = $request->name;
+
+        if ($request->slug != NULL) {
+            $group->slug = $request->slug;
+        }
+
+        if ($request->language != NULL) {
+            $group->language_translate = $request->language;
+        }
+
+        $group->leader_id = $request->leader;
+
+        $group->update();
+
+        return redirect(route('group.index'));
     }
 
     /**

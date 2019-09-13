@@ -16,6 +16,8 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('APP_NAME')->nullable();
+            $table->string('MANGA_PATH')->nullable();
+            $table->string('VIDEO_PATH')->nullable();
             $table->string('MAIL_USERNAME')->nullable();
             // $table->string('MAIL_PASSWORD')->nullable();
             $table->string('CAPTCHA_KEY',40)->nullable();

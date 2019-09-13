@@ -113,7 +113,7 @@ if (!function_exists('group_data_table')) {
                 return $groups->points;
             })
             ->addColumn('action', function ($groups) {
-                return '<a href="#" class="btn btn-link btn-warning btn-just-icon edit" id="' . $groups->id . '"><i class="material-icons">edit</i></a>
+                return '<a href="'.route('group.edit',$groups->id).'" class="btn btn-link btn-warning btn-just-icon edit" id="' . $groups->id . '"><i class="material-icons">edit</i></a>
                         <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $groups->id . '"><i class="material-icons">delete</i></a>';
             })
             ->editColumn('created_at', function (TranslateGroup $groups) {

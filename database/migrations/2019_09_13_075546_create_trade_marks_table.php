@@ -14,10 +14,12 @@ class CreateTradeMarksTable extends Migration
     public function up()
     {
         Schema::create('trade_marks', function (Blueprint $table) {
-            // $table->bigIncrements('id');
+            $table->bigIncrements('id');
 
             $table->unsignedBigInteger('group_id');
             $table->unsignedBigInteger('manga_id');
+
+            $table->string('language',3)->nullable(false);
 
             $table->foreign('group_id')->references('id')->on('translate_groups');
             $table->foreign('manga_id')->references('id')->on('mangas');

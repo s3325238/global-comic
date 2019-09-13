@@ -115,8 +115,8 @@
 
             <!-- Manga & Trademark registered lists -->
             <div class="user">
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">
+                <li class="nav-item {{ setSideBarActive(['dashboard/manga'],'active') }}">
+                    <a class="nav-link" href="{{route('manga.index')}}">
                         <span class="sidebar-mini">
                             <i class="far fa-registered"></i>
                         </span>

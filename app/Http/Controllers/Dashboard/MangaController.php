@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 // Model
 use App\Manga;
 use App\Settings;
+use App\Trade_marks;
+use App\TranslateGroup;
 
 class MangaController extends Controller
 {
@@ -24,9 +27,45 @@ class MangaController extends Controller
 
     protected function getFullPath($root_path, Request $request)
     {
-        return $root_path.$request->language.'/'.$request->slug;
+        return $root_path . $request->language . '/' . $request->slug;
     }
-    
+
+    /**
+     * Fetch Group by language using language options
+     * Data: language = ajax request, leader = Null
+     *
+     * @param  Illuminate\Http\Request;  ajax
+     * @return \Illuminate\Http\Response
+     */
+    public function loadGroup(Request $request)
+    {
+        $groups = TranslateGroup::select('id', 'name')->select_language($request->language)->leader('!=', null)->get();
+        return response()->json($groups);
+    }
+
+    /**
+     * Fetch Manga by language using language options
+     * Data: language = ajax request
+     * Constraint: Not exist in trade_marks
+     *
+     * @param  Illuminate\Http\Request;  ajax
+     * @return \Illuminate\Http\Response
+     */
+    public function loadManga(Request $request)
+    {
+        $array = [];
+
+        $exist_manga = Trade_marks::select('manga_id')->get();
+
+        foreach ($exist_manga as $manga) {
+            $array = Arr::prepend($array, $manga->manga_id);
+        }
+
+        $manga = Manga::select('id', 'name')->language($request->language)->whereNotIn('id', $array)->get();
+
+        return response()->json($manga);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,6 +74,10 @@ class MangaController extends Controller
     public function index()
     {
         //
+        // $vi = Trade_marks::select('id','group_id','manga_id','created_at','updated_at')->language('vi')->get();
+
+        // dd($vi);
+        return view('admin.manga.index');
     }
 
     /**
@@ -56,8 +99,6 @@ class MangaController extends Controller
      */
     public function tradeMark()
     {
-        //
-
         return view('admin.manga.trademark');
     }
 
@@ -75,16 +116,16 @@ class MangaController extends Controller
             'language' => 'required|string|max:3',
         ]);
 
-        make_directory( $this->getFullPath($this->getMangaPath(), $request) );
-        make_directory( $this->getFullPath($this->getVideoPath(), $request) );
+        make_directory($this->getFullPath($this->getMangaPath(), $request));
+        make_directory($this->getFullPath($this->getVideoPath(), $request));
 
         $manga = new Manga();
-        
-        $manga->manga_title = $request->manga_title;
+
+        $manga->name = $request->manga_title;
         $manga->slug = $request->slug;
         $manga->language = $request->language;
 
-        $manga->logo = file_upload( $this->getFullPath($this->getMangaPath(), $request), $request->logo );
+        $manga->logo = file_upload($this->getFullPath($this->getMangaPath(), $request), $request->logo);
 
         $manga->save();
 
@@ -99,9 +140,26 @@ class MangaController extends Controller
      * @param  \App\Manga  $manga
      * @return \Illuminate\Http\Response
      */
-    public function show(Manga $manga)
+    public function addTradeMark(Request $request)
     {
-        //
+        $request->validate([
+            'group_name' => 'required',
+            'trade_mark_manga' => 'required',
+            'group_language' => 'required|string|max:3',
+        ]);
+
+        $trade_mark = new Trade_marks();
+
+        $trade_mark->group_id = $request->group_name;
+        $trade_mark->manga_id = $request->trade_mark_manga;
+        $trade_mark->language = $request->group_language;
+
+        if ($trade_mark->save()) {
+            # code...
+            return redirect(route('dashboard'));
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**

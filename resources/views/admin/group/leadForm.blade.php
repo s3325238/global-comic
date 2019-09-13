@@ -88,7 +88,7 @@
             var token = $("input[name='_token']").val();
 
             $.ajax({
-                url: '{!! route('loadGroups') !!}' ,
+                url: '{!! route('group.loadGroups') !!}' ,
                 method: 'GET',
                 dataType: 'json',
                 data: {
@@ -110,7 +110,7 @@
             // alert(lang);
 
             $.ajax({
-                url: '{!! route('loadLeaders') !!}' ,
+                url: '{!! route('group.loadLeaders') !!}' ,
                 method: 'GET',
                 dataType: 'json',
                 data: {

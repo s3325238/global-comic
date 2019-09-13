@@ -80,7 +80,7 @@
     }
     $(document).ready(function() {
         emptyRefreshDisabled('#group_name','4');
-        emptyRefreshDisabled('#group_leader','4');
+        emptyRefreshDisabled('#trade_mark_manga','4');
 
         $('#group_language').change(function(){
             emptyRefreshDisabled('#group_leader','4')
@@ -88,7 +88,7 @@
             var token = $("input[name='_token']").val();
 
             $.ajax({
-                url: '{!! route('loadGroups') !!}' ,
+                url: '{!! route('manga.loadGroup') !!}' ,
                 method: 'GET',
                 dataType: 'json',
                 data: {
@@ -107,17 +107,17 @@
 
         $('#group_name').change(function(){
             var language = $('#group_language').val();
-            // alert(lang);
-
+            
+            // Need to change route
             $.ajax({
-                url: '{!! route('loadLeaders') !!}' ,
+                url: '{!! route('manga.loadManga') !!}' ,
                 method: 'GET',
                 dataType: 'json',
                 data: {
                     language: language,
                 },
                 success: function(data){
-                    forEachResponse('#group_leader', data);
+                    forEachResponse('#trade_mark_manga', data);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
     
@@ -151,51 +151,17 @@
                 </div>
             @endforeach
         @endif
-        <form action="{{ route('updateLeader') }}" method="post">
+        <form action="{{route('manga.add.trade_mark')}}" method="post">
             @csrf
             <div class="row">
                 <div class="col-md-4 col-sm-6">
-                    <div class="card">
-                        <div class="card-header card-header-text card-header-primary">
-                            <div class="card-text">
-                                <h4 class="card-title">Language</h4>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <select class="selectpicker" id="group_language" name="group_language"
-                                data-style="btn btn-primary btn-round" data-width="100%" title="Choose Language">
-                                {{-- <option disabled selected>Single Option</option> --}}
-                                <option value="vi">Vietnamese</option>
-                                <option value="en">English</option>
-                                <option value="jp">Japanese</option>
-                                <option value="kr">Korean</option>
-                            </select>
-                        </div>
-                    </div>
+                        @include('admin.manga.section.language')
                 </div>
                 <div class="col-md-4 col-sm-6">
-                    @include('admin.group.lead_section.group')
+                    @include('admin.manga.section.group')
                 </div>
                 <div class="col-md-4 col-sm-12">
-                    {{-- @include('admin.group.lead_section.leader') --}}
-                    <div class="card">
-                        <div class="card-header card-header-text card-header-success">
-                            <div class="card-text">
-                                <h4 class="card-title">Leader</h4>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <select class="selectpicker group_leader" id="group_leader" data-live-search="true" name="group_leader"
-                                data-style="btn btn-primary btn-round" data-width="100%" title="Choose Leader">
-                                <option disabled selected> Choose Leader</option>
-                                {{-- @foreach ($leaders as $leader)
-                                    <option value="{{ $leader->id }}">
-                                        {{ $leader->name }}
-                                    </option>
-                                @endforeach --}}
-                            </select>
-                        </div>
-                    </div>
+                    @include('admin.manga.section.manga')
                 </div>
             </div>
             <div class="row">

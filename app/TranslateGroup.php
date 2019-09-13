@@ -38,7 +38,7 @@ class TranslateGroup extends Model
     {
         return [
             'slug' => [
-                'source' => 'group_name',
+                'source' => 'name',
             ],
         ];
     }

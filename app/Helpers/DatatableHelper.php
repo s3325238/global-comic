@@ -2,6 +2,7 @@
 use App\Role;
 use App\Tasks;
 use App\User;
+use App\Trade_marks;
 use App\TranslateGroup;
 use Yajra\DataTables\DataTables;
 
@@ -52,7 +53,7 @@ if (!function_exists('role_data_table')) {
             })
             ->addColumn('action', function ($role) {
                 return '<a href="#" class="btn btn-link btn-info btn-just-icon info" id="' . $role->id . '"><i class="material-icons">info</i></a>
-                        <a href="' . route('permission.edit', $role->id) . '" class="btn btn-link btn-warning btn-just-icon edit" id="' . $role->id . '"><i class="material-icons">dvr</i></a>
+                        <a href="' . route('permission.edit', $role->id) . '" class="btn btn-link btn-warning btn-just-icon edit" id="' . $role->id . '"><i class="material-icons">edit</i></a>
                         <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $role->id . '"><i class="material-icons">close</i></a>';
             })
             ->editColumn('created_at', function (Role $role) {
@@ -121,6 +122,36 @@ if (!function_exists('group_data_table')) {
             })
             ->make(true);
     }
+}
+
+if (!function_exists('trade_mark_data_table')) {
+
+    # '.route('manga.edit',$trade_mark->id).'
+    function trade_mark_data_table($trade_mark)
+    {
+        return DataTables::of($trade_mark)
+            ->addColumn('id', function ($trade_mark) {
+                return $trade_mark->id;
+            })
+            ->editColumn('group_id', function (Trade_marks $trade_mark){
+                return $trade_mark->groupID->name;
+            })
+            ->editColumn('manga_id', function (Trade_marks $trade_mark){
+                return $trade_mark->mangaID->name;
+            })
+            ->addColumn('action', function ($trade_mark) {
+                return '<a href="" class="btn btn-link btn-warning btn-just-icon edit" id="' . $trade_mark->id . '"><i class="material-icons">edit</i></a>
+                        <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $trade_mark->id . '"><i class="material-icons">delete</i></a>';
+            })
+            ->editColumn('created_at', function (Trade_marks $trade_mark) {
+                return $trade_mark->created_at->diffForHumans();
+            })
+            ->editColumn('updated_at', function (Trade_marks $trade_mark) {
+                return $trade_mark->updated_at->diffForHumans();
+            })
+            ->make(true);
+    }
+
 }
 /**
 

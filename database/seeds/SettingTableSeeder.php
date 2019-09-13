@@ -16,6 +16,7 @@ class SettingTableSeeder extends Seeder
         DB::table('settings')->insert([
             'APP_NAME' => 'Global Comics',
             'MAIL_USERNAME' => 'global.comics.no.reply@gmail.com',
+            'GROUP_PATH' => 'site/upload/group',
             'MANGA_PATH' => 'site/upload/manga/',
             'VIDEO_PATH' => 'site/upload/video/',
             // 'MAIL_PASSWORD' => Hash::make('Chicken@92'),

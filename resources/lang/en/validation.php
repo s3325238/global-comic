@@ -136,7 +136,7 @@ return [
             'string' => 'Group name cannot be only number'
         ],
         'group_language' => [
-            'required' => 'You have not set language for the group!'
+            'required' => 'You have not set language!'
         ],
         'email' => [
             'required' => 'Please provide us your email.',
@@ -154,6 +154,9 @@ return [
         ],
         'language' => [
             'required' => 'You have not set the language'
+        ],
+        'trade_mark_manga' => [
+            'required' => 'You have not chosen manga'
         ]
     ],
 

@@ -24,11 +24,16 @@ class Manga extends Model
         return $query->select(array_diff($this->getColumns(), (array) $value));
     }
 
+    public function scopeLanguage($query, $lang)
+    {
+        return $query->where('language', '=', $lang);
+    }
+
     public function sluggable()
     {
         return [
             'slug' => [
-                'source' => 'manga_title',
+                'source' => 'name',
             ],
         ];
     }

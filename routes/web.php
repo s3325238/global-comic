@@ -52,7 +52,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
         'permission' => 'Dashboard\RoleController',
         'user' => 'Dashboard\UserController',
         'group' => 'Dashboard\GroupController',
-        'manga' => 'Dashboard\MangaController'
+        'manga' => 'Dashboard\MangaController',
     ], [
         'except' => ['show', 'destroy'],
     ]);
@@ -61,8 +61,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
 
     Route::group(['prefix' => 'manga'], function () {
         Route::group(['prefix' => 'action'], function () {
-            Route::get('create','Dashboard\MangaController@create')->name('manga.action.create');
-            Route::get('trade_mark/create','Dashboard\MangaController@tradeMark')->name('manga.action.create.trade_mark');
+            Route::get('create', 'Dashboard\MangaController@create')->name('manga.action.create');
+            Route::get('trade_mark/create', 'Dashboard\MangaController@tradeMark')->name('manga.action.create.trade_mark');
+
+            Route::get('/get/group', 'Dashboard\MangaController@loadGroup')->name('manga.loadGroup');
+            Route::get('/get/manga', 'Dashboard\MangaController@loadManga')->name('manga.loadManga');
+
+            Route::post('/trade_mark/add', 'Dashboard\MangaController@addTradeMark')->name('manga.add.trade_mark');
         });
     });
 
@@ -73,8 +78,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
 
             Route::get('leader', 'Dashboard\GroupController@leaderForm')->name('group.leader');
 
-            Route::get('/get/group', 'Dashboard\GroupController@loadGroups')->name('loadGroups');
-            Route::get('/get/leader', 'Dashboard\GroupController@loadLeaders')->name('loadLeaders');
+            Route::get('/get/group', 'Dashboard\GroupController@loadGroups')->name('group.loadGroups');
+            Route::get('/get/leader', 'Dashboard\GroupController@loadLeaders')->name('group.loadLeaders');
 
             Route::post('/leader/update', 'Dashboard\GroupController@updateLeader')->name('updateLeader');
         });
@@ -90,6 +95,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
     Route::group(['prefix' => 'permission'], function () {
         Route::get('/lists', 'Api\Permission@getLists')->name('api.permission.lists');
         Route::get('/lists/edit', 'Api\Permission@editData')->name('api.permission.lists.edit');
+
         Route::get('/lists/remove', 'Api\Permission@removeData')->name('api.permission.lists.remove');
     });
 
@@ -112,7 +118,12 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
 
             Route::get('/lists/remove', 'Api\GroupApi@groupRemove')->name('api.group.table.lists.remove');
         });
+    });
 
+    Route::group(['prefix' => 'manga'], function () {
+        Route::group(['prefix' => 'table'], function () {
+            Route::get('vietnamese', 'Api\MangaApi@getVietnameseTradeMarks')->name('api.manga.trade_mark.table.vietnamese');
+        });
     });
 
     Route::group(['prefix' => 'task'], function () {

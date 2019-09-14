@@ -21,7 +21,7 @@ class Permission extends Controller
     {
         $role = Role::select('id', 'role_name', 'created_at', 'updated_at')->get();
 
-        return role_data_table($role);
+        return load_role_data_table($role);
     }
 
     function editData(Request $request)
@@ -32,9 +32,7 @@ class Permission extends Controller
         
         $permission = [];
 
-        $index_title = "Add new permission";
-
-        return view('admin.permission.edit',compact(['role','permission','index_title']))->render();
+        return view('admin.permission.edit',compact(['role','permission']))->render();
     }
 
     function removeData(Request $request)

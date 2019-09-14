@@ -60,6 +60,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
     Route::apiResource('task', 'Dashboard\TasksController')->except(['show', 'destroy']);
 
     Route::group(['prefix' => 'manga'], function () {
+        Route::get('copyright', 'Dashboard\MangaController@copyrightIndex')->name('manga.copyright');
+
         Route::group(['prefix' => 'action'], function () {
             Route::get('create', 'Dashboard\MangaController@create')->name('manga.action.create');
             Route::get('trade_mark/create', 'Dashboard\MangaController@tradeMark')->name('manga.action.create.trade_mark');
@@ -69,6 +71,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
 
             Route::post('/trade_mark/add', 'Dashboard\MangaController@addTradeMark')->name('manga.add.trade_mark');
         });
+
     });
 
     Route::group(['prefix' => 'group'], function () {
@@ -83,7 +86,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
 
             Route::post('/leader/update', 'Dashboard\GroupController@updateLeader')->name('updateLeader');
 
-            Route::post('reset/{language}','Dashboard\GroupController@resetFollows')->name('follows.reset');
+            Route::post('reset/{language}', 'Dashboard\GroupController@resetFollows')->name('follows.reset');
         });
     });
 
@@ -103,10 +106,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
     });
 
     Route::group(['prefix' => 'user'], function () {
-        Route::get('vietnamese', 'Api\UserApi@getVietnameseUser')->name('api.user.vietnamese');
-        Route::get('english', 'Api\UserApi@getEnglishUser')->name('api.user.english');
-        Route::get('japanese', 'Api\UserApi@getJapaneseUser')->name('api.user.japanese');
-        Route::get('korean', 'Api\UserApi@getKoreanUser')->name('api.user.korean');
+        Route::get('language/{language}', 'Api\UserApi@getUser')->name('api.user.table');
         Route::get('unverified', 'Api\UserApi@getUnVerified')->name('api.user.not.verified');
 
         Route::get('/lists/remove', 'Api\UserApi@userRemove')->name('api.user.lists.remove');
@@ -114,21 +114,20 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
 
     Route::group(['prefix' => 'group'], function () {
         Route::group(['prefix' => 'table'], function () {
-            Route::get('vietnamese', 'Api\GroupApi@getVietnameseGroup')->name('api.group.table.vietnamese');
-            Route::get('english', 'Api\GroupApi@getEnglishGroup')->name('api.group.table.english');
-            Route::get('japanese', 'Api\GroupApi@getJapaneseGroup')->name('api.group.table.japanese');
-            Route::get('korean', 'Api\GroupApi@getKoreanGroup')->name('api.group.table.korean');
+            Route::get('language/{language}', 'Api\GroupApi@getGroup')->name('api.group.table');
 
             Route::get('/lists/remove', 'Api\GroupApi@groupRemove')->name('api.group.table.lists.remove');
         });
     });
 
-    Route::group(['prefix' => 'manga'], function () {
+    Route::group(['prefix' => 'copyright'], function () {
         Route::group(['prefix' => 'table'], function () {
-            Route::get('vietnamese', 'Api\MangaApi@getVietnameseTradeMarks')->name('api.manga.trade_mark.table.vietnamese');
-            Route::get('english', 'Api\MangaApi@getEnglishTradeMarks')->name('api.manga.trade_mark.table.english');
-            Route::get('japanese', 'Api\MangaApi@getJapaneseTradeMarks')->name('api.manga.trade_mark.table.japanese');
-            Route::get('korean', 'Api\MangaApi@getKoreanTradeMarks')->name('api.manga.trade_mark.table.korean');
+            Route::get('language/{language}', 'Api\MangaApi@getTradeMarks')->name('api.copyright.table');
+
+            Route::get('vietnamese', 'Api\MangaApi@getVietnameseTradeMarks')->name('api.copyright.table.vietnamese');
+            Route::get('english', 'Api\MangaApi@getEnglishTradeMarks')->name('api.copyright.table.english');
+            Route::get('japanese', 'Api\MangaApi@getJapaneseTradeMarks')->name('api.copyright.table.japanese');
+            Route::get('korean', 'Api\MangaApi@getKoreanTradeMarks')->name('api.copyright.table.korean');
         });
     });
 

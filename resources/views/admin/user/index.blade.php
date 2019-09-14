@@ -71,13 +71,13 @@
         var url;
 
         if (target == 'vi') {
-            url = '{!! route('api.user.vietnamese') !!}';
+            url = '{!! route('api.user.table','vi') !!}';
         } else if (target == 'en') {
-            url = '{!! route('api.user.english') !!}';
+            url = '{!! route('api.user.table','en') !!}';
         } else if (target == 'jp') {
-            url = '{!! route('api.user.japanese') !!}';
+            url = '{!! route('api.user.table','jp') !!}';
         } else if (target == 'kr') {
-            url = '{!! route('api.user.korean') !!}';
+            url = '{!! route('api.user.table','kr') !!}';
         } else {
             url = '{!! route('api.user.not.verified') !!}';
         }

@@ -53,27 +53,29 @@ class MangaController extends Controller
      */
     public function loadManga(Request $request)
     {
-        $array = [];
-
-        $exist_manga = Trade_marks::select('manga_id')->get();
-
-        foreach ($exist_manga as $manga) {
-            $array = Arr::prepend($array, $manga->manga_id);
-        }
-
-        $manga = Manga::select('id', 'name')->language($request->language)->whereNotIn('id', $array)->get();
+        $manga = loadMangaHelper($request->language,$array = []);
 
         return response()->json($manga);
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the registered manga.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         return view('admin.manga.index');
+    }
+
+    /**
+     * Display a listing of the available manga for registering.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function copyrightIndex()
+    {
+        return view('admin.manga.copyright_index');
     }
 
     /**

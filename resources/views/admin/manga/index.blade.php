@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title','Groups Management')
+@section('title','Manga Management')
 
 @section('content')
 <div class="content">
@@ -67,13 +67,13 @@
         var url = '';
 
         if (target == 'vi') {
-            url = '{!! route('api.manga.trade_mark.table.vietnamese') !!}';
+
         } else if (target == 'en') {
-            url = '{!! route('api.manga.trade_mark.table.english') !!}';
+            
         } else if (target == 'jp') {
-            url = '{!! route('api.manga.trade_mark.table.japanese') !!}';
+            
         } else if (target == 'kr') {
-            url = '{!! route('api.manga.trade_mark.table.korean') !!}';
+            
         }
 
 
@@ -88,9 +88,7 @@
             ],
             columns: [
                 { data: 'id', name: 'id' },
-                { data: 'group_id', name: 'group_id' },
-                { data: 'manga_id', name: 'manga_id' },
-                { data: 'created_at', name: 'created_at' },
+                { data: 'name', name: 'name' },
                 { data: 'updated_at', name: 'updated_at' },
                 {
                     data: 'action',
@@ -107,10 +105,10 @@
         })
     };
     $(document).ready(function () {
-        table_view('vi');
-        table_view('en');
-        table_view('jp');
-        table_view('kr');
+        // table_view('vi');
+        // table_view('en');
+        // table_view('jp');
+        // table_view('kr');
     });
 
     // Delete a record

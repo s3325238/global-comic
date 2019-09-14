@@ -10,31 +10,13 @@ use App\Trade_marks;
 
 class MangaApi extends Controller
 {
-    public function getVietnameseTradeMarks()
+    public function getTradeMarks($language)
     {
-        $vi = Trade_marks::select('id','group_id','manga_id','created_at','updated_at')->language('vi')->get();
-
-        return trade_mark_data_table($vi);
+        return load_trade_mark_data_table(get_trade_mark_model($language));
     }
 
-    public function getEnglishTradeMarks()
+    public function getVietnameseManga()
     {
-        $en = Trade_marks::select('id','group_id','manga_id','created_at','updated_at')->language('en')->get();
-
-        return trade_mark_data_table($en);
-    }
-
-    public function getJapaneseTradeMarks()
-    {
-        $jp = Trade_marks::select('id','group_id','manga_id','created_at','updated_at')->language('jp')->get();
-
-        return trade_mark_data_table($jp);
-    }
-
-    public function getKoreanTradeMarks()
-    {
-        $kr = Trade_marks::select('id','group_id','manga_id','created_at','updated_at')->language('kr')->get();
-
-        return trade_mark_data_table($kr);
+        $manga = loadMangaHelper('vi',$array = []);
     }
 }

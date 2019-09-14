@@ -2,12 +2,42 @@
 use App\Role;
 use App\Tasks;
 use App\User;
+use App\Manga;
 use App\Trade_marks;
 use App\TranslateGroup;
 use Yajra\DataTables\DataTables;
 
 if (!function_exists('make_manga_data_table')) {
     function make_manga_data_table($id)
+    {
+        return '<div class="material-datatables">
+        <table id="'.$id.'" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%"
+            style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID&nbsp;&nbsp;&nbsp;</th>
+                    <th>Manga Name</th>
+                    <th>Updated At</th>
+    
+                    <th class="disabled-sorting text-center">Actions</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>ID&nbsp;&nbsp;&nbsp;</th>
+                    <th>Manga Name</th>
+                    <th>Updated At</th>
+    
+                    <th class="text-center">Actions</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>';
+    }
+}
+
+if (!function_exists('make_copyright_data_table')) {
+    function make_copyright_data_table($id)
     {
         return '<div class="material-datatables">
         <table id="'.$id.'" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%"
@@ -82,7 +112,7 @@ if (!function_exists('make_group_data_table')) {
     }
 }
 
-if (!function_exists('user_data_table')) {
+if (!function_exists('load_user_data_table')) {
 
     /**
      * description
@@ -90,7 +120,7 @@ if (!function_exists('user_data_table')) {
      * @param
      * @return
      */
-    function user_data_table($user)
+    function load_user_data_table($user)
     {
         return DataTables::of($user)
             ->addColumn('id', function ($user) {
@@ -116,9 +146,9 @@ if (!function_exists('user_data_table')) {
     }
 }
 
-if (!function_exists('role_data_table')) {
+if (!function_exists('load_role_data_table')) {
 
-    function role_data_table($role)
+    function load_role_data_table($role)
     {
         return DataTables::of($role)
             ->addColumn('id', function ($role) {
@@ -142,10 +172,10 @@ if (!function_exists('role_data_table')) {
     }
 }
 
-if (!function_exists('personal_task_data_table')) {
+if (!function_exists('load_personal_task_data_table')) {
 
     # Get user_id == Auth::id()
-    function personal_task_data_table($task)
+    function load_personal_task_data_table($task)
     {
         return DataTables::of($task)
             ->addColumn('description', function ($task) {
@@ -170,8 +200,8 @@ if (!function_exists('personal_task_data_table')) {
 
 }
 
-if (!function_exists('group_data_table')) {
-    function group_data_table($groups)
+if (!function_exists('load_group_data_table')) {
+    function load_group_data_table($groups)
     {
         return DataTables::of($groups)
             ->addColumn('id', function ($groups) {
@@ -200,10 +230,10 @@ if (!function_exists('group_data_table')) {
     }
 }
 
-if (!function_exists('trade_mark_data_table')) {
+if (!function_exists('load_trade_mark_data_table')) {
 
     # '.route('manga.edit',$trade_mark->id).'
-    function trade_mark_data_table($trade_mark)
+    function load_trade_mark_data_table($trade_mark)
     {
         return DataTables::of($trade_mark)
             ->addColumn('id', function ($trade_mark) {
@@ -228,6 +258,27 @@ if (!function_exists('trade_mark_data_table')) {
             ->make(true);
     }
 
+}
+
+if (!function_exists('load_manga_data_table')) {
+    function load_manga_data_table($manga)
+    {
+        return DataTables::of($manga)
+            ->addColumn('id', function ($manga) {
+                return $manga->id;
+            })
+            ->addColumn('name', function ($manga) {
+                return $manga->name;
+            })
+            ->addColumn('action', function ($manga) {
+                return '<a href="" class="btn btn-link btn-warning btn-just-icon edit" id="' . $manga->id . '"><i class="material-icons">edit</i></a>
+                        <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $manga->id . '"><i class="material-icons">delete</i></a>';
+            })
+            ->editColumn('updated_at', function (Manga $manga) {
+                return $manga->updated_at->diffForHumans();
+            })
+            ->make(true);
+    }
 }
 /**
 

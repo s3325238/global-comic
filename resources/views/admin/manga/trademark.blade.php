@@ -155,7 +155,7 @@
             @csrf
             <div class="row">
                 <div class="col-md-4 col-sm-6">
-                        @include('admin.manga.section.language')
+                    @include('admin.manga.section.language')
                 </div>
                 <div class="col-md-4 col-sm-6">
                     @include('admin.manga.section.group')

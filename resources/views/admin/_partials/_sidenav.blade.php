@@ -118,20 +118,20 @@
                 <li class="nav-item {{ setSideBarActive(['dashboard/manga'],'active') }}">
                     <a class="nav-link" href="{{route('manga.index')}}">
                         <span class="sidebar-mini">
-                            <i class="far fa-registered"></i>
-                        </span>
-                        <span class="sidebar-normal"> 
-                            <p> Registered Manga Lists </p> 
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">
-                        <span class="sidebar-mini">
                             <i class="material-icons">event_available</i>
                         </span>
                         <span class="sidebar-normal"> 
                             <p> Available Manga Lists </p> 
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item {{ setSideBarActive(['dashboard/manga/copyright'],'active') }}">
+                    <a class="nav-link" href="{{route('manga.copyright')}}">
+                        <span class="sidebar-mini">
+                            <i class="fas fa-copyright"></i> 
+                        </span>
+                        <span class="sidebar-normal"> 
+                            <p> Copyright Lists </p> 
                         </span>
                     </a>
                 </li>

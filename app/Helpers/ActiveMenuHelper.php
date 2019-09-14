@@ -43,6 +43,9 @@ if (!function_exists('setPageTitle')) {
             case 'dashboard/manga':
                 return "Manga Management";
                 break;
+            case 'dashboard/manga/copyright':
+                return "Copyright Management";
+                break;
             case 'dashboard/manga/action/create':
                 return "Add new manga";
                 break;

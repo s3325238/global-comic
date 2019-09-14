@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title','Groups Management')
+@section('title','Copyright Management')
 
 @section('content')
 <div class="content">
@@ -32,16 +32,16 @@
                     <div class="card-body ">
                         <div class="tab-content">
                             <div class="tab-pane active" id="vietnamese">
-                                {!! make_group_data_table('vi') !!}
+                                {!! make_copyright_data_table('vi') !!}
                             </div>
                             <div class="tab-pane" id="english">
-                                {!! make_group_data_table('en') !!}
+                                {!! make_copyright_data_table('en') !!}
                             </div>
                             <div class="tab-pane" id="japanese">
-                                {!! make_group_data_table('jp') !!}
+                                {!! make_copyright_data_table('jp') !!}
                             </div>
                             <div class="tab-pane" id="korean">
-                                {!! make_group_data_table('kr') !!}
+                                {!! make_copyright_data_table('kr') !!}
                             </div>
                         </div>
                     </div>
@@ -67,13 +67,13 @@
         var url = '';
 
         if (target == 'vi') {
-            url = '{!! route('api.group.table','vi') !!}';
+            url = '{!! route('api.copyright.table','vi') !!}';
         } else if (target == 'en') {
-            url = '{!! route('api.group.table','en') !!}';
+            url = '{!! route('api.copyright.table','en') !!}';
         } else if (target == 'jp') {
-            url = '{!! route('api.group.table','jp') !!}';
+            url = '{!! route('api.copyright.table','jp') !!}';
         } else if (target == 'kr') {
-            url = '{!! route('api.group.table','kr') !!}';
+            url = '{!! route('api.copyright.table','kr') !!}';
         }
 
 
@@ -88,11 +88,10 @@
             ],
             columns: [
                 { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
-                { data: 'leader_id', name: 'leader_id' },
-                { data: 'follows', name: 'follows' },
-                { data: 'points', name: 'points' },
+                { data: 'group_id', name: 'group_id' },
+                { data: 'manga_id', name: 'manga_id' },
                 { data: 'created_at', name: 'created_at' },
+                { data: 'updated_at', name: 'updated_at' },
                 {
                     data: 'action',
                     className:"text-center",
@@ -115,54 +114,54 @@
     });
 
     // Delete a record
-    $(document).on('click', '.remove', function(e){
+    // $(document).on('click', '.remove', function(e){
 
-        e.preventDefault();
+    //     e.preventDefault();
 
-        var id = $(this).attr('id');
+    //     var id = $(this).attr('id');
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-                // console.log(id);
-                Swal.fire(
-                    {
-                        type: 'success',
-                        title: 'Successfully delete data!',
-                        html: '<span class="text-success">Your page will be refreshed shortly.</span>',
-                        showConfirmButton: false,
-                    },
-                    $.ajax({
-                        url:'{!! route('api.group.table.lists.remove') !!}',
-                        method: "GET" ,
-                        data:{
-                            id:id
-                        },
-                        success:function(data)
-                        {
-                            // console.log(data);
+    //     Swal.fire({
+    //         title: 'Are you sure?',
+    //         text: "You won't be able to revert this!",
+    //         type: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Yes, delete it!'
+    //     }).then((result) => {
+    //         if (result.value) {
+    //             // console.log(id);
+    //             Swal.fire(
+    //                 {
+    //                     type: 'success',
+    //                     title: 'Successfully delete data!',
+    //                     html: '<span class="text-success">Your page will be refreshed shortly.</span>',
+    //                     showConfirmButton: false,
+    //                 },
+    //                 $.ajax({
+    //                     url:'{!! route('api.group.table.lists.remove') !!}',
+    //                     method: "GET" ,
+    //                     data:{
+    //                         id:id
+    //                     },
+    //                     success:function(data)
+    //                     {
+    //                         // console.log(data);
 
-                            location.reload();
-                        }
-                    })
-                )
-            }else if (result.dismiss === Swal.DismissReason.cancel) {
-                // Cancel button is pressed
-                Swal.fire({
-                    type: 'info',
-                    title: 'Your data is safe!',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            }
-        });
-    });
+    //                         location.reload();
+    //                     }
+    //                 })
+    //             )
+    //         }else if (result.dismiss === Swal.DismissReason.cancel) {
+    //             // Cancel button is pressed
+    //             Swal.fire({
+    //                 type: 'info',
+    //                 title: 'Your data is safe!',
+    //                 showConfirmButton: false,
+    //                 timer: 1500
+    //             })
+    //         }
+    //     });
+    // });
 </script>
 @endpush

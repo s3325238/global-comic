@@ -120,14 +120,17 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
         });
     });
 
+    Route::group(['prefix' => 'manga'], function () {
+        Route::group(['prefix' => 'table'], function (){
+            Route::get('language/{language}','Api\MangaApi@getMangaList')->name('api.manga.table');
+
+            Route::get('/lists/remove','Api\MangaApi@removeManga')->name('api.manga.table.lists.remove');
+        });
+    });
+
     Route::group(['prefix' => 'copyright'], function () {
         Route::group(['prefix' => 'table'], function () {
             Route::get('language/{language}', 'Api\MangaApi@getTradeMarks')->name('api.copyright.table');
-
-            Route::get('vietnamese', 'Api\MangaApi@getVietnameseTradeMarks')->name('api.copyright.table.vietnamese');
-            Route::get('english', 'Api\MangaApi@getEnglishTradeMarks')->name('api.copyright.table.english');
-            Route::get('japanese', 'Api\MangaApi@getJapaneseTradeMarks')->name('api.copyright.table.japanese');
-            Route::get('korean', 'Api\MangaApi@getKoreanTradeMarks')->name('api.copyright.table.korean');
         });
     });
 

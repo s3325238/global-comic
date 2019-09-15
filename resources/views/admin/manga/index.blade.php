@@ -67,13 +67,13 @@
         var url = '';
 
         if (target == 'vi') {
-
+            url = '{!! route('api.manga.table','vi') !!}';
         } else if (target == 'en') {
-            
+            url = '{!! route('api.manga.table','en') !!}';
         } else if (target == 'jp') {
-            
+            url = '{!! route('api.manga.table','jp') !!}';
         } else if (target == 'kr') {
-            
+            url = '{!! route('api.manga.table','kr') !!}';
         }
 
 
@@ -105,61 +105,80 @@
         })
     };
     $(document).ready(function () {
-        // table_view('vi');
-        // table_view('en');
-        // table_view('jp');
-        // table_view('kr');
+        table_view('vi');
+        table_view('en');
+        table_view('jp');
+        table_view('kr');
     });
 
+    function formatErrorMessage(jqXHR, exception)
+    {
+        if (jqXHR.status === 0) {
+        return ('Not connected.\nPlease verify your network connection.');
+        } else if (jqXHR.status == 404) {
+            return ('The requested page not found.');
+        }  else if (jqXHR.status == 401) {
+            return ('Sorry!! You session has expired. Please login to continue access.');
+        } else if (jqXHR.status == 500) {
+            return ('Internal Server Error.');
+        } else if (exception === 'parsererror') {
+            return ('Requested JSON parse failed.');
+        } else if (exception === 'timeout') {
+            return ('Time out error.');
+        } else if (exception === 'abort') {
+            return ('Ajax request aborted.');
+        } else {
+            return ('Unknown error occured. Please try again.');
+        }
+    }
+
     // Delete a record
-    // $(document).on('click', '.remove', function(e){
+    $(document).on('click', '.remove', function(e){
 
-    //     e.preventDefault();
+        e.preventDefault();
 
-    //     var id = $(this).attr('id');
+        var id = $(this).attr('id');
 
-    //     Swal.fire({
-    //         title: 'Are you sure?',
-    //         text: "You won't be able to revert this!",
-    //         type: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes, delete it!'
-    //     }).then((result) => {
-    //         if (result.value) {
-    //             // console.log(id);
-    //             Swal.fire(
-    //                 {
-    //                     type: 'success',
-    //                     title: 'Successfully delete data!',
-    //                     html: '<span class="text-success">Your page will be refreshed shortly.</span>',
-    //                     showConfirmButton: false,
-    //                 },
-    //                 $.ajax({
-    //                     url:'{!! route('api.group.table.lists.remove') !!}',
-    //                     method: "GET" ,
-    //                     data:{
-    //                         id:id
-    //                     },
-    //                     success:function(data)
-    //                     {
-    //                         // console.log(data);
-
-    //                         location.reload();
-    //                     }
-    //                 })
-    //             )
-    //         }else if (result.dismiss === Swal.DismissReason.cancel) {
-    //             // Cancel button is pressed
-    //             Swal.fire({
-    //                 type: 'info',
-    //                 title: 'Your data is safe!',
-    //                 showConfirmButton: false,
-    //                 timer: 1500
-    //             })
-    //         }
-    //     });
-    // });
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                // console.log(id);
+                Swal.fire(
+                    {
+                        type: 'success',
+                        title: 'Successfully delete data!',
+                        html: '<span class="text-success">Your page will be refreshed shortly.</span>',
+                        showConfirmButton: false,
+                    },
+                    $.ajax({
+                        url:'{!! route('api.manga.table.lists.remove') !!}',
+                        method: "GET" ,
+                        data:{
+                            id:id
+                        },
+                        success:function(data)
+                        {
+                            location.reload();
+                        },
+                    })
+                )
+            }else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Cancel button is pressed
+                Swal.fire({
+                    type: 'info',
+                    title: 'Your data is safe!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        });
+    });
 </script>
 @endpush

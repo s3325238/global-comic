@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 // Model
 use App\Manga;
+use App\Trade_marks;
 
 class MangaApi extends Controller
 {
@@ -20,28 +21,17 @@ class MangaApi extends Controller
         return load_manga_data_table(loadMangaHelper($language, $array = []));
     }
 
-    public function removeManga(Request $request)
+    public function removeCopyright(Request $request)
     {
-        $id = $request->input('id');
+        get_model_delete('copyright', $request);
 
-        $manga = Manga::find($id);
-
-        if ($manga == null) {
-            return request()->session()->flash('alert-danger', 'Invalid data id!');
-        }
-
-        if ($manga->delete()) {
-            return redirect()->back();
-
-        } else {
-            return request()->session()->flash('alert-danger', 'Failed to delete record!');
-        }
+        return redirect()->back();
     }
 
-    public function getVietnameseManga()
+    public function removeManga(Request $request)
     {
-        $manga = loadMangaHelper('vi', $array = []);
+        get_model_delete('manga', $request);
 
-        return load_manga_data_table($manga);
+        return redirect()->back();
     }
 }

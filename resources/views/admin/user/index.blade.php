@@ -33,22 +33,19 @@
             <div class="card-body ">
                 <div class="tab-content">
                     <div class="tab-pane active" id="un_verified">
-                        @include('admin.user.tab_pills.un_verified_tab')
-                        {{-- @include('admin.user.tab_pills.vietnamese_tab') --}}
+                        {!! make_user_data_table('notactive') !!}
                     </div>
                     <div class="tab-pane" id="vietnamese">
-                        @include('admin.user.tab_pills.vietnamese_tab')
-                        {{-- @include('admin.user.tab_pills.english_tab') --}}
+                        {!! make_user_data_table('vi') !!}
                     </div>
                     <div class="tab-pane" id="english">
-                        @include('admin.user.tab_pills.english_tab')
-                        {{-- @include('admin.user.tab_pills.vietnamese_tab') --}}
+                        {!! make_user_data_table('en') !!}
                     </div>
                     <div class="tab-pane" id="japanese">
-                        @include('admin.user.tab_pills.japanese_tab')
+                        {!! make_user_data_table('jp') !!}
                     </div>
                     <div class="tab-pane" id="korean">
-                        @include('admin.user.tab_pills.korean_tab')
+                        {!! make_user_data_table('kr') !!}
                     </div>
                 </div>
             </div>

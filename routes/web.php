@@ -131,6 +131,8 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
     Route::group(['prefix' => 'copyright'], function () {
         Route::group(['prefix' => 'table'], function () {
             Route::get('language/{language}', 'Api\MangaApi@getTradeMarks')->name('api.copyright.table');
+
+            Route::get('/lists/remove', 'Api\MangaApi@removeCopyright')->name('api.manga.copyright.remove');
         });
     });
 

@@ -165,8 +165,9 @@
                 </li>
             </div>
             <!-- User & permission management -->
-            @can('isAdmin', Auth::user())
+            {{-- @can('isAdmin', Auth::user()) --}}
                 <div class="user">
+                    @can('viewUserLists', Auth::user())
                     <li class="nav-item {{ setSideBarActive(['dashboard/user*'],'active') }}">
                         <a class="nav-link" data-toggle="collapse" href="#users" aria-expanded="{{ setSideBarActive(['dashboard/user*'],'true') }}">
                             <i class="fas fa-users"></i>
@@ -194,6 +195,7 @@
                                         <span class="sidebar-normal"> Group Lead </span>
                                     </a>
                                 </li>
+                                @can('createNewUser', Auth::user())
                                 <li class="nav-item {{ setSideBarActive(['dashboard/user/create'],'active') }} ">
                                     <a class="nav-link" href="{{ route('user.create') }}">
                                         <span class="sidebar-mini">
@@ -202,9 +204,12 @@
                                         <span class="sidebar-normal"> Add new user </span>
                                     </a>
                                 </li>
+                                @endcan
                             </ul>
                         </div>
                     </li>
+                    @endcan
+                    @can('editAll', Auth::user())
                     <li class="nav-item {{ setSideBarActive(['dashboard/permission*'],'active') }} ">
                         <a class="nav-link" data-toggle="collapse" href="#permission" aria-expanded="{{ setSideBarActive(['dashboard/permission*'],'true') }}">
                             <i class="fas fa-universal-access"></i>
@@ -222,6 +227,7 @@
                                         <span class="sidebar-normal"> Add new role </span>
                                     </a>
                                 </li>
+                                
                                 <li class="nav-item {{ setSideBarActive(['dashboard/permission','dashboard/permission/*/edit'],'active') }}">
                                     <a class="nav-link" href="{{ route('permission.index') }}">
                                         <span class="sidebar-mini">
@@ -233,14 +239,18 @@
                             </ul>
                         </div>
                     </li>
+                    @endcan
                 </div>
+            {{-- @endcan --}}
+
+            @can('changeSettings', Auth::user())
+                <li class="nav-item ">
+                    <a class="nav-link" href="../examples/widgets.html">
+                        <i class="fas fa-cogs"></i>
+                        <p> Settings </p>
+                    </a>
+                </li>
             @endcan
-            <li class="nav-item ">
-                <a class="nav-link" href="../examples/widgets.html">
-                    <i class="fas fa-cogs"></i>
-                    <p> Settings </p>
-                </a>
-            </li>
             <li class="nav-item ">
                 <a class="nav-link" href="../examples/charts.html">
                     <i class="material-icons">timeline</i>

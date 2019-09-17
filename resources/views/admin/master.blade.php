@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title') | {{ env('APP_NAME') }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSS Files -->
     <link href="{{ asset('admin/css/material-dashboard.css') }}" rel="stylesheet" />
     <!--     Fonts and icons     -->

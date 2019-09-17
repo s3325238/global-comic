@@ -114,54 +114,53 @@
     });
 
     // Delete a record
-    // $(document).on('click', '.remove', function(e){
+    $(document).on('click', '.remove', function(e){
 
-    //     e.preventDefault();
+        e.preventDefault();
 
-    //     var id = $(this).attr('id');
+        var id = $(this).attr('id');
+        var csrf_token = $('meta[name="csrf-token"]').attr('content') ;
 
-    //     Swal.fire({
-    //         title: 'Are you sure?',
-    //         text: "You won't be able to revert this!",
-    //         type: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes, delete it!'
-    //     }).then((result) => {
-    //         if (result.value) {
-    //             // console.log(id);
-    //             Swal.fire(
-    //                 {
-    //                     type: 'success',
-    //                     title: 'Successfully delete data!',
-    //                     html: '<span class="text-success">Your page will be refreshed shortly.</span>',
-    //                     showConfirmButton: false,
-    //                 },
-    //                 $.ajax({
-    //                     url:'{!! route('api.group.table.lists.remove') !!}',
-    //                     method: "GET" ,
-    //                     data:{
-    //                         id:id
-    //                     },
-    //                     success:function(data)
-    //                     {
-    //                         // console.log(data);
-
-    //                         location.reload();
-    //                     }
-    //                 })
-    //             )
-    //         }else if (result.dismiss === Swal.DismissReason.cancel) {
-    //             // Cancel button is pressed
-    //             Swal.fire({
-    //                 type: 'info',
-    //                 title: 'Your data is safe!',
-    //                 showConfirmButton: false,
-    //                 timer: 1500
-    //             })
-    //         }
-    //     });
-    // });
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                // console.log(csrf_token);
+                Swal.fire(
+                    {
+                        type: 'success',
+                        title: 'Successfully delete data!',
+                        html: '<span class="text-success">Your page will be refreshed shortly.</span>',
+                        showConfirmButton: false,
+                    },
+                    $.ajax({
+                        url:'{!! route('api.manga.copyright.remove') !!}',
+                        method: "GET" ,
+                        data:{
+                            id:id
+                        },
+                        success:function(data)
+                        {
+                            location.reload();
+                        },
+                    })
+                )
+            }else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Cancel button is pressed
+                Swal.fire({
+                    type: 'info',
+                    title: 'Your data is safe!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        });
+    });
 </script>
 @endpush

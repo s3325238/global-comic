@@ -7,6 +7,39 @@ use App\Trade_marks;
 use App\TranslateGroup;
 use Yajra\DataTables\DataTables;
 
+if (!function_exists('make_user_data_table')) {
+    function make_user_data_table($id)
+    {
+        return '<div class="material-datatables">
+        <table id="'.$id.'" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%"
+            style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID&nbsp;&nbsp;&nbsp;</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+    
+                    <th class="disabled-sorting text-center">Actions</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>ID&nbsp;&nbsp;&nbsp;</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+    
+                    <th class="text-center">Actions</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>';
+    }
+}
+
 if (!function_exists('make_manga_data_table')) {
     function make_manga_data_table($id)
     {
@@ -133,8 +166,17 @@ if (!function_exists('load_user_data_table')) {
                 return $user->email;
             })
             ->addColumn('action', function ($user) {
-                return '<a href="#" class="btn btn-link btn-warning btn-just-icon edit" id="' . $user->id . '"><i class="material-icons">edit</i></a>
+                if (Gate::allows('editAll',Auth::user())) {
+                    return '<a href="#" class="btn btn-link btn-warning btn-just-icon edit" id="' . $user->id . '"><i class="material-icons">edit</i></a>
                         <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $user->id . '"><i class="material-icons">delete</i></a>';
+                } else if (Gate::allows('updateUser', Auth::user())) {
+                    if (Gate::allows('deleteUser',Auth::user())) {
+                        return '<a href="#" class="btn btn-link btn-warning btn-just-icon edit" id="' . $user->id . '"><i class="material-icons">edit</i></a>
+                        <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $user->id . '"><i class="material-icons">delete</i></a>';
+                    } else {
+                        return '<a href="#" class="btn btn-link btn-warning btn-just-icon edit" id="' . $user->id . '"><i class="material-icons">edit</i></a>';
+                    }
+                }
             })
             ->editColumn('created_at', function (User $user) {
                 return $user->created_at->diffForHumans();

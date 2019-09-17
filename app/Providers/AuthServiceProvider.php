@@ -26,7 +26,20 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
         $this->registerSideBarPermission();
 
+        $this->registerSideBarAccess();
+
         //
+    }
+
+    public function registerSideBarAccess()
+    {
+        Gate::define('editAll','App\Policies\SideBarAccess@editAll');
+        Gate::define('changeSettings','App\Policies\SideBarAccess@changeSettings');
+        // User Permission
+        Gate::define('viewUserLists','App\Policies\SideBarAccess@viewUserLists');
+        Gate::define('createNewUser','App\Policies\SideBarAccess@createNewUser');
+        Gate::define('updateUser','App\Policies\SideBarAccess@updateUser');
+        Gate::define('deleteUser','App\Policies\SideBarAccess@deleteUser');
     }
 
     public function registerSideBarPermission()

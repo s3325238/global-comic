@@ -166,11 +166,11 @@ if (!function_exists('load_user_data_table')) {
                 return $user->email;
             })
             ->addColumn('action', function ($user) {
-                if (Gate::allows('editAll',Auth::user())) {
+                if (Gate::allows('edit-all',Auth::user())) {
                     return '<a href="#" class="btn btn-link btn-warning btn-just-icon edit" id="' . $user->id . '"><i class="material-icons">edit</i></a>
                         <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $user->id . '"><i class="material-icons">delete</i></a>';
-                } else if (Gate::allows('updateUser', Auth::user())) {
-                    if (Gate::allows('deleteUser',Auth::user())) {
+                } else if (Gate::allows('update-user', Auth::user())) {
+                    if (Gate::allows('delete-user',Auth::user())) {
                         return '<a href="#" class="btn btn-link btn-warning btn-just-icon edit" id="' . $user->id . '"><i class="material-icons">edit</i></a>
                         <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $user->id . '"><i class="material-icons">delete</i></a>';
                     } else {
@@ -262,8 +262,17 @@ if (!function_exists('load_group_data_table')) {
                 return $groups->points;
             })
             ->addColumn('action', function ($groups) {
-                return '<a href="'.route('group.edit',$groups->id).'" class="btn btn-link btn-warning btn-just-icon edit" id="' . $groups->id . '"><i class="material-icons">edit</i></a>
+                if (Gate::allows('edit-all',Auth::user())) {
+                    return '<a href="'.route('group.edit',$groups->id).'" class="btn btn-link btn-warning btn-just-icon edit" id="' . $groups->id . '"><i class="material-icons">edit</i></a>
                         <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $groups->id . '"><i class="material-icons">delete</i></a>';
+                } else if (Gate::allows('update-group', Auth::user())) {
+                    if (Gate::allows('delete-group',Auth::user())) {
+                        return '<a href="'.route('group.edit',$groups->id).'" class="btn btn-link btn-warning btn-just-icon edit" id="' . $groups->id . '"><i class="material-icons">edit</i></a>
+                        <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $groups->id . '"><i class="material-icons">delete</i></a>';
+                    } else {
+                        return '<a href="'.route('group.edit',$groups->id).'" class="btn btn-link btn-warning btn-just-icon edit" id="' . $groups->id . '"><i class="material-icons">edit</i></a>';
+                    }
+                }
             })
             ->editColumn('created_at', function (TranslateGroup $groups) {
                 return $groups->created_at->diffForHumans();

@@ -155,13 +155,13 @@
             @csrf
             <div class="row">
                 <div class="col-md-4 col-sm-6">
-                    @include('admin.manga.section.language')
+                    {!! make_language_select_option('group_language') !!}
                 </div>
                 <div class="col-md-4 col-sm-6">
-                    @include('admin.manga.section.group')
+                    {!! make_disabled_select_option('info','Group','group_name') !!}
                 </div>
                 <div class="col-md-4 col-sm-12">
-                    @include('admin.manga.section.manga')
+                    {!! make_disabled_select_option('success','Manga','trade_mark_manga') !!}
                 </div>
             </div>
             <div class="row">

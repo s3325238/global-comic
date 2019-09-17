@@ -19,6 +19,14 @@ class SideBarAccess
         //
     }
 
+    public function assignTask($user)
+    {
+        if ($user->role->assign_task == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
     public function editAll($user)
     {
         if ($user->role_id == '99') {
@@ -34,6 +42,84 @@ class SideBarAccess
         }
         return false;
     }
+
+    // Manga & Copyright Permission
+
+    public function viewMangaLists($user)
+    {
+        if ($user->role->view_manga == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public function createNewManga($user)
+    {
+        if ($user->role->create_manga == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public function updateManga($user)
+    {
+        if ($user->role->update_manga == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteManga($user)
+    {
+        if ($user->role->delete_manga == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public function accessCopyright($user)
+    {
+        if ($user->role->add_copyright == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    // Group Permission
+
+    public function viewGroupLists($user)
+    {
+        if ($user->role->view_group == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public function createNewGroup($user)
+    {
+        if ($user->role->create_group == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public function updateGroup($user)
+    {
+        if ($user->role->update_group == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteGroup($user)
+    {
+        if ($user->role->delete_group == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    // User CRUD permission
 
     public function viewUserLists($user)
     {

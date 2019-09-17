@@ -70,51 +70,54 @@
                 </li>
             </div>
             <!-- Group Management -->
-            @can('isAdmin', Auth::user())
-                <div class="user">
-                    <li class="nav-item {{ setSideBarActive(['dashboard/group', 'dashboard/group/*/edit'],'active') }}">
-                        <a class="nav-link" href="{{ route('group.index') }}">
-                            <span class="sidebar-mini">
-                                <i class="fas fa-list-alt"></i>
-                            </span>
-                            <span class="sidebar-normal"> 
-                                <p> Group Lists </p> 
-                            </span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ setSideBarActive(['dashboard/group/action*'],'active') }}">
-                        <a class="nav-link" data-toggle="collapse" href="#groupAction" aria-expanded="{{ setSideBarActive(['dashboard/group/action*'],'true') }}">
-                            <i class="fas fa-bars"></i>
-                            <p> Group action
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse {{ setSideBarActive(['dashboard/group/action*'],'show active') }}" id="groupAction">
-                            <ul class="nav">
-                                <li class="nav-item {{ setSideBarActive(['dashboard/group/action/create'],'active') }}">
-                                    <a class="nav-link" href="{{ route('group.action.create') }}">
-                                        <span class="sidebar-mini">
-                                            <i class="fas fa-plus-circle"></i> 
-                                        </span>
-                                        <span class="sidebar-normal"> Add new group </span>
-                                    </a>
-                                </li>
-                                <li class="nav-item  {{ setSideBarActive(['dashboard/group/action/leader'],'active') }}">
-                                    <a class="nav-link" href="{{ route('group.leader') }}">
-                                        <span class="sidebar-mini">
-                                            <i class="fas fa-user-graduate"></i> 
-                                        </span>
-                                        <span class="sidebar-normal"> Add new leader </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </div>
-            @endcan
+            <div class="user">
+                @can('view-group', Auth::user())
+                <li class="nav-item {{ setSideBarActive(['dashboard/group', 'dashboard/group/*/edit'],'active') }}">
+                    <a class="nav-link" href="{{ route('group.index') }}">
+                        <span class="sidebar-mini">
+                            <i class="fas fa-list-alt"></i>
+                        </span>
+                        <span class="sidebar-normal"> 
+                            <p> Group Lists </p> 
+                        </span>
+                    </a>
+                </li>
+                @endcan
+                @can('create-group', Auth::user())
+                <li class="nav-item {{ setSideBarActive(['dashboard/group/action*'],'active') }}">
+                    <a class="nav-link" data-toggle="collapse" href="#groupAction" aria-expanded="{{ setSideBarActive(['dashboard/group/action*'],'true') }}">
+                        <i class="fas fa-bars"></i>
+                        <p> Group action
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse {{ setSideBarActive(['dashboard/group/action*'],'show active') }}" id="groupAction">
+                        <ul class="nav">
+                            <li class="nav-item {{ setSideBarActive(['dashboard/group/action/create'],'active') }}">
+                                <a class="nav-link" href="{{ route('group.action.create') }}">
+                                    <span class="sidebar-mini">
+                                        <i class="fas fa-plus-circle"></i> 
+                                    </span>
+                                    <span class="sidebar-normal"> Add new group </span>
+                                </a>
+                            </li>
+                            <li class="nav-item  {{ setSideBarActive(['dashboard/group/action/leader'],'active') }}">
+                                <a class="nav-link" href="{{ route('group.leader') }}">
+                                    <span class="sidebar-mini">
+                                        <i class="fas fa-user-graduate"></i> 
+                                    </span>
+                                    <span class="sidebar-normal"> Add new leader </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                @endcan
+            </div>
 
             <!-- Manga & Trademark registered lists -->
             <div class="user">
+                @can('view-manga', Auth::user())
                 <li class="nav-item {{ setSideBarActive(['dashboard/manga'],'active') }}">
                     <a class="nav-link" href="{{route('manga.index')}}">
                         <span class="sidebar-mini">
@@ -125,6 +128,8 @@
                         </span>
                     </a>
                 </li>
+                @endcan
+                @can('access-copyright', Auth::user())
                 <li class="nav-item {{ setSideBarActive(['dashboard/manga/copyright'],'active') }}">
                     <a class="nav-link" href="{{route('manga.copyright')}}">
                         <span class="sidebar-mini">
@@ -135,6 +140,8 @@
                         </span>
                     </a>
                 </li>
+                @endcan
+                @can('create-manga', Auth::user())
                 <li class="nav-item {{ setSideBarActive(['dashboard/manga/action*'],'active') }}">
                     <a class="nav-link" data-toggle="collapse" href="#mangaAction" aria-expanded="false">
                         <i class="fas fa-bars"></i>
@@ -152,6 +159,7 @@
                                     <span class="sidebar-normal"> Add new manga </span>
                                 </a>
                             </li>
+                            @can('access-copyright', Auth::user())
                             <li class="nav-item {{ setSideBarActive(['dashboard/manga/action/trade_mark/create'],'active') }}">
                                 <a class="nav-link" href="{{route('manga.action.create.trade_mark')}}">
                                     <span class="sidebar-mini">
@@ -160,14 +168,16 @@
                                     <span class="sidebar-normal"> Add new copyright </span>
                                 </a>
                             </li>
+                            @endcan
                         </ul>
                     </div>
                 </li>
+                @endcan
             </div>
             <!-- User & permission management -->
             {{-- @can('isAdmin', Auth::user()) --}}
                 <div class="user">
-                    @can('viewUserLists', Auth::user())
+                    @can('view-user', Auth::user())
                     <li class="nav-item {{ setSideBarActive(['dashboard/user*'],'active') }}">
                         <a class="nav-link" data-toggle="collapse" href="#users" aria-expanded="{{ setSideBarActive(['dashboard/user*'],'true') }}">
                             <i class="fas fa-users"></i>
@@ -185,6 +195,7 @@
                                         <span class="sidebar-normal"> Normal User Lists </span>
                                     </a>
                                 </li>
+                                @can('edit-all', Auth::user())
                                 <li class="nav-item  ">
                                     <a class="nav-link" href="#">
                                             {{-- {{ setSideBarActive(['dashboard/user'],'active') }} --}}
@@ -195,7 +206,9 @@
                                         <span class="sidebar-normal"> Group Lead </span>
                                     </a>
                                 </li>
-                                @can('createNewUser', Auth::user())
+                                @endcan
+                                
+                                @can('create-user', Auth::user())
                                 <li class="nav-item {{ setSideBarActive(['dashboard/user/create'],'active') }} ">
                                     <a class="nav-link" href="{{ route('user.create') }}">
                                         <span class="sidebar-mini">
@@ -243,7 +256,7 @@
                 </div>
             {{-- @endcan --}}
 
-            @can('changeSettings', Auth::user())
+            @can('change-settings', Auth::user())
                 <li class="nav-item ">
                     <a class="nav-link" href="../examples/widgets.html">
                         <i class="fas fa-cogs"></i>

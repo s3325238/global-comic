@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -33,17 +33,30 @@ class AuthServiceProvider extends ServiceProvider
 
     public function registerSideBarAccess()
     {
-        Gate::define('editAll','App\Policies\SideBarAccess@editAll');
-        Gate::define('changeSettings','App\Policies\SideBarAccess@changeSettings');
+        Gate::define('assign-task', 'App\Policies\SideBarAccess@assignTask');
+        Gate::define('edit-all', 'App\Policies\SideBarAccess@editAll');
+        Gate::define('change-settings', 'App\Policies\SideBarAccess@changeSettings');
+        // Manga Permission
+        Gate::define('view-manga', 'App\Policies\SideBarAccess@viewMangaLists');
+        Gate::define('create-manga', 'App\Policies\SideBarAccess@createNewManga');
+        Gate::define('update-manga', 'App\Policies\SideBarAccess@updateManga');
+        Gate::define('delete-manga', 'App\Policies\SideBarAccess@deleteManga');
+        // Copyright Permission
+        Gate::define('access-copyright', 'App\Policies\SideBarAccess@accessCopyright');
+        // Group Permission
+        Gate::define('view-group', 'App\Policies\SideBarAccess@viewGroupLists');
+        Gate::define('create-group', 'App\Policies\SideBarAccess@createNewGroup');
+        Gate::define('update-group', 'App\Policies\SideBarAccess@updateGroup');
+        Gate::define('delete-group', 'App\Policies\SideBarAccess@deleteGroup');
         // User Permission
-        Gate::define('viewUserLists','App\Policies\SideBarAccess@viewUserLists');
-        Gate::define('createNewUser','App\Policies\SideBarAccess@createNewUser');
-        Gate::define('updateUser','App\Policies\SideBarAccess@updateUser');
-        Gate::define('deleteUser','App\Policies\SideBarAccess@deleteUser');
+        Gate::define('view-user', 'App\Policies\SideBarAccess@viewUserLists');
+        Gate::define('create-user', 'App\Policies\SideBarAccess@createNewUser');
+        Gate::define('update-user', 'App\Policies\SideBarAccess@updateUser');
+        Gate::define('delete-user', 'App\Policies\SideBarAccess@deleteUser');
     }
 
     public function registerSideBarPermission()
     {
-        Gate::define('isAdmin','App\Policies\sideBarPermissionPolicy@isAdmin');
+        Gate::define('isAdmin', 'App\Policies\sideBarPermissionPolicy@isAdmin');
     }
 }

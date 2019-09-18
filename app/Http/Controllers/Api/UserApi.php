@@ -19,7 +19,7 @@ class UserApi extends Controller
 
     public function getUser($language)
     {
-        return load_user_data_table(get_user_viewers_model($language));
+        return load_user_data_table(get_model('user_viewer',$language));
     }
 
     public function getUnVerified()

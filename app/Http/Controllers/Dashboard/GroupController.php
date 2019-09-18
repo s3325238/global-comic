@@ -7,6 +7,9 @@ use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
+use Spatie\Activitylog\Contracts\Activity;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Auth;
 
 // Model
 use App\User;
@@ -19,6 +22,8 @@ use \Illuminate\Http\Response;
 
 class GroupController extends Controller
 {
+    use LogsActivity;
+
     public function __construct()
     {
         $this->middleware(['admin']);
@@ -36,13 +41,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $index_title = "Groups Management";
-
-        // $url = action([HomeController::class, 'index']);
-
-        // dd($url);
-
-        return view('admin.group.index', compact(['index_title']));
+        return view('admin.group.index');
     }
 
     /**
@@ -134,7 +133,24 @@ class GroupController extends Controller
             'group_leader' => 'required',
         ]);
 
-        TranslateGroup::where('id', $request->group_name)->update(['leader_id' => $request->group_leader]);
+        // TranslateGroup::where('id', $request->group_name)->update(['leader_id' => $request->group_leader]);
+
+        // $group = TranslateGroup::where('id', $request->group_name)->get();
+        $group = TranslateGroup::findOrFail($request->group_name);
+        $group->update(['leader_id' => $request->group_leader]);
+
+        activity()
+            ->causedBy(Auth::user())
+            ->performedOn($group)
+            ->withProperties(
+                [
+                    'attributes' => [
+                        'name' => $group->name,
+                        'leader_id' => $request->group_leader
+                    ],
+                ]
+            )
+            ->log('Add new leader');
 
         return redirect(route('group.index'));
     }
@@ -209,13 +225,11 @@ class GroupController extends Controller
 
     public function resetFollows($lang)
     {
-        # code...
         TranslateGroup::query()->select_Language($lang)
                     ->update([
                         'follows' => '0',
                         'points' => '0'
                     ]);
-
         return redirect()->back();
     }
 }

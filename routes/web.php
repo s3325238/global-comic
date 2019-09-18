@@ -53,6 +53,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
         'user' => 'Dashboard\UserController',
         'group' => 'Dashboard\GroupController',
         'manga' => 'Dashboard\MangaController',
+        'logs' => 'Dashboard\ActivityController',
     ], [
         'except' => ['show', 'destroy'],
     ]);
@@ -121,10 +122,10 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
     });
 
     Route::group(['prefix' => 'manga'], function () {
-        Route::group(['prefix' => 'table'], function (){
-            Route::get('language/{language}','Api\MangaApi@getMangaList')->name('api.manga.table');
+        Route::group(['prefix' => 'table'], function () {
+            Route::get('language/{language}', 'Api\MangaApi@getMangaList')->name('api.manga.table');
 
-            Route::get('/lists/remove','Api\MangaApi@removeManga')->name('api.manga.table.lists.remove');
+            Route::get('/lists/remove', 'Api\MangaApi@removeManga')->name('api.manga.table.lists.remove');
         });
     });
 
@@ -138,6 +139,10 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
 
     Route::group(['prefix' => 'task'], function () {
         Route::get('personal', 'Api\TasksApi@getPersonalTask')->name('api.task.personal');
+    });
+
+    Route::group(['prefix' => 'logs'], function () {
+        Route::get('model/{type}/{modelName}', 'Api\LogApi@getLog')->name('api.log.model');
     });
 });
 

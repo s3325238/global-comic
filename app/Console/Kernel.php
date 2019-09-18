@@ -24,6 +24,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('activitylog:clean')->weekly();
+        // $schedule->call(function () {
+        //     DB::table('password_resets')->delete();
+        // })->daily();
+        
         // $schedule->command('inspire')
         //          ->hourly();
     }

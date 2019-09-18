@@ -3,22 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 // Model
-use App\Manga;
-use App\Trade_marks;
+use Illuminate\Http\Request;
 
 class MangaApi extends Controller
 {
     public function getTradeMarks($language)
     {
-        return load_trade_mark_data_table(get_trade_mark_model($language));
+        return load_trade_mark_data_table(get_model('copyright', $language));
     }
 
     public function getMangaList($language)
     {
-        return load_manga_data_table(loadMangaHelper($language, $array = []));
+        return load_manga_data_table(get_model('manga', $language));
     }
 
     public function removeCopyright(Request $request)

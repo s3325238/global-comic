@@ -1,6 +1,8 @@
 <?php
 
 namespace App;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Traits\CausesActivity;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
@@ -8,9 +10,22 @@ use Illuminate\Support\Facades\Schema;
 
 class TranslateGroup extends Model
 {
-    use Sluggable;
+    use Sluggable, LogsActivity, CausesActivity;
 
     protected $table = 'translate_groups';
+
+    protected $fillable = ['name', 'slug', 'leader_id', 'follows', 'points'];
+
+    protected static $logAttributes = ['name', 'slug', 'leader_id', 'follows', 'points'];
+
+    protected static $logOnlyDirty = true;
+
+    protected static $submitEmptyLogs = false;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Translate Group has been {$eventName}";
+    }
 
     protected function getColumns()
     {

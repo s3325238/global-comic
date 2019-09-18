@@ -53,7 +53,7 @@ class MangaController extends Controller
      */
     public function loadManga(Request $request)
     {
-        $manga = loadMangaHelper($request->language,$array = []);
+        $manga = get_model('manga',$request->language);
 
         return response()->json($manga);
     }

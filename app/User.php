@@ -5,9 +5,23 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Traits\CausesActivity;
+
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable , LogsActivity, CausesActivity;
+
+    protected static $logAttributes = ['name', 'email', 'language', 'status', 'avatar', 'role_id'];
+
+    protected static $logOnlyDirty = true;
+    
+    protected static $submitEmptyLogs = false;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "User has been {$eventName}";
+    }
 
     /**
      * List of columns in the table

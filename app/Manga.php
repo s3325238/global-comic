@@ -6,11 +6,25 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Traits\CausesActivity;
+
 class Manga extends Model
 {
-    use Sluggable;
+    use Sluggable, LogsActivity, CausesActivity;
     
     protected $table = 'mangas';
+
+    protected static $logAttributes = ['name', 'logo', 'language'];
+
+    protected static $logOnlyDirty = true;
+
+    protected static $submitEmptyLogs = false;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Manga has been {$eventName}";
+    }
 
     protected function getColumns()
     {

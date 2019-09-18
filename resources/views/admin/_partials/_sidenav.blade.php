@@ -222,7 +222,7 @@
                         </div>
                     </li>
                     @endcan
-                    @can('editAll', Auth::user())
+                    @can('edit-all', Auth::user())
                     <li class="nav-item {{ setSideBarActive(['dashboard/permission*'],'active') }} ">
                         <a class="nav-link" data-toggle="collapse" href="#permission" aria-expanded="{{ setSideBarActive(['dashboard/permission*'],'true') }}">
                             <i class="fas fa-universal-access"></i>
@@ -255,15 +255,23 @@
                     @endcan
                 </div>
             {{-- @endcan --}}
-
-            @can('change-settings', Auth::user())
-                <li class="nav-item ">
-                    <a class="nav-link" href="../examples/widgets.html">
-                        <i class="fas fa-cogs"></i>
-                        <p> Settings </p>
-                    </a>
-                </li>
+            @can('edit-all', Auth::user())
+            <li class="nav-item {{ setSideBarActive(['dashboard/logs*'],'active') }}">
+                <a class="nav-link" href="{{route('logs.index')}}">
+                    <i class="fas fa-history"></i>
+                    <p> Activity Logs </p>
+                </a>
+            </li>
             @endcan
+            @can('change-settings', Auth::user())
+            <li class="nav-item ">
+                <a class="nav-link" href="../examples/widgets.html">
+                    <i class="fas fa-cogs"></i>
+                    <p> Settings </p>
+                </a>
+            </li>
+            @endcan
+            
             <li class="nav-item ">
                 <a class="nav-link" href="../examples/charts.html">
                     <i class="material-icons">timeline</i>

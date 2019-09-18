@@ -32,15 +32,55 @@
                     <div class="card-body ">
                         <div class="tab-content">
                             <div class="tab-pane active" id="vietnamese">
+                                @can('edit-all', Auth::user())
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form action="{{route('follows.reset','vi')}}" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger">Reset follows & points</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                @endcan
                                 {!! make_group_data_table('vi') !!}
                             </div>
                             <div class="tab-pane" id="english">
+                                @can('edit-all', Auth::user())
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form action="{{route('follows.reset','en')}}" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger">Reset follows & points</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                @endcan
                                 {!! make_group_data_table('en') !!}
                             </div>
                             <div class="tab-pane" id="japanese">
+                                @can('edit-all', Auth::user())
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form action="{{route('follows.reset','jp')}}" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger">Reset follows & points</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                @endcan
                                 {!! make_group_data_table('jp') !!}
                             </div>
                             <div class="tab-pane" id="korean">
+                                @can('edit-all', Auth::user())
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form action="{{route('follows.reset','kr')}}" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger">Reset follows & points</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                @endcan
                                 {!! make_group_data_table('kr') !!}
                             </div>
                         </div>

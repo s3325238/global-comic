@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use Auth;
+use Spatie\Activitylog\Contracts\Activity;
 
 use App\Tasks;
 

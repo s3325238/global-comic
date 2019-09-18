@@ -75,7 +75,7 @@ if (!function_exists('get_model_delete')) {
 }
 
 if (!function_exists('get_log')) {
-    function get_log($type,$modelName)
+    function get_log($type, $modelName)
     {
         switch ($type) {
             case 'user':
@@ -83,7 +83,9 @@ if (!function_exists('get_log')) {
                 break;
 
             default:
-                # code...
+                return Activity::all()->load('causer')
+                        ->where('subject_type', '!=', $modelName)
+                        ->where('causer_id','!=','1');
                 break;
         }
     }

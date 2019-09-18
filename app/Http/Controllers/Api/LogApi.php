@@ -3,12 +3,28 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Spatie\Activitylog\Models\Activity;
 
 class LogApi extends Controller
 {
     public function getLog($type, $modelName)
     {
-        // $user_logs = Activity::orderBy('id', 'DESC')->select('id', 'description', 'updated_at')->where('subject_type', '=', 'App\TranslateGroup')->get();
         return load_log_data_table(get_log($type, $modelName));
+    }
+
+    public function getOtherLog($type, $modelName)
+    {
+        return load_other_log_data_table(get_log($type, $modelName));
+    }
+
+    // Delete hidden method
+    public function deleteNullCauser($model)
+    {
+        Activity::where([
+            ['causer_id', '=', null],
+            ['subject_type', '=', $model],
+        ])->delete();
+
+        return redirect()->back();
     }
 }

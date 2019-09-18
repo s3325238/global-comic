@@ -29,7 +29,7 @@
                                 {!! make_log_data_table('userLogs') !!}
                             </div>
                             <div class="tab-pane" id="other_logs">
-                                {!! make_log_data_table('otherLogs') !!}
+                                {!! make_causer_log_data_table('otherLogs') !!}
                             </div>
                         </div>
                     </div>
@@ -56,9 +56,9 @@
 
         if (target == 'userLogs') {
             url = '{!! route('api.log.model',['user','App\User']) !!}';
+        } else if (target == 'otherLogs') {
+            url = '{!! route('api.log.model',['other','App\User']) !!}';
         }
-        // } else if (target == 'en') {
-        //     url = '{!! route('api.group.table','en') !!}';
         // } else if (target == 'jp') {
         //     url = '{!! route('api.group.table','jp') !!}';
         // } else if (target == 'kr') {
@@ -95,7 +95,34 @@
     };
     $(document).ready(function () {
         table_view('userLogs');
-        // table_view('en');
+
+        $('#otherLogs').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{!! route('api.other.log.model',['other','App\User']) !!}',
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'description', name: 'description' },
+                { data: 'causer', name: 'causer' },
+                { data: 'updated_at', name: 'updated_at' },
+                {
+                    data: 'action',
+                    className:"text-center",
+                    orderable:false,
+                    searchable: false
+                },
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        })
     });
 </script>
 @endpush

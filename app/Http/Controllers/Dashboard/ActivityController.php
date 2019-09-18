@@ -15,18 +15,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        // $activity = Activity::where('causer_id','=','1')->get(); // Worked
-
-        // $activity = Activity::all()->load('causer')->where('subject_type','=','App\User'); // Worked
-        // $activity = Activity::orderBy('id', 'DESC')->select('id', 'description', 'updated_at')->where('subject_type', '=', 'App\User')->get(); // Worked
-
-        // return $activity;
         return view('admin.activity.index');
-        // Below worked
-        // foreach ($activity as $key => $value) {
-        //     return $value->causer->role->role_name;
-        // }
-        // return $activity->description;
     }
 
     /**

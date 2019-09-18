@@ -23,6 +23,9 @@ if (!function_exists('setPageTitle')) {
             case 'dashboard/task':
                 return "Tasks Lists";
                 break;
+            case 'dashboard/logs':
+                return 'Activity Logs';
+                break;
             case 'dashboard/user':
                 return "User Lists Management";
                 break;

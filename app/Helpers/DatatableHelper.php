@@ -8,6 +8,7 @@ use App\TranslateGroup;
 use Yajra\DataTables\DataTables;
 
 use Spatie\Activitylog\Models\Activity;
+use Spatie\Activitylog\Traits\CausesActivity;
 
 if (!function_exists('make_causer_log_data_table')) {
     function make_causer_log_data_table($id)
@@ -45,8 +46,9 @@ if (!function_exists('make_log_data_table')) {
     {
         return '<div class="row">
             <div class="col-md-12">
-                <form action="" method="post">
+                <form action="'.route('api.log.user.delete','App\User').'" method="post">
                     '. csrf_field() .'
+                    <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" class="btn btn-danger">Clean Null Causer</button>
                 </form>
             </div>
@@ -403,6 +405,30 @@ if (!function_exists('load_log_data_table')) {
             })
             ->addColumn('description', function ($activity) {
                 return $activity->description;
+            })
+            ->editColumn('updated_at', function (Activity $activity) {
+                return $activity->updated_at->diffForHumans();
+            })
+            ->addColumn('action', function ($activity) {
+                return '<a href="" class="btn btn-link btn-warning btn-just-icon edit" id="' . $activity->id . '"><i class="material-icons">edit</i></a>
+                        <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $activity->id . '"><i class="material-icons">delete</i></a>';
+            })
+            ->make(true);
+    }
+}
+
+if (!function_exists('load_other_log_data_table')) {
+    function load_other_log_data_table($activity)
+    {
+        return DataTables::of($activity)
+            ->addColumn('id', function ($activity) {
+                return $activity->id;
+            })
+            ->addColumn('description', function ($activity) {
+                return $activity->description;
+            })
+            ->editColumn('causer', function ($activity) {
+                return $activity->causer->email;
             })
             ->editColumn('updated_at', function (Activity $activity) {
                 return $activity->updated_at->diffForHumans();

@@ -97,7 +97,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
 });
 
 // Api Group
-Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']], function () {
+Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard']], function () {
 
     Route::group(['prefix' => 'permission'], function () {
         Route::get('/lists', 'Api\Permission@getLists')->name('api.permission.lists');
@@ -143,7 +143,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard', 'admin']]
 
     Route::group(['prefix' => 'logs'], function () {
         Route::get('model/{type}/{modelName}', 'Api\LogApi@getLog')->name('api.log.model');
-        Route::get('model/other/{type}/{modelName}', 'Api\LogApi@getOtherLog')->name('api.other.log.model');
+        
         Route::delete('model/{model}','Api\LogApi@deleteNullCauser')->name('api.log.user.delete');
     });
 });

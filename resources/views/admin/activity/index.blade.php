@@ -59,11 +59,6 @@
         } else if (target == 'otherLogs') {
             url = '{!! route('api.log.model',['other','App\User']) !!}';
         }
-        // } else if (target == 'jp') {
-        //     url = '{!! route('api.group.table','jp') !!}';
-        // } else if (target == 'kr') {
-        //     url = '{!! route('api.group.table','kr') !!}';
-        // }
 
 
         $('#'+target).DataTable({
@@ -99,7 +94,7 @@
         $('#otherLogs').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('api.other.log.model',['other','App\User']) !!}',
+            ajax: '{!! route('api.log.model',['other','App\User']) !!}',
             "pagingType": "full_numbers",
             "lengthMenu": [
                 [10, 25, 50, -1],

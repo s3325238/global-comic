@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Activitylog\Models\Activity;
+use Auth;
 
 class ActivityController extends Controller
 {
+    public function __construct() {
+        $this->middleware('admin');
+    }
     /**
      * Display a listing of the resource.
      *

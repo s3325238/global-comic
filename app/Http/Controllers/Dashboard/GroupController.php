@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -26,7 +27,7 @@ class GroupController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['admin']);
+        $this->middleware(['dashboard']);
     }
 
     protected function getPath()
@@ -41,6 +42,8 @@ class GroupController extends Controller
      */
     public function index()
     {
+        $this->authorize('view_lists', TranslateGroup::class);
+
         return view('admin.group.index');
     }
 
@@ -51,11 +54,15 @@ class GroupController extends Controller
      */
     public function create()
     {
+        $this->authorize('create_form', TranslateGroup::class);
+        
         return view('admin.group.create');
     }
 
     public function leaderForm()
     {
+        $this->authorize('create_form', TranslateGroup::class);
+        
         return view('admin.group.leadForm');
     }
 
@@ -68,6 +75,8 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         //
+        $this->authorize('create_form', TranslateGroup::class);
+
         $request->validate([
             'group_name' => 'required|string|min:5|max:255',
             'group_language' => 'required|string|max:3',
@@ -99,6 +108,8 @@ class GroupController extends Controller
      */
     public function loadGroups(Request $request)
     {
+        $this->authorize('create_form', TranslateGroup::class);
+
         $groups = TranslateGroup::select('id', 'name')->select_language($request->language)->leader('=', null)->get();
         return response()->json($groups);
     }
@@ -112,6 +123,8 @@ class GroupController extends Controller
      */
     public function loadLeaders(Request $request)
     {
+        $this->authorize('create_form', TranslateGroup::class);
+
         $array = [];
 
         $groups = TranslateGroup::select('leader_id')->select_Language($request->language)->leader('!=', null)->get();
@@ -127,6 +140,8 @@ class GroupController extends Controller
 
     public function updateLeader(Request $request)
     {
+        $this->authorize('update_form', TranslateGroup::class);
+        
         $request->validate([
             'group_language' => 'required',
             'group_name' => 'required',
@@ -174,14 +189,15 @@ class GroupController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('update_form', TranslateGroup::class);
+
         $group = TranslateGroup::find($id);
 
         $leaders = User::select('id', 'name', 'email')->language($group->language_translate)->role_datatable('4')->whereNotIn('id', [$group->leader_id])->get();
 
         // dd($leaders);
-        $index_title = "Edit group";
 
-        return view('admin.group.edit', compact(['index_title', 'group', 'leaders']));
+        return view('admin.group.edit', compact(['group', 'leaders']));
     }
 
     /**
@@ -193,6 +209,8 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('update_form', TranslateGroup::class);
+
         $group = TranslateGroup::find($id);
 
         $group->name = $request->name;

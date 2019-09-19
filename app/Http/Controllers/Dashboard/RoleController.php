@@ -13,18 +13,17 @@ use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
-    protected function getColumns()
-    {
-        return array_diff(
-            Schema::getColumnListing('roles'), 
-            ['id', 'role_name', 'created_at', 'updated_at']
-        );
-        // return $column_diff;
-    }
-
     public function __construct()
     {
         $this->middleware(['admin']);
+    }
+
+    protected function getColumns()
+    {
+        return array_diff(
+            Schema::getColumnListing('roles'),
+            ['id', 'role_name', 'created_at', 'updated_at']
+        );
     }
     /**
      * Display a listing of the resource.
@@ -33,9 +32,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $index_title = "Permission Lists";
-
-        return view('admin.permission.lists', compact(['index_title']));
+        return view('admin.permission.lists');
     }
 
     /**
@@ -45,9 +42,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $index_title = "Add new permission";
         $permission = [];
-        return view('admin.permission.create', compact(['index_title', 'permission']));
+        
+        return view('admin.permission.create', compact(['permission']));
     }
 
     /**

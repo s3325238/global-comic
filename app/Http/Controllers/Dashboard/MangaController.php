@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Gate;
+use Auth;
+use Closure;
 
 // Model
 use App\Manga;
@@ -15,6 +18,11 @@ use App\TranslateGroup;
 
 class MangaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['dashboard']);
+    }
+
     protected function getMangaPath()
     {
         return Settings::findOrFail(1)->MANGA_PATH;
@@ -65,6 +73,8 @@ class MangaController extends Controller
      */
     public function index()
     {
+        $this->authorize('view_list', Manga::class);
+
         return view('admin.manga.index');
     }
 
@@ -75,6 +85,8 @@ class MangaController extends Controller
      */
     public function copyrightIndex()
     {
+        $this->authorize('copyright', Manga::class);
+
         return view('admin.manga.copyright_index');
     }
 
@@ -85,6 +97,8 @@ class MangaController extends Controller
      */
     public function create()
     {
+        $this->authorize('create_form', Manga::class);
+
         return view('admin.manga.create');
     }
 
@@ -95,6 +109,8 @@ class MangaController extends Controller
      */
     public function tradeMark()
     {
+        $this->authorize('copyright', Manga::class);
+
         return view('admin.manga.trademark');
     }
 
@@ -106,7 +122,8 @@ class MangaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create_form', Manga::class);
+        
         $request->validate([
             'manga_title' => 'required|string|min:5|max:255',
             'language' => 'required|string|max:3',
@@ -125,7 +142,7 @@ class MangaController extends Controller
 
         $manga->save();
 
-        return redirect(route('manga.action.create.trade_mark'));
+        return redirect(route('manga.index'));
     }
 
     /**
@@ -136,6 +153,8 @@ class MangaController extends Controller
      */
     public function addTradeMark(Request $request)
     {
+        $this->authorize('copyright', Manga::class);
+
         $request->validate([
             'group_name' => 'required',
             'trade_mark_manga' => 'required',
@@ -150,7 +169,7 @@ class MangaController extends Controller
 
         if ($trade_mark->save()) {
             # code...
-            return redirect(route('manga.index'));
+            return redirect(route('manga.copyright'));
         } else {
             return redirect()->back();
         }

@@ -13,7 +13,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        'App\TranslateGroup' => 'App\Policies\GroupPolicy',
+        'App\Manga' => 'App\Policies\MangaPolicy',
     ];
 
     /**
@@ -24,7 +25,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        $this->registerSideBarPermission();
 
         $this->registerSideBarAccess();
 
@@ -36,6 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('assign-task', 'App\Policies\SideBarAccess@assignTask');
         Gate::define('edit-all', 'App\Policies\SideBarAccess@editAll');
         Gate::define('change-settings', 'App\Policies\SideBarAccess@changeSettings');
+        Gate::define('add-member', 'App\Policies\SideBarAccess@addMember');
         // Manga Permission
         Gate::define('view-manga', 'App\Policies\SideBarAccess@viewMangaLists');
         Gate::define('create-manga', 'App\Policies\SideBarAccess@createNewManga');
@@ -53,10 +54,5 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('create-user', 'App\Policies\SideBarAccess@createNewUser');
         Gate::define('update-user', 'App\Policies\SideBarAccess@updateUser');
         Gate::define('delete-user', 'App\Policies\SideBarAccess@deleteUser');
-    }
-
-    public function registerSideBarPermission()
-    {
-        Gate::define('isAdmin', 'App\Policies\sideBarPermissionPolicy@isAdmin');
     }
 }

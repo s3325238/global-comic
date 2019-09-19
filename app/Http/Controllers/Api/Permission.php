@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\DataTables;
-
 use App\Role;
+use Illuminate\Http\Request;
 
 class Permission extends Controller
 {
@@ -17,25 +13,25 @@ class Permission extends Controller
         $this->middleware('admin');
     }
 
-    function getLists()
+    public function getLists()
     {
         $role = Role::select('id', 'role_name', 'created_at', 'updated_at')->get();
 
         return load_role_data_table($role);
     }
 
-    function editData(Request $request)
+    public function editData(Request $request)
     {
         $id = $request->input('id');
 
         $role = Role::find($id);
-        
+
         $permission = [];
 
-        return view('admin.permission.edit',compact(['role','permission']))->render();
+        return view('admin.permission.edit', compact(['role', 'permission']))->render();
     }
 
-    function removeData(Request $request)
+    public function removeData(Request $request)
     {
         $id = $request->input('id');
 

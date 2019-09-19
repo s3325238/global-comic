@@ -15,14 +15,17 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
-                    <select class="selectpicker" name="priority" data-live-search="true" data-style="btn btn-primary btn-round" data-width="100%" title="Choose Priority">
+                    <select class="selectpicker" name="priority" data-live-search="true"
+                        data-style="btn btn-primary btn-round" data-width="100%" title="Choose Priority">
                         {{-- <option disabled selected>Single Option</option> --}}
                         <option value="0">Normal</option>
                         <option value="1">Urgent</option>
                     </select>
                 </div>
+                @can('assign-task', Auth::user())
                 <div class="col-md-4 col-sm-12">
-                    <select class="selectpicker" name="member" data-live-search="true" data-style="btn btn-primary btn-round" data-width="100%" title="Choose Member">
+                    <select class="selectpicker" name="member" data-live-search="true"
+                        data-style="btn btn-primary btn-round" data-width="100%" title="Choose Member">
                         {{-- <option disabled selected>Single Option</option> --}}
                         <option value="vi">Vietnamese</option>
                         <option value="en">English</option>
@@ -30,6 +33,7 @@
                         <option value="Korean">Korean</option>
                     </select>
                 </div>
+                @endcan
             </div>
             <div class="row">
                 <div class="col-md-12 col-sm-12">

@@ -19,6 +19,14 @@ class SideBarAccess
         //
     }
 
+    public function addMember($user)
+    {
+        if ($user->role_id == '4') {
+            return true;
+        }
+        return false;
+    }
+
     public function assignTask($user)
     {
         if ($user->role->assign_task == TRUE) {

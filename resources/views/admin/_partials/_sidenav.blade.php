@@ -178,14 +178,22 @@
             {{-- @can('isAdmin', Auth::user()) --}}
                 <div class="user">
                     @can('add-leader-stuffs', Auth::user())
-                    <li class="nav-item  ">
-                        <a class="nav-link" href="#">
+                    <li class="nav-item  {{ setSideBarActive(['dashboard/member'],'active') }}">
+                        <a class="nav-link" href="{{route('member.index')}}">
                                 {{-- {{ setSideBarActive(['dashboard/user'],'active') }} --}}
                                 {{-- {{ route('user.index') }} --}}
                             <span class="sidebar-mini">
                                 <i class="fas fa-users"></i>
                             </span>
                             <span class="sidebar-normal"> Member Lists </span>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ setSideBarActive(['dashboard/member/create'],'active') }}">
+                        <a class="nav-link" href="{{route('member.create')}}">
+                            <span class="sidebar-mini">
+                                <i class="fas fa-user-plus"></i>
+                            </span>
+                            <span class="sidebar-normal"> Add new member </span>
                         </a>
                     </li>
                     @endcan

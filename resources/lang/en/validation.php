@@ -140,8 +140,8 @@ return [
         ],
         'email' => [
             'required' => 'Please provide us your email.',
-            'email' => 'Your email format is incorrect.',
-            'unique' => 'Your email has existed in our system.'
+            'email' => 'This email format is incorrect.',
+            'unique' => 'This email has existed in our system.'
         ],
         'password' => [
             'required' => 'Please provide password!',
@@ -157,7 +157,7 @@ return [
         ],
         'trade_mark_manga' => [
             'required' => 'You have not chosen manga'
-        ]
+        ],
     ],
 
     /*

@@ -95,4 +95,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Tasks');
     }
+
+    public function hasVideos()
+    {
+        return $this->hasMany('App\Videos','uploaded_by','id');
+    }
+
+    public function isMemberOf()
+    {
+        return $this->hasMany('App\Leader_members','member_id','id');
+    }
 }

@@ -41,32 +41,6 @@ class RolesTableSeeder extends Seeder
             ],
             [
                 'id' => "2",
-                'role_name' => "Super Moderator",
-
-                'create_manga' => false,
-                'view_manga' => false,
-                'update_manga' => false,
-                'delete_manga' => false,
-
-                'create_group' => false,
-                'view_group' => false,
-                'update_group' => false,
-                'delete_group' => false,
-
-                'create_user' => false,
-                'view_user' => false,
-                'update_user' => false,
-                'delete_user' => false,
-
-                'add_copyright' => false,
-                'view_settings' => false,
-                'assign_task' => false,
-
-                "created_at" => date('Y-m-d H:i:s'),
-                "updated_at" => date('Y-m-d H:i:s')
-            ],
-            [
-                'id' => "3",
                 'role_name' => "Moderator",
 
                 'create_manga' => false,
@@ -90,9 +64,8 @@ class RolesTableSeeder extends Seeder
 
                 "created_at" => date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s')
-            ],
-            [
-                'id' => "4",
+            ],[
+                'id' => "3",
                 'role_name' => "Group Leader",
 
                 'create_manga' => false,
@@ -118,7 +91,7 @@ class RolesTableSeeder extends Seeder
                 "updated_at" => date('Y-m-d H:i:s')
             ],
             [
-                'id' => "5",
+                'id' => "4",
                 'role_name' => "Group Member",
 
                 'create_manga' => false,

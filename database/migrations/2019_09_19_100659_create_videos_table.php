@@ -18,7 +18,12 @@ class CreateVideosTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('source');
-            $table->boolean('published')->default(false);
+            $table->unsignedBigInteger('manga_id');
+            $table->unsignedBigInteger('uploaded_by')->nullable(true);
+            $table->boolean('is_published')->default(false);
+
+            $table->foreign('manga_id')->references('id')->on('mangas')->onDelete('cascade');
+            $table->foreign('uploaded_by')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -30,6 +35,8 @@ class CreateVideosTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('videos');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

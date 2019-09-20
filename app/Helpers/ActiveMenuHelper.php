@@ -42,6 +42,10 @@ if (!function_exists('setPageTitle')) {
             case 'dashboard/group/action/leader':
                 return "Add new leader";
                 break;
+            // Member
+            case 'dashboard/member/create':
+                return "Add new member";
+                break;
             // Manga
             case 'dashboard/manga':
                 return "Manga Management";

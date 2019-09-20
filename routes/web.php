@@ -54,6 +54,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
         'group' => 'Dashboard\GroupController',
         'manga' => 'Dashboard\MangaController',
         'logs' => 'Dashboard\ActivityController',
+        'member' => 'Dashboard\Leader\MemberController',
     ], [
         'except' => ['show', 'destroy'],
     ]);
@@ -108,6 +109,9 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard']], functio
 
     Route::group(['prefix' => 'user'], function () {
         Route::get('language/{language}', 'Api\UserApi@getUser')->name('api.user.table');
+        
+        Route::get('/lists/member', 'Api\MemberApi@getMember')->name('api.member.table');
+
         Route::get('unverified', 'Api\UserApi@getUnVerified')->name('api.user.not.verified');
 
         Route::get('/lists/remove', 'Api\UserApi@userRemove')->name('api.user.lists.remove');

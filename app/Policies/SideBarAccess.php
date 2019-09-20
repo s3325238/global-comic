@@ -21,7 +21,7 @@ class SideBarAccess
 
     public function add_leader_stuffs($user)
     {
-        if ($user->role_id == '4') {
+        if ($user->role_id == '3') {
             return true;
         }
         return false;

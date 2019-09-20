@@ -1,6 +1,7 @@
 <?php
 use App\Manga;
 use App\TranslateGroup;
+use App\Leader_members;
 
 // Model
 use App\User;
@@ -79,5 +80,12 @@ if (!function_exists('get_log')) {
                     ->where('causer_id', '!=', '1');
                 break;
         }
+    }
+}
+
+if (!function_exists('get_member')) {
+    function get_member($auth_id)
+    {
+        return Leader_members::where('leader_id','=',$auth_id)->get();
     }
 }

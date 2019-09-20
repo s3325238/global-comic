@@ -24,6 +24,17 @@ class CreateTranslateGroupsTable extends Migration
             $table->integer('points')->default("0");
             $table->timestamps();
         });
+
+        Schema::create('mangas', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->string('logo')->default('default.png');
+            $table->string('language','3');
+            $table->unsignedBigInteger('group_id')->nullable(true);
+            $table->foreign('group_id')->references('id')->on('translate_groups')->onDelete('set null');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -33,6 +44,9 @@ class CreateTranslateGroupsTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::dropIfExists('mangas');
         Schema::dropIfExists('translate_groups');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

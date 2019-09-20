@@ -11,7 +11,7 @@ class MangaApi extends Controller
 {
     public function getTradeMarks($language)
     {
-        return load_trade_mark_data_table(get_model('copyright', $language));
+        return load_copyright_data_table(get_model('copyright', $language));
     }
 
     public function getMangaList($language)

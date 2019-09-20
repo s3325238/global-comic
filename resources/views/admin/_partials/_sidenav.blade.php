@@ -177,6 +177,18 @@
             <!-- User & permission management -->
             {{-- @can('isAdmin', Auth::user()) --}}
                 <div class="user">
+                    @can('add-leader-stuffs', Auth::user())
+                    <li class="nav-item  ">
+                        <a class="nav-link" href="#">
+                                {{-- {{ setSideBarActive(['dashboard/user'],'active') }} --}}
+                                {{-- {{ route('user.index') }} --}}
+                            <span class="sidebar-mini">
+                                <i class="fas fa-users"></i>
+                            </span>
+                            <span class="sidebar-normal"> Member Lists </span>
+                        </a>
+                    </li>
+                    @endcan
                     @can('view-user', Auth::user())
                     <li class="nav-item {{ setSideBarActive(['dashboard/user*'],'active') }}">
                         <a class="nav-link" data-toggle="collapse" href="#users" aria-expanded="{{ setSideBarActive(['dashboard/user*'],'true') }}">

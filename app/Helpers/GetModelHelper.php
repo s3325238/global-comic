@@ -1,11 +1,9 @@
 <?php
 use App\Manga;
-use App\Trade_marks;
 use App\TranslateGroup;
 
 // Model
 use App\User;
-use Illuminate\Support\Arr;
 use Spatie\Activitylog\Models\Activity;
 
 if (!function_exists('get_model')) {
@@ -26,20 +24,10 @@ if (!function_exists('get_model')) {
                     ->get();
                 break;
             case 'copyright':
-                return Trade_marks::select('id', 'group_id', 'manga_id', 'created_at', 'updated_at')
-                    ->language($language)
-                    ->get();
+                return Manga::select('id', 'name', 'group_id', 'updated_at')->language($language)->where('group_id', '!=', null)->get();
                 break;
             case 'manga':
-                $array = [];
-
-                $exist_manga = Trade_marks::select('manga_id')->get();
-
-                foreach ($exist_manga as $manga) {
-                    $array = Arr::prepend($array, $manga->manga_id);
-                }
-
-                return Manga::select('id', 'name', 'updated_at')->language($language)->whereNotIn('id', $array)->get();
+                return Manga::select('id', 'name', 'updated_at')->language($language)->where('group_id', '=', null)->get();
                 break;
             default:
                 # code...
@@ -63,8 +51,11 @@ if (!function_exists('get_model_delete')) {
                 return $manga->delete();
                 break;
             case 'copyright':
-                $trade_marks = Trade_marks::find($id);
-                return $trade_marks->delete();
+                $copyright = Manga::find($id);
+
+                $copyright->group_id = null;
+
+                return $copyright->save();
                 break;
 
             default:
@@ -84,8 +75,8 @@ if (!function_exists('get_log')) {
 
             default:
                 return Activity::all()->load('causer')
-                        ->where('subject_type', '!=', $modelName)
-                        ->where('causer_id','!=','1');
+                    ->where('subject_type', '!=', $modelName)
+                    ->where('causer_id', '!=', '1');
                 break;
         }
     }

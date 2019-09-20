@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('assign-task', 'App\Policies\SideBarAccess@assignTask');
         Gate::define('edit-all', 'App\Policies\SideBarAccess@editAll');
         Gate::define('change-settings', 'App\Policies\SideBarAccess@changeSettings');
-        Gate::define('add-member', 'App\Policies\SideBarAccess@addMember');
+        Gate::define('add-leader-stuffs', 'App\Policies\SideBarAccess@add_leader_stuffs');
         // Manga Permission
         Gate::define('view-manga', 'App\Policies\SideBarAccess@viewMangaLists');
         Gate::define('create-manga', 'App\Policies\SideBarAccess@createNewManga');

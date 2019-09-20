@@ -88,9 +88,8 @@
             ],
             columns: [
                 { data: 'id', name: 'id' },
+                { data: 'name', name: 'name' },
                 { data: 'group_id', name: 'group_id' },
-                { data: 'manga_id', name: 'manga_id' },
-                { data: 'created_at', name: 'created_at' },
                 { data: 'updated_at', name: 'updated_at' },
                 {
                     data: 'action',

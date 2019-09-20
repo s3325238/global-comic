@@ -68,9 +68,15 @@ class TranslateGroup extends Model
         return $this->hasOne('App\User', 'id', 'leader_id');
     }
 
-    public function tradeMarkRegistered()
+    public function mangas()
     {
-        # code...
-        return $this->hasMany('App\Trade_marks','group_id','id');
+        return $this->hasMany('App\Manga','group_id','id');
     }
+
+    public function videos()
+    {
+        return $this->hasMany('App\Group_Manga_Videos','group_id','id');
+    }
+    // user_id 
+    // group_id
 }

@@ -19,7 +19,7 @@ class SideBarAccess
         //
     }
 
-    public function addMember($user)
+    public function add_leader_stuffs($user)
     {
         if ($user->role_id == '4') {
             return true;

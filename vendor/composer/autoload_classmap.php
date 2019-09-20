@@ -9,6 +9,7 @@ return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Copyright' => $baseDir . '/app/Copyright.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Group_Manga_Videos' => $baseDir . '/app/Group_Manga_Videos.php',
     'App\\Http\\Controllers\\Api\\GroupApi' => $baseDir . '/app/Http/Controllers/Api/GroupApi.php',
     'App\\Http\\Controllers\\Api\\LogApi' => $baseDir . '/app/Http/Controllers/Api/LogApi.php',
     'App\\Http\\Controllers\\Api\\MangaApi' => $baseDir . '/app/Http/Controllers/Api/MangaApi.php',

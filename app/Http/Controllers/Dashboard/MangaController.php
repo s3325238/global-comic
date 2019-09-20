@@ -3,18 +3,13 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Gate;
-use Auth;
-use Closure;
-
-// Model
 use App\Manga;
 use App\Settings;
 use App\Trade_marks;
 use App\TranslateGroup;
+
+// Model
+use Illuminate\Http\Request;
 
 class MangaController extends Controller
 {
@@ -61,7 +56,7 @@ class MangaController extends Controller
      */
     public function loadManga(Request $request)
     {
-        $manga = get_model('manga',$request->language);
+        $manga = get_model('manga', $request->language);
 
         return response()->json($manga);
     }
@@ -123,7 +118,7 @@ class MangaController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create_form', Manga::class);
-        
+
         $request->validate([
             'manga_title' => 'required|string|min:5|max:255',
             'language' => 'required|string|max:3',
@@ -161,14 +156,11 @@ class MangaController extends Controller
             'group_language' => 'required|string|max:3',
         ]);
 
-        $trade_mark = new Trade_marks();
+        $manga = Manga::find($request->trade_mark_manga);
 
-        $trade_mark->group_id = $request->group_name;
-        $trade_mark->manga_id = $request->trade_mark_manga;
-        $trade_mark->language = $request->group_language;
+        $manga->group_id = $request->group_name;
 
-        if ($trade_mark->save()) {
-            # code...
+        if ($manga->save()) {
             return redirect(route('manga.copyright'));
         } else {
             return redirect()->back();

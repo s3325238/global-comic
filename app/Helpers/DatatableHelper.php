@@ -150,9 +150,8 @@ if (!function_exists('make_copyright_data_table')) {
             <thead>
                 <tr>
                     <th>ID&nbsp;&nbsp;&nbsp;</th>
-                    <th>Group Name</th>
                     <th>Manga Name</th>
-                    <th>Created At</th>
+                    <th>Registered by</th>
                     <th>Updated At</th>
     
                     <th class="disabled-sorting text-center">Actions</th>
@@ -161,9 +160,8 @@ if (!function_exists('make_copyright_data_table')) {
             <tfoot>
                 <tr>
                     <th>ID&nbsp;&nbsp;&nbsp;</th>
-                    <th>Group Name</th>
                     <th>Manga Name</th>
-                    <th>Created At</th>
+                    <th>Registered by</th>
                     <th>Updated At</th>
     
                     <th class="text-center">Actions</th>
@@ -345,30 +343,27 @@ if (!function_exists('load_group_data_table')) {
     }
 }
 
-if (!function_exists('load_trade_mark_data_table')) {
+if (!function_exists('load_copyright_data_table')) {
 
     # '.route('manga.edit',$trade_mark->id).'
-    function load_trade_mark_data_table($trade_mark)
+    function load_copyright_data_table($manga)
     {
-        return DataTables::of($trade_mark)
-            ->addColumn('id', function ($trade_mark) {
-                return $trade_mark->id;
+        return DataTables::of($manga)
+            ->addColumn('id', function ($manga) {
+                return $manga->id;
             })
-            ->editColumn('group_id', function (Trade_marks $trade_mark){
-                return $trade_mark->groupID->name;
+            ->addColumn('name', function ($manga) {
+                return $manga->name;
             })
-            ->editColumn('manga_id', function (Trade_marks $trade_mark){
-                return $trade_mark->mangaID->name;
+            ->editColumn('group_id', function (Manga $manga){
+                return $manga->groups->name;
             })
-            ->addColumn('action', function ($trade_mark) {
-                return '<a href="" class="btn btn-link btn-warning btn-just-icon edit" id="' . $trade_mark->id . '"><i class="material-icons">edit</i></a>
-                        <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $trade_mark->id . '"><i class="material-icons">delete</i></a>';
+            ->addColumn('action', function ($manga) {
+                return '<a href="" class="btn btn-link btn-warning btn-just-icon edit" id="' . $manga->id . '"><i class="material-icons">edit</i></a>
+                        <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $manga->id . '"><i class="material-icons">delete</i></a>';
             })
-            ->editColumn('created_at', function (Trade_marks $trade_mark) {
-                return $trade_mark->created_at->diffForHumans();
-            })
-            ->editColumn('updated_at', function (Trade_marks $trade_mark) {
-                return $trade_mark->updated_at->diffForHumans();
+            ->editColumn('updated_at', function (Manga $manga) {
+                return $manga->updated_at->diffForHumans();
             })
             ->make(true);
     }

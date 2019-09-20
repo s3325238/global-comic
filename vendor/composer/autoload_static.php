@@ -447,6 +447,7 @@ class ComposerStaticInitc05027b658e0bd4fbc8a4de7a1521463
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Copyright' => __DIR__ . '/../..' . '/app/Copyright.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Group_Manga_Videos' => __DIR__ . '/../..' . '/app/Group_Manga_Videos.php',
         'App\\Http\\Controllers\\Api\\GroupApi' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/GroupApi.php',
         'App\\Http\\Controllers\\Api\\LogApi' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/LogApi.php',
         'App\\Http\\Controllers\\Api\\MangaApi' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/MangaApi.php',

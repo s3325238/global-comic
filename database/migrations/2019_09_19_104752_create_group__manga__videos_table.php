@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTradeMarksTable extends Migration
+class CreateGroupMangaVideosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,20 @@ class CreateTradeMarksTable extends Migration
      */
     public function up()
     {
-        Schema::create('trade_marks', function (Blueprint $table) {
+        Schema::create('group_manga_videos', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('group_id');
             $table->unsignedBigInteger('manga_id');
+            $table->unsignedBigInteger('video_id');
 
-            $table->string('language',3)->nullable(false);
 
             $table->foreign('group_id')->references('id')->on('translate_groups')->onDelete('cascade');
             $table->foreign('manga_id')->references('id')->on('mangas')->onDelete('cascade');
-
+            $table->foreign('video_id')->references('id')->on('videos')->onDelete('cascade');
+            
             $table->timestamps();
         });
-
-        // Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -37,6 +36,6 @@ class CreateTradeMarksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trade_marks');
+        Schema::dropIfExists('group_manga_videos');
     }
 }

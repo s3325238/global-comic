@@ -13,13 +13,16 @@ class PositionTableSeeder extends Seeder
     {
         DB::table('positions')->insert([
             [
-                'name' => 'Translator'
+                'name' => 'Translator',
+                'badge' => 'primary'
             ],
             [
-                'name' => 'Type Setter'
+                'name' => 'Type Setter',
+                'badge' => 'info'
             ],
             [
-                'name' => 'Cleaner'
+                'name' => 'Cleaner',
+                'badge' => 'success'
             ],
         ]);
     }

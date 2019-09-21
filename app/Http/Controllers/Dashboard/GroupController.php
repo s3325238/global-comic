@@ -123,7 +123,7 @@ class GroupController extends Controller
      */
     public function loadLeaders(Request $request)
     {
-        $this->authorize('create_form', TranslateGroup::class);
+        // $this->authorize('create_form', TranslateGroup::class);
 
         $array = [];
 
@@ -133,7 +133,7 @@ class GroupController extends Controller
             $array = Arr::prepend($array, $group->leader_id);
         }
 
-        $leaders = User::select('id', 'name')->language($request->language)->role_datatable('4')->whereNotIn('id', $array)->get();
+        $leaders = User::select('id', 'name')->language($request->language)->role_datatable('3')->whereNotIn('id', $array)->get();
 
         return response()->json($leaders);
     }

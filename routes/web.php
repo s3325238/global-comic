@@ -53,6 +53,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
         'user' => 'Dashboard\UserController',
         'group' => 'Dashboard\GroupController',
         'manga' => 'Dashboard\MangaController',
+        'video' => 'Dashboard\Leader\VideoController',
         'logs' => 'Dashboard\ActivityController',
         'member' => 'Dashboard\Leader\MemberController',
     ], [

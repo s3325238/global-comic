@@ -43,6 +43,9 @@ if (!function_exists('setPageTitle')) {
                 return "Add new leader";
                 break;
             // Member
+            case 'dashboard/member':
+                return 'Member Mangament';
+                break;
             case 'dashboard/member/create':
                 return "Add new member";
                 break;

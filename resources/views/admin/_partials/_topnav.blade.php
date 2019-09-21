@@ -44,20 +44,38 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                    <?php 
+                        use App\Tasks;
+
+                        global $top_nav_tasks;
+
+                        global $noti_count;
+
+                        $top_nav_tasks = Tasks::personal()->orWhere->assigned()->status('0')->get();
+
+                        if (count($top_nav_tasks) > 0) {
+                            $noti_count += 1;
+                        }
+
+                    ?>
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">notifications</i>
-                        <span class="notification">5</span>
+                        @if ($noti_count > 0)
+                        <span class="notification">{{$noti_count}}</span>
+                        @endif
                         <p class="d-lg-none d-md-block">
                             Notifications
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                        <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                        <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                        <a class="dropdown-item" href="#">Another Notification</a>
-                        <a class="dropdown-item" href="#">Another One</a>
+                        @if ($noti_count <= 0)
+                            <a class="dropdown-item" href="">You have no new notifications.</a>
+                        @endif
+                        @if (count($top_nav_tasks) > 0)
+                            <a class="dropdown-item" href="{{ route('task.index') }}">You have {{ count($top_nav_tasks) }} new tasks</a>
+                        @endif
+
                     </div>
                 </li>
                 <li class="nav-item dropdown">

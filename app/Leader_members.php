@@ -15,4 +15,9 @@ class Leader_members extends Model
     {
         return $this->belongsTo('App\User','leader_id');
     }
+
+    public function belongsToPosition()
+    {
+        return $this->belongsTo('App\Positions','position');
+    }
 }

@@ -289,15 +289,26 @@ if (!function_exists('load_member_data_table')) {
             ->addColumn('email', function (Leader_members $member){
                 return $member->member->email;
             })
-            ->addColumn('position', function ($member){
-                return $member->position;
+            ->addColumn('position', function (Leader_members $member){
+                return '<span class="badge badge-'.$member->belongsToPosition->badge.'">'.$member->belongsToPosition->name.'</span>';
             })
             ->addColumn('status', function (Leader_members $member){
+                switch ($member->member->status) {
+                    case '0':
+                        return '<span class="badge badge-danger"><i class="fas fa-times"></i>&nbsp;&nbsp;Not verify</span>';
+                        break;
+                    
+                    default:
+                        return '<span class="badge badge-success"><i class="fas fa-check"></i>&nbsp;&nbsp;Verified</span>';
+                        break;
+                }
                 return $member->member->status;
             })          
             ->addColumn('action', function ($member) {
-                return '<a href="" class="btn btn-link btn-warning btn-just-icon edit" id="' . $member->id . '"><i class="material-icons">edit</i></a>
-                    <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $member->id . '"><i class="material-icons">delete</i></a>';
+                return '<form action="'.route('member.update', $member->id).'" method="POST">' . csrf_field() . '
+                            <input type="hidden" name="_method" value="PUT">
+                            <button type="submit" class="btn btn-danger update"><i class="fas fa-ban"></i>&nbsp;&nbsp;Kick</button>
+                        </form>';
             })
             ->editColumn('created_at', function (Leader_members $member) {
                 return $member->created_at->diffForHumans();
@@ -305,6 +316,7 @@ if (!function_exists('load_member_data_table')) {
             ->editColumn('updated_at', function (Leader_members $member) {
                 return $member->updated_at->diffForHumans();
             })
+            ->rawColumns(['position','status', 'action'])
             ->make(true);
     }
 }

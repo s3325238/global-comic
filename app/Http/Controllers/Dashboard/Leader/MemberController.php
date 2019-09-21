@@ -3,19 +3,21 @@
 namespace App\Http\Controllers\Dashboard\Leader;
 
 use App\Http\Controllers\Controller;
-use App\Leader_members;
-use App\Mail\verifyEmailToken;
-use App\Positions;
-use App\User;
-use Illuminate\Http\Request;
+
 
 // Verify Email
+use Mail;
+use Arr;
+use Illuminate\Support\Str;
+use App\Mail\verifyEmailToken;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 // Model
-use Illuminate\Support\Str;
-use Mail;
+use App\Leader_members;
+use App\Positions;
+use App\User;
 
 class MemberController extends Controller
 {
@@ -81,9 +83,9 @@ class MemberController extends Controller
 
         // Change redirect route later
         if ($leader_member->save()) {
-            return redirect(route('dashboard'));
+            return redirect(route('member.index'));
         } else {
-            return redirect(route('task.index'));
+            return redirect()->back();
         }
     }
 
@@ -118,7 +120,17 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $member = Leader_members::find($id);
+
+        $user = User::find($member->member_id);
+
+        $user->role_id = '1';
+        
+        $user->update();
+
+        $member->delete();
+        
+        return redirect()->back();
     }
 
     /**

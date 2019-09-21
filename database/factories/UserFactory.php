@@ -25,8 +25,8 @@ $factory->define(User::class, function (Faker $faker) {
         'verifyToken' => null,
         'status' => $faker->randomElement([0,1]),
         'avatar' => 'default-avatar.png',
-        // 'role_id' => $faker->numberBetween(1,4),
-        'role_id' => '1',
+        'role_id' => $faker->numberBetween(1,4),
+        // 'role_id' => '1',
         'remember_token' => Str::random(60),
     ];
 });

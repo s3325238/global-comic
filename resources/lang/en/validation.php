@@ -158,6 +158,10 @@ return [
         'trade_mark_manga' => [
             'required' => 'You have not chosen manga'
         ],
+        'file' => [
+            'required' => 'You have to select video file.',
+            'mimes' => 'Video must be one of the following: mp4, quicktime, or window media.'
+        ],
     ],
 
     /*

@@ -3,14 +3,29 @@
 namespace App\Http\Controllers\Dashboard\Leader;
 
 use App\Http\Controllers\Controller;
-use App\TranslateGroup;
-
-// Model
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+// Model
+use App\Settings;
+use App\TranslateGroup;
+
 class VideoController extends Controller
 {
+    protected function getMangaPath()
+    {
+        return Settings::findOrFail(1)->MANGA_PATH;
+    }
+
+    protected function getVideoPath()
+    {
+        return Settings::findOrFail(1)->VIDEO_PATH;
+    }
+
+    protected function getFullPath($root_path, Request $request)
+    {
+        return $root_path . $request->language . '/' . $request->slug;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -47,9 +62,12 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $file = $request->file;
-        dd($file->getMimeType());
+        $this->validate($request, [
+            'video' => 'mimetypes:video/mp4|min: 40000',
+        ]);
+        $video = $request->video;
+        // dd($request->all());
+        dd($video->getMimeType());
     }
 
     /**

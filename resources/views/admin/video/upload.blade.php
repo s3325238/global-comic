@@ -48,6 +48,12 @@
       $(this).parent().siblings().trigger('focusout');
     });
     });
+    
+    $(document).ready(function() {
+        $(".errorAlert").fadeTo(2000, 700).slideUp(700, function(){
+            $(".errorAlert").slideUp(700);
+        });
+    });
 </script>
 @endpush
 
@@ -121,10 +127,10 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group form-file-upload form-file-multiple">
-                                        <input type="file" name="file" multiple="" class="inputFileHidden">
+                                        <input type="file" name="video" multiple="" class="inputFileHidden">
                                         <div class="input-group">
                                             <input type="text" class="form-control inputFileVisible"
-                                                placeholder="Choose Video File">
+                                                placeholder="Choose Video File ( extension: mp4 )">
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-fab btn-round btn-primary">
                                                     <i class="material-icons">attach_file</i>

@@ -11,19 +11,19 @@ if (!function_exists('file_upload')) {
      * @param
      * @return
      */
-    function file_upload($path, $original_name)
+    function file_upload($path, $request)
     {
-        if ($original_name != NULL) {
+        if ($request != NULL) {
 
-            $file = $original_name;
+            $name = $request->getClientOriginalName();
 
-            $hash = Hash::make($original_name); // Making hash
+            // $file = $original_name->getClientOriginalName();
 
-            if (!File::isDirectory($path)) {
-                File::makeDirectory($path, 0777, true, true);
-            }
+            $hash = Hash::make($name); // Making hash
 
-            $file->move($path, $hash);
+            make_directory($path);
+
+            $request->move($path, $hash);
         } else {
             $hash = 'default.png';
         }

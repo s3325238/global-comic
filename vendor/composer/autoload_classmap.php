@@ -6,12 +6,16 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Chapters' => $baseDir . '/app/Chapters.php',
+    'App\\Console\\Commands\\DeleteVideo' => $baseDir . '/app/Console/Commands/DeleteVideo.php',
+    'App\\Console\\Commands\\PublishedVideo' => $baseDir . '/app/Console/Commands/PublishedVideo.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Group_Manga_Videos' => $baseDir . '/app/Group_Manga_Videos.php',
     'App\\Http\\Controllers\\Api\\GroupApi' => $baseDir . '/app/Http/Controllers/Api/GroupApi.php',
     'App\\Http\\Controllers\\Api\\LogApi' => $baseDir . '/app/Http/Controllers/Api/LogApi.php',
     'App\\Http\\Controllers\\Api\\MangaApi' => $baseDir . '/app/Http/Controllers/Api/MangaApi.php',
+    'App\\Http\\Controllers\\Api\\MemberApi' => $baseDir . '/app/Http/Controllers/Api/MemberApi.php',
     'App\\Http\\Controllers\\Api\\Permission' => $baseDir . '/app/Http/Controllers/Api/Permission.php',
     'App\\Http\\Controllers\\Api\\TasksApi' => $baseDir . '/app/Http/Controllers/Api/TasksApi.php',
     'App\\Http\\Controllers\\Api\\UserApi' => $baseDir . '/app/Http/Controllers/Api/UserApi.php',
@@ -26,6 +30,7 @@ return array(
     'App\\Http\\Controllers\\Dashboard\\GroupController' => $baseDir . '/app/Http/Controllers/Dashboard/GroupController.php',
     'App\\Http\\Controllers\\Dashboard\\IndexController' => $baseDir . '/app/Http/Controllers/Dashboard/IndexController.php',
     'App\\Http\\Controllers\\Dashboard\\Leader\\MemberController' => $baseDir . '/app/Http/Controllers/Dashboard/Leader/MemberController.php',
+    'App\\Http\\Controllers\\Dashboard\\Leader\\VideoController' => $baseDir . '/app/Http/Controllers/Dashboard/Leader/VideoController.php',
     'App\\Http\\Controllers\\Dashboard\\MangaController' => $baseDir . '/app/Http/Controllers/Dashboard/MangaController.php',
     'App\\Http\\Controllers\\Dashboard\\RoleController' => $baseDir . '/app/Http/Controllers/Dashboard/RoleController.php',
     'App\\Http\\Controllers\\Dashboard\\TasksController' => $baseDir . '/app/Http/Controllers/Dashboard/TasksController.php',

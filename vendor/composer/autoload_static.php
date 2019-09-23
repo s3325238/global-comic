@@ -444,12 +444,16 @@ class ComposerStaticInitc05027b658e0bd4fbc8a4de7a1521463
     );
 
     public static $classMap = array (
+        'App\\Chapters' => __DIR__ . '/../..' . '/app/Chapters.php',
+        'App\\Console\\Commands\\DeleteVideo' => __DIR__ . '/../..' . '/app/Console/Commands/DeleteVideo.php',
+        'App\\Console\\Commands\\PublishedVideo' => __DIR__ . '/../..' . '/app/Console/Commands/PublishedVideo.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Group_Manga_Videos' => __DIR__ . '/../..' . '/app/Group_Manga_Videos.php',
         'App\\Http\\Controllers\\Api\\GroupApi' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/GroupApi.php',
         'App\\Http\\Controllers\\Api\\LogApi' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/LogApi.php',
         'App\\Http\\Controllers\\Api\\MangaApi' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/MangaApi.php',
+        'App\\Http\\Controllers\\Api\\MemberApi' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/MemberApi.php',
         'App\\Http\\Controllers\\Api\\Permission' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/Permission.php',
         'App\\Http\\Controllers\\Api\\TasksApi' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/TasksApi.php',
         'App\\Http\\Controllers\\Api\\UserApi' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/UserApi.php',
@@ -464,6 +468,7 @@ class ComposerStaticInitc05027b658e0bd4fbc8a4de7a1521463
         'App\\Http\\Controllers\\Dashboard\\GroupController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/GroupController.php',
         'App\\Http\\Controllers\\Dashboard\\IndexController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/IndexController.php',
         'App\\Http\\Controllers\\Dashboard\\Leader\\MemberController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/Leader/MemberController.php',
+        'App\\Http\\Controllers\\Dashboard\\Leader\\VideoController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/Leader/VideoController.php',
         'App\\Http\\Controllers\\Dashboard\\MangaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/MangaController.php',
         'App\\Http\\Controllers\\Dashboard\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/RoleController.php',
         'App\\Http\\Controllers\\Dashboard\\TasksController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dashboard/TasksController.php',

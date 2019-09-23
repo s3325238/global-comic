@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Auth;
-use Illuminate\Support\Facades\DB;
-
-use Cviebrock\EloquentSluggable\Services\SlugService;
-
-use App\Role;
+// Model
+use App\Manga;
 use App\Tasks;
 use App\TranslateGroup;
-use App\Manga;
+use App\Videos;
+
+// External
+use Auth;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -25,7 +26,6 @@ class IndexController extends Controller
     public function index()
     {
         $index_title = "Dashboard";
-        
 
         if (Auth::user()->can('isAdmin')) {
             $users_by_language = DB::table('users')
@@ -33,9 +33,9 @@ class IndexController extends Controller
                 ->where('role_id', '=', '1')
                 ->groupBy('language')
                 ->get();
-            return view('admin.index', compact(['users_by_language','index_title','tasks']));
+            return view('admin.index', compact(['users_by_language', 'index_title', 'tasks']));
         } else {
-            return view('admin.index',compact(['index_title','tasks']));
+            return view('admin.index', compact(['index_title', 'tasks']));
         }
     }
 
@@ -59,7 +59,7 @@ class IndexController extends Controller
     public function mail()
     {
         $index_title = "Inbox";
-        return view('admin.mail_box.inbox',compact(['index_title']));
+        return view('admin.mail_box.inbox', compact(['index_title']));
     }
 
     public function check_slug(Request $request)
@@ -67,6 +67,9 @@ class IndexController extends Controller
         if (isset($request->manga_title)) {
             # code...
             $slug = SlugService::createSlug(Manga::class, 'slug', $request->manga_title);
+        } else if (isset($request->video_name)) {
+            # coode...
+            $slug = SlugService::createSlug(Videos::class, 'slug', $request->video_name);
         } else {
             # code...
             $slug = SlugService::createSlug(TranslateGroup::class, 'slug', $request->group_name);

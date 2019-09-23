@@ -23,6 +23,13 @@ class Videos extends Model
         return $columns;
     }
 
+    public function scopeExclude($query, $value = array())
+    {
+        return $query->select(array_diff($this->getColumns(), (array) $value));
+    }
+
+    protected $fillable = ['name','slug','chapter'];
+
     public function sluggable()
     {
         return [
@@ -30,6 +37,12 @@ class Videos extends Model
                 'source' => 'name',
             ],
         ];
+    }
+
+    public function scopeIs_published($query, $boolean)
+    {
+        # code...
+        return $query->where('is_published', $boolean);
     }
     
     public function belongsToManga()

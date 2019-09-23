@@ -62,6 +62,11 @@ class Manga extends Model
     {
         return $this->hasMany('App\Videos', 'manga_id', 'id');
     }
+
+    public function chapters()
+    {
+        return $this->hasMany('App\Chapters','manga_id','id');
+    }
     // manga : id, name, slug, author_id, is_registered, group_id
     // leader: bấm vào và show mâng unpublished -> manga db -> query by groupId
 }

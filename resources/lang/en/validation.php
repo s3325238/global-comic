@@ -158,9 +158,14 @@ return [
         'trade_mark_manga' => [
             'required' => 'You have not chosen manga'
         ],
-        'file' => [
+        'video' => [
             'required' => 'You have to select video file.',
-            'mimes' => 'Video must be one of the following: mp4, quicktime, or window media.'
+            'mimes' => 'Video must be mp4 or quicktime.',
+            'min' => 'Video size must be at least 35MB, around 10 minutes'
+        ],
+        'images.*' => [
+            'mimes' => 'Only accept: JPG, JPEG, or PNG.',
+            'max' => 'Maximum size of image is 2MB.'
         ],
     ],
 

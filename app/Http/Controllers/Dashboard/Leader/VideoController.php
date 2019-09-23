@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Dashboard\Leader;
 
+use App\Chapters;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
-// Model
 use App\Settings;
 use App\TranslateGroup;
+
+// Model
+use App\Videos;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VideoController extends Controller
 {
@@ -24,7 +26,7 @@ class VideoController extends Controller
 
     protected function getFullPath($root_path, Request $request)
     {
-        return $root_path . $request->language . '/' . $request->slug;
+        return $root_path . Auth::user()->language . '/' . $request->slug;
     }
     /**
      * Display a listing of the resource.
@@ -46,11 +48,12 @@ class VideoController extends Controller
         if (Auth::user()->role_id == '3') {
             $group = TranslateGroup::select('id')->where('leader_id', '=', Auth::id())->first();
 
-            $mangas = TranslateGroup::find($group->id)->mangas;
+            $mangas = TranslateGroup::findOrFail($group->id)->mangas;
 
         } else {
 
         }
+
         return view('admin.video.upload', compact(['mangas']));
     }
 
@@ -62,12 +65,49 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($file);
+        // dd($file->getClientOriginalName());
         $this->validate($request, [
-            'video' => 'mimetypes:video/mp4|min: 40000',
+            'video_name' => 'required|string|max:191',
+            'manga' => 'required',
+            // 'chapter' => 'numeric|required',
+            'video' => 'mimetypes:video/mp4,video/quicktime|min: 35000',
+            // 'images' => 'required',
+            // 'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            // 'published_time' => 'date_format:d-m-YH:i'
         ]);
-        $video = $request->video;
-        // dd($request->all());
-        dd($video->getMimeType());
+
+        $file = $request->video;
+
+        $video = new Videos();
+
+        $video->name = $request->video_name;
+        $video->slug = $request->slug;
+        $video->source = file_upload($this->getFullPath($this->getVideoPath(), $request), $request->video);
+        // $request->video;
+        $video->manga_id = $request->manga;
+        $video->uploaded_by = Auth::id();
+        $video->published_time = $request->published_time;
+
+        $video->save();
+
+        $chapter = new Chapters();
+
+        // if ($carbon->format('d-m-Y H:i')->diffInDays($video->published_time)) {
+        //     # code...
+        // }
+
+        // $carbon  = Carbon::now('Asia/Ho_Chi_Minh');
+        // dd($carbon->format('h:i A'));
+        // if ($request->published_time < $carbon->format('d-m-Y H:i')) {
+        //     echo "True";
+        // } else {
+        //     echo "False";
+        // }
+        // dd($carbon->format('d-m-Y H:i'));
+
+        return redirect(route('dashboard'));
+        // dd($video->getMimeType());
     }
 
     /**

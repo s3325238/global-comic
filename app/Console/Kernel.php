@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\PublishedVideo',
+        'App\Console\Commands\DeleteVideo',
     ];
 
     /**
@@ -24,6 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('video:published')->everyFifteenMinutes();
+        $schedule->command('video:delete')->weekly();
         $schedule->command('activitylog:clean')->weekly();
         // $schedule->call(function () {
         //     DB::table('password_resets')->delete();

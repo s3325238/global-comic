@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title','Add new group')
+@section('title','Add new manga')
 
 @push('customJs')
 <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->

@@ -20,6 +20,7 @@ class CreateVideosTable extends Migration
             $table->string('source');
             $table->unsignedBigInteger('manga_id');
             $table->unsignedBigInteger('uploaded_by')->nullable(true);
+            $table->datetime('published_time')->nullable(true);
             $table->boolean('is_published')->default(false);
 
             $table->foreign('manga_id')->references('id')->on('mangas')->onDelete('cascade');

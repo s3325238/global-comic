@@ -161,7 +161,7 @@
                                     <div class="form-group form-file-upload form-file-multiple">
                                         <input type="file" name="video" accept="video/*" class="inputFileHidden">
                                         <div class="input-group">
-                                            <input type="text" class="form-control inputFileVisible"
+                                            <input type="text" disabled class="form-control inputFileVisible"
                                                 placeholder="Choose Video File ( extension: mp4 )">
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-fab btn-round btn-primary">
@@ -179,7 +179,7 @@
                                             class="inputFileHidden">
                                         <div class="input-group">
                                             <input type="text" disabled class="form-control inputFileVisible"
-                                                placeholder="Multiple Files" multiple>
+                                                placeholder="Choose Manga Images ( extension: jpg, jpeg, png )" multiple>
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-fab btn-round btn-info">
                                                     <i class="material-icons">layers</i>

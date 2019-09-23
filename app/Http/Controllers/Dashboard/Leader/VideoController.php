@@ -8,6 +8,7 @@ use App\Settings;
 use App\TranslateGroup;
 
 // Model
+use App\Manga;
 use App\Videos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,33 +66,63 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($file);
+        $array = [];
+
         // dd($file->getClientOriginalName());
-        $this->validate($request, [
-            'video_name' => 'required|string|max:191',
-            'manga' => 'required',
-            // 'chapter' => 'numeric|required',
-            'video' => 'mimetypes:video/mp4,video/quicktime|min: 35000',
-            // 'images' => 'required',
-            // 'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
-            // 'published_time' => 'date_format:d-m-YH:i'
-        ]);
 
-        $file = $request->video;
+        // $this->validate($request, [
+        //     'video_name' => 'required|string|max:191',
+        //     'manga' => 'required',
+        //     'chapter' => 'numeric|required',
+        //     'video' => 'mimetypes:video/mp4,video/quicktime|min: 35000',
+        //     'images' => 'required',
+        //     'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+        //     'published_time' => 'date_format:Y-m-d H:i'
+        // ]);
 
-        $video = new Videos();
+        // $file = $request->video;
 
-        $video->name = $request->video_name;
-        $video->slug = $request->slug;
-        $video->source = file_upload($this->getFullPath($this->getVideoPath(), $request), $request->video);
-        // $request->video;
-        $video->manga_id = $request->manga;
-        $video->uploaded_by = Auth::id();
-        $video->published_time = $request->published_time;
+        // $video = new Videos();
 
-        $video->save();
+        // $video->name = $request->video_name;
+        // $video->slug = $request->slug;
+        // $video->source = file_upload($this->getFullPath($this->getVideoPath(), $request), $request->video);
+        // // $request->video;
+        // $video->manga_id = $request->manga;
+        // $video->uploaded_by = Auth::id();
+        // $video->published_time = $request->published_time;
+
+        // $video->save();
+
+        $manga_slug = Manga::select('slug')->where('id',$request->manga)->first();
+
+        $existed = Chapters::select('slug')->where('manga_id','=', $request->manga)->get();
+
+        // $manga_image = $request->images;
 
         $chapter = new Chapters();
+
+        $chapter->name = 'Chapter '.$request->chapter;
+
+        $chapter->manga_id = $request->manga;
+
+        // dd($existed);
+
+        if (isset($existed)) {
+            foreach ($existed as $item) {
+                if ($item->slug == slugging_manually($chapter->name)) {
+                    return redirect()->back();
+                }
+            }
+        }
+
+        $chapter->slug = slugging_manually($chapter->name);
+
+        $path = $this->getMangaPath() . Auth::user()->language . '/' . $manga_slug->slug . '/' . $chapter->slug;
+
+        $chapter->source = multiple_file_upload($path,$request->images);
+
+        $chapter->save();
 
         // if ($carbon->format('d-m-Y H:i')->diffInDays($video->published_time)) {
         //     # code...

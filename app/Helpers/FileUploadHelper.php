@@ -34,9 +34,24 @@ if (!function_exists('file_upload')) {
 
 if (!function_exists('multiple_file_upload')) {
 
-    function multiple_file_upload(Type $var = null)
+    function multiple_file_upload($path, $image_array)
     {
-        # code...
+        make_directory($path);
+
+        $array = [];
+
+        foreach ($image_array as $key => $value) {
+
+            $name = $value->getClientOriginalName();
+
+            $hash = Hash::make($name); // Making hash
+
+            $value->move($path, $hash);
+
+            array_push($array, $hash);
+        }
+        
+        return $array;
     }
 }
 
@@ -48,5 +63,13 @@ if (!function_exists('make_directory')) {
         if (!File::isDirectory($path)) {
             File::makeDirectory($path, 0777, true, true);
         }
+    }
+}
+
+if (!function_exists('slugging_manually')) {
+    
+    function slugging_manually($string)
+    {
+        return str_slug($string, '-');
     }
 }

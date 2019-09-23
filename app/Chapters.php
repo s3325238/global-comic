@@ -11,7 +11,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 
 class Chapters extends Model
 {
-    use Sluggable, LogsActivity, CausesActivity;
+    use LogsActivity, CausesActivity;
 
     protected $fillable = ['name', 'slug'];
 
@@ -37,14 +37,14 @@ class Chapters extends Model
         return $query->select(array_diff($this->getColumns(), (array) $value));
     }
 
-    public function sluggable()
-    {
-        return [
-            'slug' => [
-                'source' => 'name',
-            ],
-        ];
-    }
+    // public function sluggable()
+    // {
+    //     return [
+    //         'slug' => [
+    //             'source' => 'name',
+    //         ],
+    //     ];
+    // }
 
     public function belongsToManga()
     {

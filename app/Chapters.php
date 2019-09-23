@@ -15,6 +15,12 @@ class Chapters extends Model
 
     protected $fillable = ['name', 'slug'];
 
+    protected static $logAttributes = ['name'];
+
+    protected static $logOnlyDirty = true;
+
+    protected static $submitEmptyLogs = false;
+
     protected $casts = [
         'source' => 'array', // or 'object' if you like
     ];

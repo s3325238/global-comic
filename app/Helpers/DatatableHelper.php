@@ -283,14 +283,11 @@ if (!function_exists('load_pending_video_data_table')) {
     {
         return DataTables::of($video)
             ->addColumn('manga_id', function (Videos $video) {
-                return $video->belongsToManga->name; // Need to edit
+                return ucfirst($video->belongsToManga->name);
             })
             ->addColumn('chapter', function ($video) {
-                return $video->slug; // Need to edit
+                return $video->chapter; // Need to edit
             })
-            // ->addColumn('uploaded_by', function ($video) {
-            //     return $video->uploaded_by;
-            // })
             ->addColumn('uploaded_by', function (Videos $video) {
                 $member = Leader_members::where('member_id', $video->belongsToUser->id)->first();
                 if (isset($member)) {

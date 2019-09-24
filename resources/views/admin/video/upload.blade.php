@@ -134,7 +134,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Video Name</label>
-                                        <input type="text" id="video_name" name="video_name" class="form-control" value="{{ old('video_name') }}">
+                                        <input type="text" id="video_name" name="video_name" class="form-control"
+                                            value="{{ old('video_name') }}">
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +180,8 @@
                                             class="inputFileHidden">
                                         <div class="input-group">
                                             <input type="text" disabled class="form-control inputFileVisible"
-                                                placeholder="Choose Manga Images ( extension: jpg, jpeg, png )" multiple>
+                                                placeholder="Choose Manga Images ( extension: jpg, jpeg, png )"
+                                                multiple>
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-fab btn-round btn-info">
                                                     <i class="material-icons">layers</i>
@@ -227,8 +229,8 @@
                                         </div>
                                         <div class="card-body ">
                                             <div class="form-group">
-                                                <input type="text" id="published_time" name="published_time" class="form-control datetimepicker"
-                                                    value="10/05/2016">
+                                                <input type="text" id="published_time" name="published_time"
+                                                    class="form-control datetimepicker" value="10/05/2016">
                                             </div>
                                         </div>
                                     </div>
@@ -240,6 +242,18 @@
                 </div>
             </div>
         </form>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-nav-tabs">
+                    <div class="card-header card-header-info">
+                        Image Preview
+                    </div>
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

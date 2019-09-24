@@ -104,6 +104,14 @@ class VideoController extends Controller
 
         $existed = Chapters::select('slug')->where('manga_id','=', $request->manga)->get();
 
+        if (Auth::user()->role_id == '3') {
+            $group = TranslateGroup::where('leader_id',Auth::id())->first();
+        } else if (Auth::user()->role_id == '4'){
+            $belong_to_leader = Leader_members::select('leader_id')->where('member_id',Auth::id())->first();
+
+            $group = TranslateGroup::where('leader_id',$belong_to_leader->leader_id)->first();
+            
+        }
         // Add new chapter
         $chapter = new Chapters();
 
@@ -143,6 +151,10 @@ class VideoController extends Controller
         }
 
         $video->source = file_upload($this->getFullPath($this->getVideoPath(), $request), $request->video);
+
+        $video->chapter = $chapter->slug;
+
+        $video->group_id = $group->id;
 
         $video->save(); // Video table save function
 

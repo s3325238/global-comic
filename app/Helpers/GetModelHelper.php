@@ -111,3 +111,16 @@ if (!function_exists('get_pending_video')) {
         // return $pending;
     }
 }
+
+if (!function_exists('get_group_pending_video')) {
+    function get_group_pending_video()
+    {
+        $group = TranslateGroup::where('leader_id',Auth::id())->first();
+
+        return Videos::where([
+            ['group_id', '=', $group->id],
+            ['published_time', '=', null],
+            ['is_published','=',false]
+        ])->get();
+    }
+}

@@ -47,11 +47,11 @@
                     <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">notifications</i>
-                        <span class="notification">
-                            @if (total_noti() > 0)
-                                {{ total_noti() }}    
-                            @endif
-                        </span>
+                        @if (total_noti() > 0)
+                            <span class="notification">
+                                {{ total_noti() }}
+                            </span>
+                        @endif
                         <p class="d-lg-none d-md-block">
                             Notifications
                         </p>

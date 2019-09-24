@@ -15,6 +15,6 @@ class LeaderApi extends Controller
 
     public function getPendingVideo()
     {
-        return load_pending_video_data_table(get_pending_video(Auth::id()));
+        return load_pending_video_data_table(get_group_pending_video());
     }
 }

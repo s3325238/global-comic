@@ -121,7 +121,7 @@
                                             </option>
                                             @endforeach
                                             @else
-                                            <option value="">
+                                            <option disabled>
                                                 No manga to add
                                             </option>
                                             @endisset

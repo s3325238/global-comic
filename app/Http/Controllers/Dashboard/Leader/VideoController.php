@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Dashboard\Leader;
 
-use App\Chapters;
 use App\Http\Controllers\Controller;
-use App\Settings;
-use App\TranslateGroup;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 // Model
 use App\Manga;
 use App\Videos;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Settings;
+use App\Chapters;
+use App\Leader_members;
+use App\TranslateGroup;
 
 class VideoController extends Controller
 {
@@ -51,8 +53,14 @@ class VideoController extends Controller
 
             $mangas = TranslateGroup::findOrFail($group->id)->mangas;
 
-        } else {
+            return view('admin.video.upload', compact(['mangas']));
 
+        } else {
+            $leader = Leader_members::select('leader_id')->where('member_id',Auth::id())->first();
+
+            $group = TranslateGroup::select('id')->where('leader_id', '=', $leader->leader_id)->first();
+
+            $mangas = TranslateGroup::findOrFail($group->id)->mangas;
         }
 
         return view('admin.video.upload', compact(['mangas']));
@@ -66,47 +74,48 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        $array = [];
+        $this->validate($request, [
+            'video_name' => 'required|string|max:191',
+            'manga' => 'required',
+            'chapter' => 'numeric|required',
+            'video' => 'mimetypes:video/mp4,video/quicktime|min: 35000',
+            'images' => 'required',
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'published_time' => 'date_format:Y-m-d H:i'
+        ]);
 
-        // dd($file->getClientOriginalName());
+        $file = $request->video;
 
-        // $this->validate($request, [
-        //     'video_name' => 'required|string|max:191',
-        //     'manga' => 'required',
-        //     'chapter' => 'numeric|required',
-        //     'video' => 'mimetypes:video/mp4,video/quicktime|min: 35000',
-        //     'images' => 'required',
-        //     'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
-        //     'published_time' => 'date_format:Y-m-d H:i'
-        // ]);
+        $video = new Videos();
 
-        // $file = $request->video;
+        $video->name = $request->video_name;
 
-        // $video = new Videos();
+        $video->slug = $request->slug;
+        
+        $video->source = file_upload($this->getFullPath($this->getVideoPath(), $request), $request->video);
+        
+        $video->manga_id = $request->manga;
+        
+        $video->uploaded_by = Auth::id();
+        
+        if (isset($request->published_time)) {
+            # code...
+            $video->published_time = $request->published_time;
+        }
 
-        // $video->name = $request->video_name;
-        // $video->slug = $request->slug;
-        // $video->source = file_upload($this->getFullPath($this->getVideoPath(), $request), $request->video);
-        // // $request->video;
-        // $video->manga_id = $request->manga;
-        // $video->uploaded_by = Auth::id();
-        // $video->published_time = $request->published_time;
+        $video->save();
 
-        // $video->save();
-
+        // Getter
         $manga_slug = Manga::select('slug')->where('id',$request->manga)->first();
 
         $existed = Chapters::select('slug')->where('manga_id','=', $request->manga)->get();
 
-        // $manga_image = $request->images;
-
+        // Add new chapter
         $chapter = new Chapters();
 
         $chapter->name = 'Chapter '.$request->chapter;
 
         $chapter->manga_id = $request->manga;
-
-        // dd($existed);
 
         if (isset($existed)) {
             foreach ($existed as $item) {

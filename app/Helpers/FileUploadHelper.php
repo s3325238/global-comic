@@ -4,13 +4,7 @@ use Illuminate\Support\Facades\File;
 
 // use File;
 if (!function_exists('file_upload')) {
-
-    /**
-     * description
-     *
-     * @param
-     * @return
-     */
+    
     function file_upload($path, $request)
     {
         if ($request != NULL) {
@@ -63,6 +57,13 @@ if (!function_exists('make_directory')) {
         if (!File::isDirectory($path)) {
             File::makeDirectory($path, 0777, true, true);
         }
+    }
+}
+
+if (!function_exists('remove_directory')) {
+    function remove_directory($path)
+    {
+        File::deleteDirectory($path);
     }
 }
 

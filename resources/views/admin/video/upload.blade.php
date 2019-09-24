@@ -159,7 +159,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group form-file-upload form-file-multiple">
-                                        <input type="file" name="video" accept="video/*" class="inputFileHidden">
+                                        <input type="file" name="video" class="inputFileHidden">
                                         <div class="input-group">
                                             <input type="text" disabled class="form-control inputFileVisible"
                                                 placeholder="Choose Video File ( extension: mp4 )">

@@ -42,6 +42,16 @@ class VideoController extends Controller
     }
 
     /**
+     * Display a listing of the pending video.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pending()
+    {
+        return view('admin.video.pending');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -55,15 +65,17 @@ class VideoController extends Controller
 
             return view('admin.video.upload', compact(['mangas']));
 
-        } else {
+        } else if (Auth::user()->role_id == '4') {
             $leader = Leader_members::select('leader_id')->where('member_id',Auth::id())->first();
 
             $group = TranslateGroup::select('id')->where('leader_id', '=', $leader->leader_id)->first();
 
             $mangas = TranslateGroup::findOrFail($group->id)->mangas;
-        }
 
-        return view('admin.video.upload', compact(['mangas']));
+            return view('admin.video.upload', compact(['mangas']));
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -83,27 +95,9 @@ class VideoController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
             'published_time' => 'date_format:Y-m-d H:i'
         ]);
-
+        
+        // Creating new video
         $file = $request->video;
-
-        $video = new Videos();
-
-        $video->name = $request->video_name;
-
-        $video->slug = $request->slug;
-        
-        $video->source = file_upload($this->getFullPath($this->getVideoPath(), $request), $request->video);
-        
-        $video->manga_id = $request->manga;
-        
-        $video->uploaded_by = Auth::id();
-        
-        if (isset($request->published_time)) {
-            # code...
-            $video->published_time = $request->published_time;
-        }
-
-        $video->save();
 
         // Getter
         $manga_slug = Manga::select('slug')->where('id',$request->manga)->first();
@@ -131,7 +125,28 @@ class VideoController extends Controller
 
         $chapter->source = multiple_file_upload($path,$request->images);
 
-        $chapter->save();
+        
+
+        $video = new Videos();
+
+        $video->name = $request->video_name;
+
+        $video->slug = $request->slug;
+        
+        $video->manga_id = $request->manga;
+        
+        $video->uploaded_by = Auth::id();
+        
+        if (isset($request->published_time)) {
+            # code...
+            $video->published_time = $request->published_time;
+        }
+
+        $video->source = file_upload($this->getFullPath($this->getVideoPath(), $request), $request->video);
+
+        $video->save(); // Video table save function
+
+        $chapter->save(); // Chapter table save function
 
         // if ($carbon->format('d-m-Y H:i')->diffInDays($video->published_time)) {
         //     # code...

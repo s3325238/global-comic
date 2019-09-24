@@ -72,13 +72,19 @@
             <!-- Group Management -->
             <div class="user">
                 @can('only-leader', Auth::user())
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">
+                <li class="nav-item {{ setSideBarActive(['dashboard/video/pending'],'active') }}">
+                    <a class="nav-link" href="{{route('video.pending')}}">
                         <span class="sidebar-mini">
-                            <i class="fas fa-video"></i>
+                            <i class="fas fa-pause-circle"></i>
                         </span>
                         <span class="sidebar-normal">
-                            <p> Video management </p>
+                            <p> Pending video&nbsp;&nbsp;
+                                @if (count(get_pending_video(Auth::id())) > 0)
+                                    <span class="badge badge-pill badge-info">
+                                        {{ count(get_pending_video(Auth::id())) }}
+                                    </span>
+                                @endif
+                            </p>
                         </span>
                     </a>
                 </li>

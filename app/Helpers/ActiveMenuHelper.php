@@ -26,11 +26,19 @@ if (!function_exists('setPageTitle')) {
             case 'dashboard/logs':
                 return 'Activity Logs';
                 break;
+            // User
             case 'dashboard/user':
                 return "User Lists Management";
                 break;
             case 'dashboard/user/create':
                 return "Add new user";
+                break;
+            // Video
+            case 'dashboard/video/pending':
+                return 'Pending video list';
+                break;
+            case 'dashboard/video/create':
+                return 'New video upload';
                 break;
             // Group
             case 'dashboard/group':

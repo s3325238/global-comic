@@ -3,241 +3,12 @@ use App\Leader_members;
 use App\Manga;
 use App\Role;
 use App\Tasks;
-use App\Positions;
 use App\TranslateGroup;
 use App\User;
+use App\Videos;
+//
 use Spatie\Activitylog\Models\Activity;
 use Yajra\DataTables\DataTables;
-
-if (!function_exists('make_member_list_data_table')) {
-    function make_member_list_data_table()
-    {
-        return '<div class="material-datatables">
-        <table id="vi" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%"
-            style="width:100%">
-            <thead>
-                <tr>
-                    <th>Email</th>
-                    <th>Position</th>
-                    <th>Status</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
-
-                    <th class="disabled-sorting text-center">Actions</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>Email</th>
-                    <th>Position</th>
-                    <th>Status</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
-
-                    <th class="text-center">Actions</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>';
-    }
-}
-
-if (!function_exists('make_causer_log_data_table')) {
-    function make_causer_log_data_table($id)
-    {
-        return '<div class="material-datatables">
-        <table id="' . $id . '" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%"
-            style="width:100%">
-            <thead>
-                <tr>
-                    <th>ID&nbsp;&nbsp;&nbsp;</th>
-                    <th>Description</th>
-                    <th>Edit by</th>
-                    <th>Updated At</th>
-
-                    <th class="disabled-sorting text-center">Actions</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>ID&nbsp;&nbsp;&nbsp;</th>
-                    <th>Description</th>
-                    <th>Edit by</th>
-                    <th>Updated At</th>
-
-                    <th class="text-center">Actions</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>';
-    }
-}
-
-if (!function_exists('make_log_data_table')) {
-    function make_log_data_table($id)
-    {
-        return '<div class="row">
-            <div class="col-md-12">
-                <form action="' . route('api.log.user.delete', 'App\User') . '" method="post">
-                    ' . csrf_field() . '
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="btn btn-danger">Clean Null Causer</button>
-                </form>
-            </div>
-        </div>
-        <div class="material-datatables">
-        <table id="' . $id . '" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%"
-            style="width:100%">
-            <thead>
-                <tr>
-                    <th>ID&nbsp;&nbsp;&nbsp;</th>
-                    <th>Description</th>
-                    <th>Updated At</th>
-
-                    <th class="disabled-sorting text-center">Actions</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>ID&nbsp;&nbsp;&nbsp;</th>
-                    <th>Description</th>
-                    <th>Updated At</th>
-
-                    <th class="text-center">Actions</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>';
-    }
-}
-
-if (!function_exists('make_user_data_table')) {
-    function make_user_data_table($id)
-    {
-        return '<div class="material-datatables">
-        <table id="' . $id . '" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%"
-            style="width:100%">
-            <thead>
-                <tr>
-                    <th>ID&nbsp;&nbsp;&nbsp;</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
-
-                    <th class="disabled-sorting text-center">Actions</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>ID&nbsp;&nbsp;&nbsp;</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
-
-                    <th class="text-center">Actions</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>';
-    }
-}
-
-if (!function_exists('make_manga_data_table')) {
-    function make_manga_data_table($id)
-    {
-        return '<div class="material-datatables">
-        <table id="' . $id . '" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%"
-            style="width:100%">
-            <thead>
-                <tr>
-                    <th>ID&nbsp;&nbsp;&nbsp;</th>
-                    <th>Manga Name</th>
-                    <th>Updated At</th>
-
-                    <th class="disabled-sorting text-center">Actions</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>ID&nbsp;&nbsp;&nbsp;</th>
-                    <th>Manga Name</th>
-                    <th>Updated At</th>
-
-                    <th class="text-center">Actions</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>';
-    }
-}
-
-if (!function_exists('make_copyright_data_table')) {
-    function make_copyright_data_table($id)
-    {
-        return '<div class="material-datatables">
-        <table id="' . $id . '" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%"
-            style="width:100%">
-            <thead>
-                <tr>
-                    <th>ID&nbsp;&nbsp;&nbsp;</th>
-                    <th>Manga Name</th>
-                    <th>Registered by</th>
-                    <th>Updated At</th>
-
-                    <th class="disabled-sorting text-center">Actions</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>ID&nbsp;&nbsp;&nbsp;</th>
-                    <th>Manga Name</th>
-                    <th>Registered by</th>
-                    <th>Updated At</th>
-
-                    <th class="text-center">Actions</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>';
-    }
-}
-
-if (!function_exists('make_group_data_table')) {
-
-    function make_group_data_table($id)
-    {
-        # code...
-        return '<div class="material-datatables">
-                <table id="' . $id . '" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                <thead>
-                    <tr>
-                    <th>ID&nbsp;&nbsp;&nbsp;</th>
-                    <th>Name</th>
-                    <th>Leader Email</th>
-                    <th>Follows</th>
-                    <th>Points</th>
-                    <th>Created At</th>
-                    <th class="disabled-sorting text-center">Actions</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>ID&nbsp;&nbsp;&nbsp;</th>
-                        <th>Name</th>
-                        <th>Leader Email</th>
-                        <th>Follows</th>
-                        <th>Points</th>
-                        <th>Created At</th>
-
-                        <th class="text-center">Actions</th>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>';
-    }
-}
 
 if (!function_exists('load_user_data_table')) {
 
@@ -286,26 +57,26 @@ if (!function_exists('load_member_data_table')) {
     function load_member_data_table($member)
     {
         return DataTables::of($member)
-            ->addColumn('email', function (Leader_members $member){
+            ->addColumn('email', function (Leader_members $member) {
                 return $member->member->email;
             })
-            ->addColumn('position', function (Leader_members $member){
-                return '<span class="badge badge-'.$member->belongsToPosition->badge.'">'.$member->belongsToPosition->name.'</span>';
+            ->addColumn('position', function (Leader_members $member) {
+                return '<span class="badge badge-' . $member->belongsToPosition->badge . '">' . $member->belongsToPosition->name . '</span>';
             })
-            ->addColumn('status', function (Leader_members $member){
+            ->addColumn('status', function (Leader_members $member) {
                 switch ($member->member->status) {
                     case '0':
                         return '<span class="badge badge-danger"><i class="fas fa-times"></i>&nbsp;&nbsp;Not verify</span>';
                         break;
-                    
+
                     default:
                         return '<span class="badge badge-success"><i class="fas fa-check"></i>&nbsp;&nbsp;Verified</span>';
                         break;
                 }
                 return $member->member->status;
-            })          
+            })
             ->addColumn('action', function ($member) {
-                return '<form action="'.route('member.update', $member->id).'" method="POST">' . csrf_field() . '
+                return '<form action="' . route('member.update', $member->id) . '" method="POST">' . csrf_field() . '
                             <input type="hidden" name="_method" value="PUT">
                             <button type="submit" class="btn btn-danger update"><i class="fas fa-ban"></i>&nbsp;&nbsp;Kick</button>
                         </form>';
@@ -316,7 +87,7 @@ if (!function_exists('load_member_data_table')) {
             ->editColumn('updated_at', function (Leader_members $member) {
                 return $member->updated_at->diffForHumans();
             })
-            ->rawColumns(['position','status', 'action'])
+            ->rawColumns(['position', 'status', 'action'])
             ->make(true);
     }
 }
@@ -503,6 +274,39 @@ if (!function_exists('load_other_log_data_table')) {
                 return '<a href="" class="btn btn-link btn-warning btn-just-icon edit" id="' . $activity->id . '"><i class="material-icons">edit</i></a>
                         <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $activity->id . '"><i class="material-icons">delete</i></a>';
             })
+            ->make(true);
+    }
+}
+
+if (!function_exists('load_pending_video_data_table')) {
+    function load_pending_video_data_table($video)
+    {
+        return DataTables::of($video)
+            ->addColumn('manga_id', function (Videos $video) {
+                return $video->belongsToManga->name; // Need to edit
+            })
+            ->addColumn('chapter', function ($video) {
+                return $video->slug; // Need to edit
+            })
+            // ->addColumn('uploaded_by', function ($video) {
+            //     return $video->uploaded_by;
+            // })
+            ->addColumn('uploaded_by', function (Videos $video) {
+                $member = Leader_members::where('member_id', $video->belongsToUser->id)->first();
+                if (isset($member)) {
+                    return $video->belongsToUser->name . '&nbsp;&nbsp;<span class="badge badge-success"><i class="fas fa-check"></i>&nbsp;&nbsp;Active</span>';
+                } else {
+                    return $video->belongsToUser->name . '&nbsp;&nbsp;<span class="badge badge-danger"><i class="fas fa-times"></i>&nbsp;&nbsp;Out</span>';
+                }
+            })
+            ->editColumn('created_at', function (Videos $video) {
+                return $video->created_at->diffForHumans();
+            })
+            ->addColumn('action', function ($video) {
+                return '<a href="" class="btn btn-link btn-warning btn-just-icon edit" id="' . $video->id . '"><i class="fas fa-eye"></i></a>
+                        <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $video->id . '"><i class="fas fa-minus-circle"></i></a>';
+            })
+            ->rawColumns(['uploaded_by', 'action'])
             ->make(true);
     }
 }

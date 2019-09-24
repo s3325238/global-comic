@@ -44,37 +44,31 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <?php 
-                        use App\Tasks;
-
-                        global $top_nav_tasks;
-
-                        global $noti_count;
-
-                        $top_nav_tasks = Tasks::personal()->orWhere->assigned()->status('0')->get();
-
-                        if (count($top_nav_tasks) > 0) {
-                            $noti_count += 1;
-                        }
-
-                    ?>
                     <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">notifications</i>
-                        @if ($noti_count > 0)
-                        <span class="notification">{{$noti_count}}</span>
-                        @endif
+                        <span class="notification">
+                            @if (total_noti() > 0)
+                                {{ total_noti() }}    
+                            @endif
+                        </span>
                         <p class="d-lg-none d-md-block">
                             Notifications
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        @if ($noti_count <= 0)
-                            <a class="dropdown-item" href="">You have no new notifications.</a>
+                        @if (total_noti() <= 0)
+                            <a class="dropdown-item" disabled>Congratulation! No notification</a>
                         @endif
-                        @if (count($top_nav_tasks) > 0)
-                            <a class="dropdown-item" href="{{ route('task.index') }}">You have {{ count($top_nav_tasks) }} new tasks</a>
+                        @if (task_count() > 0)
+                            <a class="dropdown-item" href="{{ route('task.index') }}">You have {{ task_count() }} new tasks</a>
                         @endif
+
+                        @can('only-leader',Auth::user())
+                            @if (count(get_pending_video(Auth::id())) > 0)
+                            <a class="dropdown-item" href="{{ route('video.pending') }}">You have {{ count(get_pending_video(Auth::id())) }} video waiting to publish</a>
+                            @endif
+                        @endcan
 
                     </div>
                 </li>

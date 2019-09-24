@@ -47,11 +47,11 @@ class Videos extends Model
     
     public function belongsToManga()
     {
-        return $this->belongsTo('App\Mangas','manga_id');
+        return $this->belongsTo('App\Manga','manga_id');
     }
 
     public function belongsToUser()
     {
-        return $this->belongsTo('App\User','uploaded_by');
+        return $this->belongsTo('App\User','uploaded_by','id');
     }
 }

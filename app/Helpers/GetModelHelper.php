@@ -2,6 +2,7 @@
 use App\Manga;
 use App\TranslateGroup;
 use App\Leader_members;
+use App\Videos;
 
 // Model
 use App\User;
@@ -87,5 +88,26 @@ if (!function_exists('get_member')) {
     function get_member($auth_id)
     {
         return Leader_members::where('leader_id','=',$auth_id)->get();
+    }
+}
+
+if (!function_exists('get_pending_video')) {
+
+    function get_pending_video($auth_id)
+    {
+        $member_id_array = [];
+
+        $members = Leader_members::select('member_id')->where('leader_id','=',$auth_id)->get();
+
+        foreach ($members as $member) {
+            array_push($member_id_array, $member->member_id);
+        }
+
+        return Videos::where([
+            ['published_time', '=', null],
+            ['is_published','=',false]
+        ])->whereIn('uploaded_by',$member_id_array)->get();
+
+        // return $pending;
     }
 }

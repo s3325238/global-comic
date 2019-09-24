@@ -53,12 +53,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
         'user' => 'Dashboard\UserController',
         'group' => 'Dashboard\GroupController',
         'manga' => 'Dashboard\MangaController',
-        'video' => 'Dashboard\Leader\VideoController',
         'logs' => 'Dashboard\ActivityController',
         'member' => 'Dashboard\Leader\MemberController',
+        'video' => 'Dashboard\Leader\VideoController',
     ], [
         'except' => ['show', 'destroy'],
     ]);
+
+    Route::get('video/pending', 'Dashboard\Leader\VideoController@pending')->name('video.pending');
 
     Route::apiResource('task', 'Dashboard\TasksController')->except(['show', 'destroy']);
 
@@ -108,10 +110,14 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard']], functio
         Route::get('/lists/remove', 'Api\Permission@removeData')->name('api.permission.lists.remove');
     });
 
+    Route::group(['prefix' => 'leader'], function () {
+        Route::get('/lists/member', 'Api\LeaderApi@getMember')->name('api.member.table');
+
+        Route::get('video/pending', 'Api\LeaderApi@getPendingVideo')->name('api.video.pending');
+    });
+
     Route::group(['prefix' => 'user'], function () {
         Route::get('language/{language}', 'Api\UserApi@getUser')->name('api.user.table');
-        
-        Route::get('/lists/member', 'Api\MemberApi@getMember')->name('api.member.table');
 
         Route::get('unverified', 'Api\UserApi@getUnVerified')->name('api.user.not.verified');
 
@@ -148,8 +154,8 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard']], functio
 
     Route::group(['prefix' => 'logs'], function () {
         Route::get('model/{type}/{modelName}', 'Api\LogApi@getLog')->name('api.log.model');
-        
-        Route::delete('model/{model}','Api\LogApi@deleteNullCauser')->name('api.log.user.delete');
+
+        Route::delete('model/{model}', 'Api\LogApi@deleteNullCauser')->name('api.log.user.delete');
     });
 });
 

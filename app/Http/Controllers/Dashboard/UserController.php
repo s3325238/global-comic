@@ -43,12 +43,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        $index_title = "Add new user";
-
         $roles = Role::select('id','role_name')->except_admin()->get() ;
 
         // $status = [];
-        return view('admin.user.create',compact(['index_title','roles']));
+        return view('admin.user.create',compact(['roles']));
     }
 
     /**

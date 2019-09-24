@@ -59,7 +59,7 @@ class MemberController extends Controller
 
         $user = new User();
 
-        $user->name = $request->email;
+        $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
 

@@ -19,8 +19,7 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $index_title = "Tasks Lists";
-        return view('admin.tasks.index', compact(['index_title']));
+        return view('admin.tasks.index');
     }
 
     /**

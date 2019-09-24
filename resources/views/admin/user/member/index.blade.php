@@ -24,13 +24,12 @@
 <script src="{{ asset('admin/js/plugins/sweetalert2.js') }}"></script>
 
 <script type="text/javascript">
-    function table_view(target) {
-        var url = '{!! route('api.member.table') !!}';
+    $(document).ready(function () {
 
-        $('#'+target).DataTable({
+        $('#member').DataTable({
             processing: true,
             serverSide: true,
-            ajax: url,
+            ajax: '{!! route('api.member.table') !!}',
             "pagingType": "full_numbers",
             "lengthMenu": [
                 [10, 25, 50, -1],
@@ -55,9 +54,6 @@
                 searchPlaceholder: "Search records",
             }
         });
-    }
-    $(document).ready(function () {
-        table_view('vi');
     })
 </script>
 @endpush

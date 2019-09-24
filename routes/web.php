@@ -55,10 +55,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
         'manga' => 'Dashboard\MangaController',
         'logs' => 'Dashboard\ActivityController',
         'member' => 'Dashboard\Leader\MemberController',
-        'video' => 'Dashboard\Leader\VideoController',
     ], [
         'except' => ['show', 'destroy'],
     ]);
+
+    Route::resource('video', 'Dashboard\Leader\VideoController', ['parameters' => [
+        'id' => 'slug'
+    ]])->except(['show','destroy']);
 
     Route::get('video/pending', 'Dashboard\Leader\VideoController@pending')->name('video.pending');
 

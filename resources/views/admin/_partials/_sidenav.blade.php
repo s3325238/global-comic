@@ -72,7 +72,7 @@
             <!-- Group Management -->
             <div class="user">
                 @can('only-leader', Auth::user())
-                <li class="nav-item {{ setSideBarActive(['dashboard/video/pending'],'active') }}">
+                <li class="nav-item {{ setSideBarActive(['dashboard/video/pending', 'dashboard/video/*/edit'],'active') }}">
                     <a class="nav-link" href="{{route('video.pending')}}">
                         <span class="sidebar-mini">
                             <i class="fas fa-pause-circle"></i>

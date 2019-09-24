@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Dashboard\Leader;
 
+use App\Chapters;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
+use App\Leader_members;
 
 // Model
 use App\Manga;
-use App\Videos;
 use App\Settings;
-use App\Chapters;
-use App\Leader_members;
 use App\TranslateGroup;
+use App\Videos;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VideoController extends Controller
 {
@@ -66,7 +65,7 @@ class VideoController extends Controller
             return view('admin.video.upload', compact(['mangas']));
 
         } else if (Auth::user()->role_id == '4') {
-            $leader = Leader_members::select('leader_id')->where('member_id',Auth::id())->first();
+            $leader = Leader_members::select('leader_id')->where('member_id', Auth::id())->first();
 
             $group = TranslateGroup::select('id')->where('leader_id', '=', $leader->leader_id)->first();
 
@@ -86,6 +85,10 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
+        // foreach ($request->images as $image) {
+        //     echo $request->image->hashName();
+        // }
+        // die;
         $this->validate($request, [
             'video_name' => 'required|string|max:191',
             'manga' => 'required',
@@ -93,29 +96,32 @@ class VideoController extends Controller
             'video' => 'mimetypes:video/mp4,video/quicktime|min: 35000',
             'images' => 'required',
             'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'published_time' => 'date_format:Y-m-d H:i'
+            'published_time' => 'date_format:Y-m-d H:i',
         ]);
-        
+
         // Creating new video
         $file = $request->video;
 
         // Getter
-        $manga_slug = Manga::select('slug')->where('id',$request->manga)->first();
+        $manga_slug = Manga::select('slug')->where('id', $request->manga)->first();
 
-        $existed = Chapters::select('slug')->where('manga_id','=', $request->manga)->get();
+        $existed = Chapters::select('slug')->where('manga_id', '=', $request->manga)->get();
 
         if (Auth::user()->role_id == '3') {
-            $group = TranslateGroup::where('leader_id',Auth::id())->first();
-        } else if (Auth::user()->role_id == '4'){
-            $belong_to_leader = Leader_members::select('leader_id')->where('member_id',Auth::id())->first();
+            $group = TranslateGroup::where('leader_id', Auth::id())->first();
+        } else if (Auth::user()->role_id == '4') {
+            $belong_to_leader = Leader_members::select('leader_id')->where('member_id', Auth::id())->first();
 
-            $group = TranslateGroup::where('leader_id',$belong_to_leader->leader_id)->first();
-            
+            $group = TranslateGroup::where('leader_id', $belong_to_leader->leader_id)->first();
+
         }
-        // Add new chapter
+        // Constructor
         $chapter = new Chapters();
 
-        $chapter->name = 'Chapter '.$request->chapter;
+        $video = new Videos();
+
+        // Chapter
+        $chapter->name = 'Chapter ' . $request->chapter;
 
         $chapter->manga_id = $request->manga;
 
@@ -131,20 +137,21 @@ class VideoController extends Controller
 
         $path = $this->getMangaPath() . Auth::user()->language . '/' . $manga_slug->slug . '/' . $chapter->slug;
 
-        $chapter->source = multiple_file_upload($path,$request->images);
+        $chapter->source = multiple_file_upload($path, $request->images);
 
-        
+        $chapter->save(); // Chapter table save function
 
-        $video = new Videos();
+        $get_latest_chapter = Chapters::find($chapter->id);
 
+        // Video
         $video->name = $request->video_name;
 
         $video->slug = $request->slug;
-        
+
         $video->manga_id = $request->manga;
-        
+
         $video->uploaded_by = Auth::id();
-        
+
         if (isset($request->published_time)) {
             # code...
             $video->published_time = $request->published_time;
@@ -152,13 +159,13 @@ class VideoController extends Controller
 
         $video->source = file_upload($this->getFullPath($this->getVideoPath(), $request), $request->video);
 
-        $video->chapter = $chapter->slug;
+        $video->chapter = slugging_manually($chapter->name);
 
         $video->group_id = $group->id;
 
-        $video->save(); // Video table save function
+        $video->chapter_id = $get_latest_chapter->id;
 
-        $chapter->save(); // Chapter table save function
+        $video->save(); // Video table save function
 
         // if ($carbon->format('d-m-Y H:i')->diffInDays($video->published_time)) {
         //     # code...
@@ -194,9 +201,12 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $video = Videos::where('slug', $slug)->first();
+
+        $manga_path = get_path($this->getMangaPath(), $video->belongsToManga->slug, $video->getChapter->slug);
+        return view('admin.video.edit', compact(['video', 'manga_path']));
     }
 
     /**

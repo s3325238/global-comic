@@ -87,6 +87,9 @@ if (!function_exists('setPageTitle')) {
                 } else if (call_user_func_array('Request::is', ['dashboard/manga/*/edit'])) {
                     return "Edit manga";
                     break;
+                } else if (call_user_func_array('Request::is', ['dashboard/video/*/edit'])) {
+                    return "Edit video";
+                    break;
                 }
                 break;
         }

@@ -54,4 +54,9 @@ class Videos extends Model
     {
         return $this->belongsTo('App\User','uploaded_by','id');
     }
+
+    public function getChapter()
+    {
+        return $this->hasOne('App\Chapters', 'id', 'chapter_id');
+    }
 }

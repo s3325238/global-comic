@@ -300,7 +300,7 @@ if (!function_exists('load_pending_video_data_table')) {
                 return $video->created_at->diffForHumans();
             })
             ->addColumn('action', function ($video) {
-                return '<a href="" class="btn btn-link btn-warning btn-just-icon edit" id="' . $video->id . '"><i class="fas fa-eye"></i></a>
+                return '<a href="'.route('video.edit',$video->slug).'" class="btn btn-link btn-warning btn-just-icon edit"><i class="fas fa-eye"></i></a>
                         <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $video->id . '"><i class="fas fa-minus-circle"></i></a>';
             })
             ->rawColumns(['uploaded_by', 'action'])

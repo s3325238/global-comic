@@ -1,13 +1,13 @@
 <?php
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
-// use File;
 if (!function_exists('file_upload')) {
-    
+
     function file_upload($path, $request)
     {
-        if ($request != NULL) {
+        if ($request != null) {
 
             $name = $request->getClientOriginalName();
 
@@ -44,7 +44,7 @@ if (!function_exists('multiple_file_upload')) {
 
             array_push($array, $hash);
         }
-        
+
         return $array;
     }
 }
@@ -68,9 +68,16 @@ if (!function_exists('remove_directory')) {
 }
 
 if (!function_exists('slugging_manually')) {
-    
+
     function slugging_manually($string)
     {
         return str_slug($string, '-');
+    }
+}
+
+if (!function_exists('get_path')) {
+    function get_path($root_path, $slug, $chapter)
+    {
+        return $root_path . Auth::user()->language . '/' . $slug . '/' . $chapter;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\Leader;
 
 use App\Chapters;
 use App\Http\Controllers\Controller;
+use Session;
 use App\Leader_members;
 
 // Model
@@ -92,7 +93,7 @@ class VideoController extends Controller
         // Getter
         $manga_slug = Manga::where('id', $request->manga)->first();
 
-        $existed = Chapters::where('manga_id', '=', $request->manga)->get();
+        $chapter_existed = Chapters::where('manga_id', '=', $request->manga)->get();
 
         if (Auth::user()->role_id == '3') {
 
@@ -107,6 +108,7 @@ class VideoController extends Controller
         }
 
         if ($manga_slug->group_id != $group->id) {
+            Session::flash('status','Manga is not existed. Please choose again.');
             return redirect()->back();
         }
         // Constructor
@@ -119,10 +121,10 @@ class VideoController extends Controller
 
         $chapter->manga_id = $request->manga;
 
-        if (isset($existed)) {
-            foreach ($existed as $item) {
+        if (isset($chapter_existed)) {
+            foreach ($chapter_existed as $item) {
                 if ($item->slug == slugging_manually($chapter->name)) {
-                    return redirect()->back();
+                    return redirect()->back()->with('info','Chapter has existed! Contact your leader for more information!');
                 }
             }
         }

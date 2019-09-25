@@ -5,6 +5,20 @@
 @section('content')
 <div class="content">
     <div class="container-fluid">
+        {{-- @foreach (['info','success','danger','warnning','primary'] as $item) --}}
+            @if (Session::has('status'))
+            <div class="row">
+                <div class="col-md-6 ml-auto mr-auto justify-content-center">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{ Session::get('status') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            @endif
+        {{-- @endforeach --}}
         @if (count($errors) > 0)
         @foreach ($errors->all() as $error)
         <div class="row">

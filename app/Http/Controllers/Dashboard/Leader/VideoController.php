@@ -205,7 +205,6 @@ class VideoController extends Controller
     {
         $video = Videos::where('slug', $slug)->first();
 
-        // $manga_path = get_path($this->getMangaPath(), $video->belongsToManga->slug, $video->getChapter->slug);
         return view('admin.video.edit', compact(['video']));
     }
 

@@ -9,10 +9,6 @@ use App\Settings;
 
 class IndexController extends Controller
 {
-    protected function getMangaPath()
-    {
-        return Settings::findOrFail(1)->MANGA_PATH;
-    }
 
     public function index(){
         $locale = app()->getLocale();

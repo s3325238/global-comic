@@ -20,11 +20,6 @@
     </div>
     <div class="cd-section" id="features">
       <div class="container">
-        {{-- @foreach ($video->getChapter->source as $item)
-        <div class="col-md-3">
-          <img class="img" style="width:90%" src="{{ asset($manga_path.'/'.$item) }}">
-        </div>
-        @endforeach --}}
         @include('ui.partials._features')
         @include('ui.partials._pricing')
         @include('ui.partials._team')

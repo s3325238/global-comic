@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use Spatie\Activitylog\Contracts\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Auth;
+use Storage;
 
 // Model
 use App\User;
@@ -30,9 +31,9 @@ class GroupController extends Controller
         $this->middleware(['dashboard']);
     }
 
-    protected function getPath()
+    protected function getStorage()
     {
-        return Settings::findOrFail(1)->GROUP_PATH;
+        return Settings::findOrFail(1)->STORAGE_PATH;
     }
 
     /**
@@ -82,7 +83,7 @@ class GroupController extends Controller
             'group_language' => 'required|string|max:3',
         ]);
 
-        make_directory($this->getPath());
+        Storage::makeDirectory($this->getStorage().$request->slug);
 
         $group = new TranslateGroup();
 
@@ -92,7 +93,7 @@ class GroupController extends Controller
 
         $group->language_translate = $request->group_language;
 
-        $group->logo = file_upload($this->getPath(), $request->logo);
+        $group->logo = storage_store('single', $request->logo, $this->getStorage().$request->slug);
 
         $group->save();
 
@@ -148,10 +149,8 @@ class GroupController extends Controller
             'group_leader' => 'required',
         ]);
 
-        // TranslateGroup::where('id', $request->group_name)->update(['leader_id' => $request->group_leader]);
-
-        // $group = TranslateGroup::where('id', $request->group_name)->get();
         $group = TranslateGroup::findOrFail($request->group_name);
+        
         $group->update(['leader_id' => $request->group_leader]);
 
         activity()

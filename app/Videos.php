@@ -50,6 +50,11 @@ class Videos extends Model
         return $this->belongsTo('App\Manga','manga_id');
     }
 
+    public function belongsToGroup()
+    {
+        return $this->belongsTo('App\TranslateGroup','group_id');
+    }
+
     public function belongsToUser()
     {
         return $this->belongsTo('App\User','uploaded_by','id');

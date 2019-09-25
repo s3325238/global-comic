@@ -117,6 +117,8 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard']], functio
         Route::get('/lists/member', 'Api\LeaderApi@getMember')->name('api.member.table');
 
         Route::get('video/pending', 'Api\LeaderApi@getPendingVideo')->name('api.video.pending');
+
+        Route::get('/lists/remove', 'Api\LeaderApi@removeVideo')->name('api.video.lists.remove');
     });
 
     Route::group(['prefix' => 'user'], function () {

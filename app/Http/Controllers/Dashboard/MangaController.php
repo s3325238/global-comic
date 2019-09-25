@@ -7,9 +7,10 @@ use App\Manga;
 use App\Settings;
 use App\Trade_marks;
 use App\TranslateGroup;
+use Illuminate\Http\Request;
 
 // Model
-use Illuminate\Http\Request;
+use Storage;
 
 class MangaController extends Controller
 {
@@ -18,19 +19,9 @@ class MangaController extends Controller
         $this->middleware(['dashboard']);
     }
 
-    protected function getMangaPath()
+    protected function getStorage()
     {
-        return Settings::findOrFail(1)->MANGA_PATH;
-    }
-
-    protected function getVideoPath()
-    {
-        return Settings::findOrFail(1)->VIDEO_PATH;
-    }
-
-    protected function getFullPath($root_path, Request $request)
-    {
-        return $root_path . $request->language . '/' . $request->slug;
+        return Settings::findOrFail(1)->STORAGE_PATH;
     }
 
     /**
@@ -124,8 +115,7 @@ class MangaController extends Controller
             'language' => 'required|string|max:3',
         ]);
 
-        make_directory($this->getFullPath($this->getMangaPath(), $request));
-        make_directory($this->getFullPath($this->getVideoPath(), $request));
+        Storage::makeDirectory($this->getStorage() . 'logo');
 
         $manga = new Manga();
 
@@ -133,7 +123,7 @@ class MangaController extends Controller
         $manga->slug = $request->slug;
         $manga->language = $request->language;
 
-        $manga->logo = file_upload($this->getFullPath($this->getMangaPath(), $request), $request->logo);
+        $manga->logo = storage_store('single', $request->logo, $this->getStorage() . 'logo');
 
         $manga->save();
 
@@ -156,7 +146,13 @@ class MangaController extends Controller
             'group_language' => 'required|string|max:3',
         ]);
 
+        $group = TranslateGroup::find($request->group_name);
+
         $manga = Manga::find($request->trade_mark_manga);
+
+        // dd($group);
+
+        Storage::makeDirectory($this->getStorage() . $group->slug . '/' . $manga->slug);
 
         $manga->group_id = $request->group_name;
 

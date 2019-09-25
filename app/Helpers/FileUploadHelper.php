@@ -3,49 +3,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
-if (!function_exists('file_upload')) {
+use App\Settings;
 
-    function file_upload($path, $request)
+if (!function_exists('get_storage_helper')) {
+    function get_storage_helper()
     {
-        if ($request != null) {
-
-            $name = $request->getClientOriginalName();
-
-            // $file = $original_name->getClientOriginalName();
-
-            $hash = Hash::make($name); // Making hash
-
-            make_directory($path);
-
-            $request->move($path, $hash);
-        } else {
-            $hash = 'default.png';
-        }
-
-        return $hash;
-    }
-}
-
-if (!function_exists('multiple_file_upload')) {
-
-    function multiple_file_upload($path, $image_array)
-    {
-        make_directory($path);
-
-        $array = [];
-
-        foreach ($image_array as $key => $value) {
-
-            $name = $value->getClientOriginalName();
-
-            $hash = Hash::make($name); // Making hash
-
-            $value->move($path, $hash);
-
-            array_push($array, $hash);
-        }
-
-        return $array;
+        return Settings::find(1)->STORAGE_PATH;
     }
 }
 
@@ -75,9 +38,39 @@ if (!function_exists('slugging_manually')) {
     }
 }
 
-if (!function_exists('get_path')) {
-    function get_path($root_path, $slug, $chapter)
+if (!function_exists('storage_store')) {
+    function storage_store($type, $image, $path)
     {
-        return $root_path . Auth::user()->language . '/' . $slug . '/' . $chapter;
+        switch ($type) {
+            case 'single':
+                # code...
+                if ($image != null) {
+                    $fileNameToStore = time().'_'.md5_file($image->getRealPath()); // Making hash
+
+                    $image->storeAs($path, $fileNameToStore);
+                } else {
+                    $fileNameToStore = 'default.png';
+                }
+
+                return $fileNameToStore;
+                break;
+            case 'multiple':
+                $fileArray = [];
+                foreach ($image as $item) {
+
+                    $fileNameToStore = time().'_'.md5_file($item->getRealPath()); // Making hash
+        
+                    // $item->move($path, $hash);
+
+                    $item->storeAs($path, $fileNameToStore);
+        
+                    array_push($fileArray, $fileNameToStore);
+                }
+                return $fileArray;
+                break;
+            default:
+                # code...
+                break;
+        }
     }
 }

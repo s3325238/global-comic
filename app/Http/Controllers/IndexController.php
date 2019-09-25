@@ -4,11 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Videos;
+use App\Settings;
+
 class IndexController extends Controller
 {
+    protected function getMangaPath()
+    {
+        return Settings::findOrFail(1)->MANGA_PATH;
+    }
+
     public function index(){
         $locale = app()->getLocale();
-        return view('ui.app')->with('locale',$locale);
+
+        return view('ui.app',compact(['locale']));
+        // return view('ui.app')->with('locale',$locale);
     }
 
     /**

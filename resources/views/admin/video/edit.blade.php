@@ -60,6 +60,14 @@
                                 </div>
                             </div>
                             <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a href="#" class="btn btn-danger"><i
+                                            class="fas fa-window-close"></i>&nbsp;&nbsp;Decline</a>
+                                    <button type="submit" class="btn btn-success"><i
+                                            class="fas fa-edit"></i>&nbsp;&nbsp;Update</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -75,28 +83,9 @@
                                 @foreach ($video->getChapter->source as $item)
                                 <div class="col-md-3">
                                     <img class="img" style="width:90%"
-                                        src="{{url('site/upload/manga/'.Auth::user()->language.'/'.$video->belongsToManga->slug.'/'.$video->getChapter->slug.'/'.$item)}}}">
+                                        src="{{ '/storage/site/upload/'.$video->belongsToGroup->slug.'/'.$video->belongsToManga->slug.'/'.$video->getChapter->slug.'/'.$item }} ">
                                 </div>
                                 @endforeach
-                                <div class="col-md-3">
-                                    <img class="img" style="width:90%"
-                                        src="https://images.unsplash.com/photo-1492447273231-0f8fecec1e3a?auto=format&fit=crop&w=334&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D">
-                                </div>
-
-                                <div class="col-md-3">
-                                    <img class="img" style="width:90%"
-                                        src="https://images.unsplash.com/photo-1492447273231-0f8fecec1e3a?auto=format&fit=crop&w=334&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D">
-                                </div>
-
-                                <div class="col-md-3">
-                                    <img class="img" style="width:90%"
-                                        src="https://images.unsplash.com/photo-1492447273231-0f8fecec1e3a?auto=format&fit=crop&w=334&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D">
-                                </div>
-
-                                <div class="col-md-3">
-                                    <img class="img" style="width:90%"
-                                        src="https://images.unsplash.com/photo-1492447273231-0f8fecec1e3a?auto=format&fit=crop&w=334&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D">
-                                </div>
                             </div>
                         </div>
                     </div>

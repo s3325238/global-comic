@@ -7,7 +7,7 @@
                     <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
                 </button>
             </div>
-            <span class="navbar-brand" >
+            <span class="navbar-brand">
                 <?php 
                     use Illuminate\Support\Facades\Route;
                     
@@ -44,31 +44,32 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
                         <i class="material-icons">notifications</i>
                         @if (total_noti() > 0)
-                            <span class="notification">
-                                {{ total_noti() }}
-                            </span>
+                        <span class="notification">
+                            {{ total_noti() }}
+                        </span>
                         @endif
                         <p class="d-lg-none d-md-block">
                             Notifications
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        @if (total_noti() <= 0)
-                            <a class="dropdown-item" disabled>Congratulation! No notification</a>
-                        @endif
-                        @if (task_count() > 0)
-                            <a class="dropdown-item" href="{{ route('task.index') }}">You have {{ task_count() }} new tasks</a>
-                        @endif
-
-                        @can('only-leader',Auth::user())
-                            @if (count(get_pending_video(Auth::id())) > 0)
-                            <a class="dropdown-item" href="{{ route('video.pending') }}">You have {{ count(get_pending_video(Auth::id())) }} video waiting to publish</a>
+                        @if (total_noti() <= 0) <a class="dropdown-item" disabled>Congratulation! No notification</a>
                             @endif
-                        @endcan
+                            @if (task_count() > 0)
+                            <a class="dropdown-item" href="{{ route('task.index') }}">You have {{ task_count() }} new
+                                tasks</a>
+                            @endif
+
+                            @can('only-leader',Auth::user())
+                            @if (count(get_pending_video(Auth::id())) > 0)
+                            <a class="dropdown-item" href="{{ route('video.pending') }}">You have
+                                {{ count(get_pending_video(Auth::id())) }} video waiting to publish</a>
+                            @endif
+                            @endcan
 
                     </div>
                 </li>
@@ -84,7 +85,11 @@
                         <a class="dropdown-item" href="#">Profile</a>
                         <a class="dropdown-item" href="#">Settings</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Log out</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">Log out</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     </div>
                 </li>
             </ul>

@@ -17,4 +17,11 @@ class LeaderApi extends Controller
     {
         return load_pending_video_data_table(get_group_pending_video());
     }
+
+    public function removeVideo(Request $request)
+    {
+        get_model_delete('video', $request);
+
+        return redirect()->back();
+    }
 }

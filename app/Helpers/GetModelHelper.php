@@ -1,11 +1,11 @@
 <?php
+use App\Leader_members;
 use App\Manga;
 use App\TranslateGroup;
-use App\Leader_members;
-use App\Videos;
+use App\User;
 
 // Model
-use App\User;
+use App\Videos;
 use Spatie\Activitylog\Models\Activity;
 
 if (!function_exists('get_model')) {
@@ -59,7 +59,17 @@ if (!function_exists('get_model_delete')) {
 
                 return $copyright->save();
                 break;
+            case 'video':
+                $video = Videos::find($id);
 
+                $path = get_storage_helper() . $video->belongsToGroup->slug . '/' . $video->belongsToManga->slug . '/' . $video->getChapter->slug;
+
+                Storage::deleteDirectory($path);
+
+                $video->getChapter->delete();
+
+                return $video->delete();
+                break;
             default:
                 # code...
                 break;
@@ -87,7 +97,7 @@ if (!function_exists('get_log')) {
 if (!function_exists('get_member')) {
     function get_member($auth_id)
     {
-        return Leader_members::where('leader_id','=',$auth_id)->get();
+        return Leader_members::where('leader_id', '=', $auth_id)->get();
     }
 }
 
@@ -97,7 +107,7 @@ if (!function_exists('get_pending_video')) {
     {
         $member_id_array = [];
 
-        $members = Leader_members::select('member_id')->where('leader_id','=',$auth_id)->get();
+        $members = Leader_members::select('member_id')->where('leader_id', '=', $auth_id)->get();
 
         foreach ($members as $member) {
             array_push($member_id_array, $member->member_id);
@@ -105,8 +115,8 @@ if (!function_exists('get_pending_video')) {
 
         return Videos::where([
             ['published_time', '=', null],
-            ['is_published','=',false]
-        ])->whereIn('uploaded_by',$member_id_array)->get();
+            ['is_published', '=', false],
+        ])->whereIn('uploaded_by', $member_id_array)->get();
 
         // return $pending;
     }
@@ -115,12 +125,12 @@ if (!function_exists('get_pending_video')) {
 if (!function_exists('get_group_pending_video')) {
     function get_group_pending_video()
     {
-        $group = TranslateGroup::where('leader_id',Auth::id())->first();
+        $group = TranslateGroup::where('leader_id', Auth::id())->first();
 
         return Videos::where([
             ['group_id', '=', $group->id],
             ['published_time', '=', null],
-            ['is_published','=',false]
+            ['is_published', '=', false],
         ])->get();
     }
 }

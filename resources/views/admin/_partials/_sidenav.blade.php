@@ -89,6 +89,18 @@
                     </a>
                 </li>
                 @endcan
+                @can('only-member', Auth::user())
+                <li class="nav-item ">
+                    <a class="nav-link" href="">
+                        <span class="sidebar-mini">
+                            <i class="fas fa-list-ul"></i>
+                        </span>
+                        <span class="sidebar-normal">
+                            <p> Personal Uploaded Video </p>
+                        </span>
+                    </a>
+                </li>
+                @endcan
                 @can('leader-member', Auth::user())
                 <li class="nav-item {{ setSideBarActive(['dashboard/video/create'],'active') }}">
                     <a class="nav-link" href="{{route('video.create')}}">

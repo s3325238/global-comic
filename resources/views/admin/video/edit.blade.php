@@ -19,20 +19,14 @@
         </div>
         @endforeach
         @endif
-        <div class="row">
-            <div class="col-md-12">
-                <a href="{{route('video.pending')}}" class="btn btn-primary"><i
-                        class="fas fa-arrow-alt-circle-left"></i>&nbsp;&nbsp;Back to list</a>
-            </div>
-        </div>
-        <form action="#" method="post" enctype="multipart/form-data">
+        <form action="{{route('video.update',$video->id)}}" method="post" enctype="multipart/form-data">
             @csrf
             @method('put')
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-nav-tabs">
                         <div class="card-header card-header-success">
-                            Video Preview
+                            <b>{{Str::upper($video->belongsToManga->name. ' - ' .$video->getChapter->name. ' - ' . $video->name)}}</b>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -62,8 +56,8 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a href="#" class="btn btn-danger"><i
-                                            class="fas fa-window-close"></i>&nbsp;&nbsp;Decline</a>
+                                    <a href="{{route('video.pending')}}" class="btn btn-primary"><i
+                                            class="fas fa-arrow-alt-circle-left"></i>&nbsp;&nbsp;Back to list</a>
                                     <button type="submit" class="btn btn-success"><i
                                             class="fas fa-edit"></i>&nbsp;&nbsp;Update</button>
                                 </div>
@@ -82,7 +76,7 @@
                             <div class="row ml-auto mr-auto">
                                 @foreach ($video->getChapter->source as $item)
                                 <div class="col-md-3">
-                                    <img class="img" style="width:90%"
+                                    <img class="img" style="width:90%; margin-bottom:100px"
                                         src="{{ '/storage/site/upload/'.$video->belongsToGroup->slug.'/'.$video->belongsToManga->slug.'/'.$video->getChapter->slug.'/'.$item }} ">
                                 </div>
                                 @endforeach

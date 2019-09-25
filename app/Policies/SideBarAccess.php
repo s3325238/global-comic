@@ -19,6 +19,14 @@ class SideBarAccess
         //
     }
 
+    public function only_member($user)
+    {
+        if ($user->role_id == '4') {
+            return true;
+        }
+        return false;
+    }
+
     public function leader_member($user)
     {
         if ($user->role_id == '3' || $user->role_id == '4') {

@@ -62,6 +62,16 @@ if (!function_exists('get_model_delete')) {
             case 'video':
                 $video = Videos::find($id);
 
+                $member = Leader_members::select('leader_id','member_id')->where('member_id',$video->uploaded_by)->first();
+
+                if(!isset($member)) {
+                    abort(404);
+                } else {
+                    if ($member->leader_id != Auth::id()) {
+                        abort(404);
+                    }
+                }
+
                 $path = get_storage_helper() . $video->belongsToGroup->slug . '/' . $video->belongsToManga->slug . '/' . $video->getChapter->slug;
 
                 Storage::deleteDirectory($path);

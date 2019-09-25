@@ -75,16 +75,6 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        // Creating new video
-        $file = $request->video;
-
-        // foreach ($request->images as $image) {
-        //     echo md5_file($image->getRealPath()) . '<br/>';
-        // }
-        // dd($request->images->hashName());
-        // die;
-
-        // dd($file->getClientOriginalExtension());
 
         $this->validate($request, [
             'video_name' => 'required|string|max:191',
@@ -100,9 +90,9 @@ class VideoController extends Controller
         $file = $request->video;
 
         // Getter
-        $manga_slug = Manga::select('slug')->where('id', $request->manga)->first();
+        $manga_slug = Manga::where('id', $request->manga)->first();
 
-        $existed = Chapters::select('slug')->where('manga_id', '=', $request->manga)->get();
+        $existed = Chapters::where('manga_id', '=', $request->manga)->get();
 
         if (Auth::user()->role_id == '3') {
 
@@ -114,6 +104,10 @@ class VideoController extends Controller
 
             $group = TranslateGroup::where('leader_id', $belong_to_leader->leader_id)->first();
 
+        }
+
+        if ($manga_slug->group_id != $group->id) {
+            return redirect()->back();
         }
         // Constructor
         $chapter = new Chapters();
@@ -217,7 +211,16 @@ class VideoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'published_time' => 'date_format:Y-m-d H:i',
+        ]);
+        $video = Videos::find($id);
+        
+        $video->published_time = $request->published_time;
+        
+        $video->save();
+
+        return redirect(route('video.pending'));
     }
 
     /**

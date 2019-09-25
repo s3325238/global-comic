@@ -11,22 +11,25 @@
         <div class="container">
             <h2 class="section-title">All active group</h2>
             <div class="row">
+                @foreach ($groups as $group)
                 <div class="col-md-3 col-sm-3 col-xs-2 mr-auto ml-auto">
                     <div class="card card-product card-plain">
                         <div class="card-header card-header-image">
                             <a href="{{ route('singleGroup') }}">
-                                <img src="{{ url('/img/group-logo/hamtruyen-logo.jpg') }}" alt="">
+                                {{-- <img src="https://storage-content.s3-ap-southeast-1.amazonaws.com/public/site/upload/{{$group->slug}}/{{$group->logo}}" alt="{{$group->slug}}"> --}}
+                                <img src="/storage/site/upload/{{$group->slug}}/{{$group->logo}}" alt="{{$group->slug}}">
                             </a>
                         </div>
                         <div class="card-body text-center">
                             <h4 class="card-title">
-                                <a href="#pablo">300*300</a>
+                                <a href="#pablo">{{Str::upper($group->name)}}</a>
                             </h4>
                             <p class="card-description">Display 8 groups and paginate.<br />Mobile version will be
                                 slider</p>
                         </div>
                     </div>
                 </div>
+                @endforeach
                 <div class="col-md-3 col-sm-3 col-xs-2 mr-auto ml-auto">
                     <div class="card card-product card-plain">
                         <div class="card-header card-header-image">

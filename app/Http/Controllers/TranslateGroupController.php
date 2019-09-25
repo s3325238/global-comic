@@ -15,8 +15,10 @@ class TranslateGroupController extends Controller
     public function index()
     {
         //
-        $locale = app()->getLocale();
-        return view('ui.pages.group.index')->with('locale',$locale);
+        // $locale = app()->getLocale();
+        $groups = TranslateGroup::select_language('vi')->get();
+        return view('ui.pages.group.index',compact(['groups']));
+        // return view('ui.pages.group.index')->with('locale',$locale);
     }
 
     /**

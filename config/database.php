@@ -46,16 +46,19 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            // 'host' => env('DB_HOST', 'remotemysql.com'),
+
+            'host' => 'remotemysql.com',
+            'port' => '3306',
+            'database' => 'X7sM4zPNJk',
+            'username' => 'X7sM4zPNJk',
+            'password' => 'ktO8YydZfq',
+
+            // 'host' => env('DB_HOST', 'localhost'),
             // 'port' => env('DB_PORT', '3306'),
-            // 'database' => env('DB_DATABASE', 'X7sM4zPNJk'),
-            // 'username' => env('DB_USERNAME', 'X7sM4zPNJk'),
-            // 'password' => env('DB_PASSWORD', 'ktO8YydZfq'),
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'e-commerce'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
+            // 'database' => env('DB_DATABASE', 'e-commerce'),
+            // 'username' => env('DB_USERNAME', 'root'),
+            // 'password' => env('DB_PASSWORD', ''),
+
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',

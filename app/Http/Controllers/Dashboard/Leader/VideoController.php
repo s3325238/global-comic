@@ -55,7 +55,14 @@ class VideoController extends Controller
         if (Auth::user()->role_id == '3') {
             $group = TranslateGroup::select('id')->where('leader_id', '=', Auth::id())->first();
 
-            $mangas = TranslateGroup::findOrFail($group->id)->mangas;
+            if (!isset($group)) {
+                return redirect(route('dashboard'));
+            } else {
+                $mangas = $group->mangas;
+            }
+            // $mangas = TranslateGroup::find($group->id)->mangas;
+
+            
 
             return view('admin.video.upload', compact(['mangas']));
 

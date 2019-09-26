@@ -136,7 +136,17 @@ if (!function_exists('load_personal_task_data_table')) {
             })
             ->editColumn('assigned', function (Tasks $task) {
                 if ($task->assigned != null) {
-                    return $task->assignedFrom->name;
+                    switch ($task->host->role_id) {
+                        case '2':
+                            return 'Moderator';
+                            break;
+                        case '3':
+                            return 'Leader';
+                            break;
+                        default:
+                            return 'Admin';
+                            break;
+                    }
                 } else {
                     return '';
                 }
@@ -157,28 +167,28 @@ if (!function_exists('load_member_task_data_table')) {
     function load_member_task_data_table($task)
     {
         return DataTables::of($task)
-                ->addColumn('description', function ($task) {
-                    return $task->description;
-                })
-                ->editColumn('priority', function (Tasks $task) {
-                    if ($task->priority == '0') {
-                        return '<span class="badge badge-pill badge-info">Normal</span>';
-                    } else {
-                        return '<span class="badge badge-pill badge-danger">Urgent</span>';
-                    }
-                })
-                ->editColumn('assigned', function (Tasks $task) {
-                    return $task->assignedFrom->name;
-                })
-                ->editColumn('status', function ($task) {
-                    if ($task->status == '0') {
-                        return '<span class="badge badge-pill badge-danger"><i class="fas fa-exclamation"></i>&nbsp;&nbsp;Pending</span>';
-                    } else {
-                        return '<span class="badge badge-pill badge-success">Complete</span>';
-                    }
-                })
-                ->rawColumns(['priority', 'status'])
-                ->make(true);
+            ->addColumn('description', function ($task) {
+                return $task->description;
+            })
+            ->editColumn('priority', function (Tasks $task) {
+                if ($task->priority == '0') {
+                    return '<span class="badge badge-pill badge-info">Normal</span>';
+                } else {
+                    return '<span class="badge badge-pill badge-danger">Urgent</span>';
+                }
+            })
+            ->editColumn('assigned', function (Tasks $task) {
+                return $task->assignedFrom->name;
+            })
+            ->editColumn('status', function ($task) {
+                if ($task->status == '0') {
+                    return '<span class="badge badge-pill badge-danger"><i class="fas fa-exclamation"></i>&nbsp;&nbsp;Pending</span>';
+                } else {
+                    return '<span class="badge badge-pill badge-success">Complete</span>';
+                }
+            })
+            ->rawColumns(['priority', 'status'])
+            ->make(true);
     }
 }
 
@@ -318,11 +328,11 @@ if (!function_exists('load_pending_video_data_table')) {
     function load_pending_video_data_table($video)
     {
         return DataTables::of($video)
-            ->addColumn('manga_id', function (Videos $video) {
+            ->addColumn('manga', function (Videos $video) {
                 return ucfirst($video->belongsToManga->name);
             })
-            ->addColumn('chapter', function ($video) {
-                return $video->chapter; // Need to edit
+            ->addColumn('chapter', function (Videos $video) {
+                return $video->getChapter->name;
             })
             ->addColumn('uploaded_by', function (Videos $video) {
                 $member = Leader_members::where('member_id', $video->belongsToUser->id)->first();
@@ -336,10 +346,42 @@ if (!function_exists('load_pending_video_data_table')) {
                 return $video->created_at->diffForHumans();
             })
             ->addColumn('action', function ($video) {
-                return '<a href="'.route('video.edit',$video->slug).'" class="btn btn-link btn-warning btn-just-icon edit"><i class="fas fa-eye"></i></a>
+                return '<a href="' . route('video.edit', $video->slug) . '" class="btn btn-link btn-warning btn-just-icon edit"><i class="fas fa-eye"></i></a>
                         <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $video->id . '"><i class="fas fa-minus-circle"></i></a>';
             })
             ->rawColumns(['uploaded_by', 'action'])
+            ->make(true);
+    }
+}
+
+if (!function_exists('load_member_video_data_table')) {
+    function load_member_video_data_table($video)
+    {
+        return DataTables::of($video)
+            ->addColumn('manga', function (Videos $video) {
+                return ucfirst($video->belongsToManga->name);
+            })
+            ->addColumn('chapter', function (Videos $video) {
+                return $video->getChapter->name;
+            })
+            ->addColumn('video', function ($video) {
+                return $video->name;
+            })
+            ->addColumn('publish', function (Videos $video) {
+                if ($video->published_time != null) {
+                    return $video->published_time;
+                } else {
+                    return '';
+                }
+            })
+            ->addColumn('status', function ($video) {
+                if ($video->published_time == null) {
+                    return '<span class="badge badge-pill badge-danger"><i class="fas fa-exclamation"></i>&nbsp;&nbsp;Pending</span>';
+                } else {
+                    return '<span class="badge badge-pill badge-success"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;Approved</span>';
+                }
+            })
+            ->rawColumns(['publish', 'status'])
             ->make(true);
     }
 }

@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Dashboard\Leader;
 
 use App\Chapters;
 use App\Http\Controllers\Controller;
-use Session;
 use App\Leader_members;
+use App\Manga;
 
 // Model
-use App\Manga;
 use App\Settings;
 use App\TranslateGroup;
 use App\Videos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class VideoController extends Controller
 {
@@ -28,7 +28,7 @@ class VideoController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('only_leader', Videos::class);
     }
 
     /**
@@ -40,7 +40,20 @@ class VideoController extends Controller
     {
         $this->authorize('only_leader', Videos::class);
 
+        $group = TranslateGroup::where('leader_id', Auth::id())->first();
+
+        if (!isset($group)) {
+            return redirect(route('dashboard'));
+        }
+
         return view('admin.video.pending');
+    }
+
+    public function personal()
+    {
+        $this->authorize('only_member', Videos::class);
+
+        return view('admin.video.member');
     }
 
     /**
@@ -53,27 +66,29 @@ class VideoController extends Controller
         $this->authorize('create_video', Videos::class);
 
         if (Auth::user()->role_id == '3') {
+
             $group = TranslateGroup::select('id')->where('leader_id', '=', Auth::id())->first();
 
             if (!isset($group)) {
                 return redirect(route('dashboard'));
             } else {
                 $mangas = $group->mangas;
+
+                return view('admin.video.upload', compact(['mangas']));
             }
-            // $mangas = TranslateGroup::find($group->id)->mangas;
-
-            
-
-            return view('admin.video.upload', compact(['mangas']));
-
         } else if (Auth::user()->role_id == '4') {
+
             $leader = Leader_members::select('leader_id')->where('member_id', Auth::id())->first();
 
             $group = TranslateGroup::select('id')->where('leader_id', '=', $leader->leader_id)->first();
 
-            $mangas = TranslateGroup::findOrFail($group->id)->mangas;
+            if (!isset($group)) {
+                return redirect(route('dashboard'));
+            } else {
+                $mangas = $group->mangas;
 
-            return view('admin.video.upload', compact(['mangas']));
+                return view('admin.video.upload', compact(['mangas']));
+            }
         } else {
             abort(404);
         }
@@ -120,7 +135,7 @@ class VideoController extends Controller
         }
 
         if ($manga_slug->group_id != $group->id) {
-            Session::flash('status','Manga is not existed. Please choose again.');
+            Session::flash('status', 'Manga is not existed. Please choose again.');
             return redirect()->back();
         }
         // Constructor
@@ -136,14 +151,14 @@ class VideoController extends Controller
         if (isset($chapter_existed)) {
             foreach ($chapter_existed as $item) {
                 if ($item->slug == slugging_manually($chapter->name)) {
-                    return redirect()->back()->with('info','Chapter has existed! Contact your leader for more information!');
+                    return redirect()->back()->with('info', 'Chapter has existed! Contact your leader for more information!');
                 }
             }
         }
 
         $chapter->slug = slugging_manually($chapter->name);
 
-        $path =  $this->getStorage(). $group->slug . '/' . $manga_slug->slug . '/' . $chapter->slug;
+        $path = $this->getStorage() . $group->slug . '/' . $manga_slug->slug . '/' . $chapter->slug;
 
         $chapter->source = storage_store('multiple', $request->images, $path);
 
@@ -237,9 +252,9 @@ class VideoController extends Controller
             'published_time' => 'date_format:Y-m-d H:i',
         ]);
         $video = Videos::find($id);
-        
+
         $video->published_time = $request->published_time;
-        
+
         $video->save();
 
         return redirect(route('video.pending'));

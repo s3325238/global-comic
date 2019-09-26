@@ -37,6 +37,9 @@ if (!function_exists('setPageTitle')) {
             case 'dashboard/video/pending':
                 return 'Pending video list';
                 break;
+            case 'dashboard/video/personal':
+                return 'Personal video list';
+                break;
             case 'dashboard/video/create':
                 return 'New video upload';
                 break;

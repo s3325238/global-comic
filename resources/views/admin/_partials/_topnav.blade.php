@@ -65,9 +65,9 @@
                             @endif
 
                             @can('only-leader',Auth::user())
-                            @if (count(get_pending_video(Auth::id())) > 0)
+                            @if (pending_video_count() > 0)
                             <a class="dropdown-item" href="{{ route('video.pending') }}">You have
-                                {{ count( get_pending_video(Auth::id()) ) }} {{count( get_pending_video(Auth::id()) ) >= 2 ? str_plural('video'):'video'}} waiting to publish</a>
+                                {{ pending_video_count() }} {{ pending_video_count() >= 2 ? str_plural('video'):'video'}} waiting to publish</a>
                             @endif
                             @endcan
 

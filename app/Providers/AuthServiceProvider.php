@@ -39,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('change-settings', 'App\Policies\SideBarAccess@changeSettings');
         Gate::define('access-finance', 'App\Policies\SideBarAccess@accessFinance');
         
-        Gate::define('both_leader_member','App\Policies\SideBarAccess@both_leader_member');
+        Gate::define('both-leader-member','App\Policies\SideBarAccess@both_leader_member');
         Gate::define('only-leader', 'App\Policies\SideBarAccess@only_leader');
         Gate::define('only-member', 'App\Policies\SideBarAccess@only_member');
         // Manga Permission

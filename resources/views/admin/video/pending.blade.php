@@ -41,7 +41,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $('#vi').DataTable({
+        $('#pending').DataTable({
             processing: true,
             serverSide: true,
             ajax: '{!! route('api.video.pending') !!}',
@@ -51,7 +51,7 @@
                 [10, 25, 50, "All"]
             ],
             columns: [
-                { data: 'manga_id', name: 'manga_id' },
+                { data: 'manga', name: 'manga' },
                 { data: 'chapter', name: 'chapter' },
                 { data: 'uploaded_by', name: 'uploaded_by' },
                 { data: 'created_at', name: 'created_at' },

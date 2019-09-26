@@ -64,6 +64,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
     ]])->except(['show','destroy']);
 
     Route::get('video/pending', 'Dashboard\Leader\VideoController@pending')->name('video.pending');
+    Route::get('video/personal', 'Dashboard\Leader\VideoController@personal')->name('video.member.personal');
 
     Route::apiResource('task', 'Dashboard\TasksController')->except(['show', 'destroy']);
 
@@ -117,6 +118,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard']], functio
         Route::get('/lists/member', 'Api\LeaderApi@getMember')->name('api.member.table');
 
         Route::get('video/pending', 'Api\LeaderApi@getPendingVideo')->name('api.video.pending');
+        Route::get('video/personal', 'Api\LeaderApi@getPersonalVideo')->name('api.video.member');
 
         Route::get('/lists/remove', 'Api\LeaderApi@removeVideo')->name('api.video.lists.remove');
     });

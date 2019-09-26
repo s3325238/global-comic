@@ -15,6 +15,10 @@ use App\Leader_members;
 
 class TasksController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['dashboard']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,16 +26,6 @@ class TasksController extends Controller
      */
     public function index()
     {
-        // $tasks = Tasks::personal()->orWhere->assigned()->status('0')->get();
-
-        // foreach ($tasks as $task) {
-        //     if($task->assigned != null){
-        //         echo $task->assignedFrom->name;
-        //     } else {
-        //         echo "Personal";
-        //     }
-        // };
-        // die;
         $user = Auth::user();
         if (Gate::allows('assign-task', $user)) {
             if ($user->role_id == '3') {

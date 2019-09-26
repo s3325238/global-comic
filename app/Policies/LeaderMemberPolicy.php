@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\User;
+use App\TranslateGroup;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class LeaderMemberPolicy
@@ -17,6 +18,17 @@ class LeaderMemberPolicy
     public function __construct()
     {
         //
+    }
+
+    public function group_null($user)
+    {
+        $group = TranslateGroup::where('leader_id', $user->id)->first();
+
+        if (!isset($group)) {
+            return redirect(route('dashboard'));
+        } else {
+            return true;
+        }
     }
 
     public function only_leader($user)

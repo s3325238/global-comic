@@ -9,7 +9,7 @@ if (!function_exists('total_noti')) {
     {
         $i = 0;
 
-        if (count(get_pending_video(Auth::id())) > 0) {
+        if ( pending_video_count() > 0) {
             $i+= 1;
         }
 
@@ -23,8 +23,26 @@ if (!function_exists('total_noti')) {
 if (!function_exists('task_count')) {
     function task_count()
     {
-        $tasks = Tasks::assigned_comparator('=')->orWhere->assigned()->status('0')->count();
+        $tasks = Tasks::personal()->orWhere->assigned()->status('0')->count();
 
         return $tasks;
+    }
+}
+
+if (!function_exists('pending_video_count')) {
+    function pending_video_count()
+    {
+        $member_id_array = [];
+
+        $members = Leader_members::select('member_id')->where('leader_id', '=', Auth::id())->get();
+
+        foreach ($members as $member) {
+            array_push($member_id_array, $member->member_id);
+        }
+
+        return Videos::where([
+            ['published_time', '=', null],
+            ['is_published', '=', false],
+        ])->whereIn('uploaded_by', $member_id_array)->count();
     }
 }

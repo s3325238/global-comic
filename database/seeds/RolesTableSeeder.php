@@ -102,7 +102,7 @@ class RolesTableSeeder extends Seeder
 
                 'add_copyright' => false,
                 'view_settings' => false,
-                'assign_task' => false,
+                'assign_task' => true,
                 'access_finance' => false,
 
                 "created_at" => date('Y-m-d H:i:s'),

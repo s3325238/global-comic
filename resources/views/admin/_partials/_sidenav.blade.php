@@ -72,6 +72,17 @@
             <!-- Group Management -->
             <div class="user">
                 @can('only-leader', Auth::user())
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">
+                        <span class="sidebar-mini">
+                            <i class="fas fa-play"></i>
+                        </span>
+                        <span class="sidebar-normal">
+                            <p> Publishing video&nbsp;&nbsp;
+                            </p>
+                        </span>
+                    </a>
+                </li>
                 <li class="nav-item {{ setSideBarActive(['dashboard/video/pending', 'dashboard/video/*/edit'],'active') }}">
                     <a class="nav-link" href="{{route('video.pending')}}">
                         <span class="sidebar-mini">
@@ -79,9 +90,9 @@
                         </span>
                         <span class="sidebar-normal">
                             <p> Pending video&nbsp;&nbsp;
-                                @if (count(get_pending_video(Auth::id())) > 0)
+                                @if (pending_video_count() > 0)
                                     <span class="badge badge-pill badge-info">
-                                        {{ count(get_pending_video(Auth::id())) }}
+                                        {{ pending_video_count() }}
                                     </span>
                                 @endif
                             </p>
@@ -90,8 +101,8 @@
                 </li>
                 @endcan
                 @can('only-member', Auth::user())
-                <li class="nav-item ">
-                    <a class="nav-link" href="">
+                <li class="nav-item {{ setSideBarActive(['dashboard/video/personal'],'active') }}">
+                    <a class="nav-link" href="{{route('video.member.personal')}}">
                         <span class="sidebar-mini">
                             <i class="fas fa-list-ul"></i>
                         </span>
@@ -101,7 +112,7 @@
                     </a>
                 </li>
                 @endcan
-                @can('both_leader_member', Auth::user())
+                @can('both-leader-member', Auth::user())
                 <li class="nav-item {{ setSideBarActive(['dashboard/video/create'],'active') }}">
                     <a class="nav-link" href="{{route('video.create')}}">
                         <span class="sidebar-mini">

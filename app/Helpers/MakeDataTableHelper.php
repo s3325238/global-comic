@@ -1,10 +1,41 @@
 <?php
 
+if (!function_exists('make_personal_video_data_table')) {
+    function make_personal_video_data_table()
+    {
+        return '<div class="material-datatables">
+        <table id="personal" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%"
+            style="width:100%">
+            <thead>
+                <tr>
+                    <th>Manga Name</th>
+                    <th>Chapter</th>
+                    <th>Video Name</th>
+                    <th>Publish at</th>
+
+                    <th class="text-center">Status</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Manga Name</th>
+                    <th>Chapter</th>
+                    <th>Video Name</th>
+                    <th>Publish at</th>
+
+                    <th class="text-center">Status</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>';
+    }
+}
+
 if (!function_exists('make_pending_video_data_table')) {
     function make_pending_video_data_table()
     {
         return '<div class="material-datatables">
-        <table id="vi" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%"
+        <table id="pending" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%"
             style="width:100%">
             <thead>
                 <tr>

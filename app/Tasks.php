@@ -9,15 +9,6 @@ class Tasks extends Model
 {
     protected $table = 'tasks';
 
-    public function scopeAssigned_comparator($query, $assigned_comparator)
-    {
-        return $query->where([
-            ['user_id', '=', Auth::id()],
-            ['assigned', $assigned_comparator, null]
-        ]);
-        // return $query->where('user_id','=',Auth::id());
-    }
-
     public function scopeAssigned($query)
     {
         return $query->where([
@@ -41,14 +32,6 @@ class Tasks extends Model
         ]);
     }
 
-    public function scopeMemberTask($query)
-    {
-        return $query->where([
-            ['user_id', '=', Auth::id()],
-            ['assigned', '!=', null]
-        ]);
-    }
-
     public function scopeStatus($query,$status)
     {
         return $query->where('status','=', $status);
@@ -57,5 +40,10 @@ class Tasks extends Model
     public function assignedFrom()
     {
         return $this->belongsTo('App\User','assigned');
+    }
+
+    public function host()
+    {
+        return $this->belongsTo('App\User','user_id');
     }
 }

@@ -22,7 +22,7 @@ class GroupPermissionPolicy
 
     public function create_group($user)
     {
-        $can_create = Roles::where('id','==');
+        
     }
 
     public function view_group($user)

@@ -155,6 +155,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard']], functio
 
     Route::group(['prefix' => 'task'], function () {
         Route::get('personal', 'Api\TasksApi@getPersonalTask')->name('api.task.personal');
+        Route::get('member', 'Api\TasksApi@getMemberTask')->name('api.task.member');
     });
 
     Route::group(['prefix' => 'logs'], function () {

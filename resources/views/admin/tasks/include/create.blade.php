@@ -27,10 +27,16 @@
                     <select class="selectpicker" name="member" data-live-search="true"
                         data-style="btn btn-primary btn-round" data-width="100%" title="Choose Member">
                         {{-- <option disabled selected>Single Option</option> --}}
-                        <option value="vi">Vietnamese</option>
-                        <option value="en">English</option>
-                        <option value="jp">Japanese</option>
-                        <option value="Korean">Korean</option>
+                        @can('only-leader', Auth::user())
+                            @foreach ($can_assign as $member)
+                                <option value="{{$member->member->id}}">{{$member->member->name}}</option>
+                            @endforeach
+                        @else
+                        @foreach ($can_assign as $member)
+                        <option value="{{$member->id}}">{{$member->name}}</option>
+                    @endforeach
+                        @endcan
+                        
                     </select>
                 </div>
                 @endcan

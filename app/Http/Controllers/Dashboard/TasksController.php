@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 use Auth;
 use Spatie\Activitylog\Contracts\Activity;
 
 use App\Tasks;
+use App\User;
+use App\Leader_members;
 
 class TasksController extends Controller
 {
@@ -19,7 +22,27 @@ class TasksController extends Controller
      */
     public function index()
     {
-        return view('admin.tasks.index');
+        // $tasks = Tasks::personal()->orWhere->assigned()->status('0')->get();
+
+        // foreach ($tasks as $task) {
+        //     if($task->assigned != null){
+        //         echo $task->assignedFrom->name;
+        //     } else {
+        //         echo "Personal";
+        //     }
+        // };
+        // die;
+        $user = Auth::user();
+        if (Gate::allows('assign-task', $user)) {
+            if ($user->role_id == '3') {
+                $can_assign = Leader_members::where('leader_id', Auth::id())->get();
+            } else {
+                $can_assign = User::whereNotIn('role_id',['1','4','99', $user->role_id])->get();
+            }
+            return view('admin.tasks.index', compact(['can_assign']));
+        } else {
+            return view('admin.tasks.index');    
+        }
     }
 
     /**

@@ -2,13 +2,10 @@
 
 @section('title','Tasks Management')
 
-@push('customCSS')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-@endpush
-
 @section('content')
 <div class="content">
     <div class="container-fluid">
+        <img src="" alt="">
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 @include('admin.tasks.include.create')
@@ -47,15 +44,40 @@
             ],
             columns: [
                 { data: 'description', name: 'description' },
-                { 
-                    data: 'priority', 
-                    name: 'priority',
-                },
+                { data: 'priority', name: 'priority', },
+                { data: 'assigned', name: 'assigned', },
                 {
                     data: 'action',
                     className:"text-center",
                     orderable:false,
                     searchable: false
+                },
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        });
+
+        $('#member').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{!! route('api.task.member') !!}',
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [5,10, 25, 50, -1],
+                [5,10, 25, 50, "All"]
+            ],
+            columns: [
+                { data: 'description', name: 'description' },
+                { data: 'priority', name: 'priority', },
+                { data: 'assigned', name: 'assigned', },
+                {
+                    data: 'status',
+                    className:"text-center",
+                    // orderable:false,
+                    // searchable: false
                 },
             ],
             responsive: true,

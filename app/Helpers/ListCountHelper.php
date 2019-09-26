@@ -23,7 +23,7 @@ if (!function_exists('total_noti')) {
 if (!function_exists('task_count')) {
     function task_count()
     {
-        $tasks = Tasks::personal()->orWhere->assigned()->status('0')->count();
+        $tasks = Tasks::assigned_comparator('=')->orWhere->assigned()->status('0')->count();
 
         return $tasks;
     }

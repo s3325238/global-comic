@@ -13,6 +13,7 @@
                     <tr>
                         <th>Description</th>
                         <th>Priority</th>
+                        <th>From</th>
 
                         <th class="disabled-sorting text-center">Actions</th>
                     </tr>
@@ -21,6 +22,7 @@
                     <tr>
                         <th>Description</th>
                         <th>Priority</th>
+                        <th>From</th>
 
                         <th class="text-center">Actions</th>
                     </tr>

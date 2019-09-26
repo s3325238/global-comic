@@ -15,6 +15,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'App\TranslateGroup' => 'App\Policies\GroupPolicy',
         'App\Manga' => 'App\Policies\MangaPolicy',
+        'App\Videos' => 'App\Policies\LeaderMemberPolicy',
     ];
 
     /**

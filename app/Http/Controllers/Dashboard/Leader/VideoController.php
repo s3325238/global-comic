@@ -38,6 +38,8 @@ class VideoController extends Controller
      */
     public function pending()
     {
+        $this->authorize('only_leader', Videos::class);
+
         return view('admin.video.pending');
     }
 
@@ -48,6 +50,8 @@ class VideoController extends Controller
      */
     public function create()
     {
+        $this->authorize('create_video', Videos::class);
+
         if (Auth::user()->role_id == '3') {
             $group = TranslateGroup::select('id')->where('leader_id', '=', Auth::id())->first();
 
@@ -76,6 +80,7 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create_video', Videos::class);
 
         $this->validate($request, [
             'video_name' => 'required|string|max:191',
@@ -199,9 +204,15 @@ class VideoController extends Controller
      */
     public function edit($slug)
     {
+        $this->authorize('update_video', Videos::class);
+
         $video = Videos::where('slug', $slug)->first();
 
-        return view('admin.video.edit', compact(['video']));
+        if (isset($video)) {
+            return view('admin.video.edit', compact(['video']));
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -213,6 +224,8 @@ class VideoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('update_video', Videos::class);
+
         $this->validate($request, [
             'published_time' => 'date_format:Y-m-d H:i',
         ]);

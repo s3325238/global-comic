@@ -134,6 +134,13 @@ if (!function_exists('load_personal_task_data_table')) {
                     return '<span class="badge badge-pill badge-danger">Urgent</span>';
                 }
             })
+            ->editColumn('assigned', function (Tasks $task) {
+                if ($task->assigned != null) {
+                    return $task->assignedFrom->name;
+                } else {
+                    return '';
+                }
+            })
             ->addColumn('action', function ($task) {
                 return '<form action="' . route('task.update', $task->id) . '" method="POST">' . csrf_field() . '
                     <input type="hidden" name="_method" value="PUT">
@@ -144,6 +151,35 @@ if (!function_exists('load_personal_task_data_table')) {
             ->make(true);
     }
 
+}
+
+if (!function_exists('load_member_task_data_table')) {
+    function load_member_task_data_table($task)
+    {
+        return DataTables::of($task)
+                ->addColumn('description', function ($task) {
+                    return $task->description;
+                })
+                ->editColumn('priority', function (Tasks $task) {
+                    if ($task->priority == '0') {
+                        return '<span class="badge badge-pill badge-info">Normal</span>';
+                    } else {
+                        return '<span class="badge badge-pill badge-danger">Urgent</span>';
+                    }
+                })
+                ->editColumn('assigned', function (Tasks $task) {
+                    return $task->assignedFrom->name;
+                })
+                ->editColumn('status', function ($task) {
+                    if ($task->status == '0') {
+                        return '<span class="badge badge-pill badge-danger"><i class="fas fa-exclamation"></i>&nbsp;&nbsp;Pending</span>';
+                    } else {
+                        return '<span class="badge badge-pill badge-success">Complete</span>';
+                    }
+                })
+                ->rawColumns(['priority', 'status'])
+                ->make(true);
+    }
 }
 
 if (!function_exists('load_group_data_table')) {

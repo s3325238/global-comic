@@ -20,6 +20,8 @@ class LeaderApi extends Controller
 
     public function removeVideo(Request $request)
     {
+        $this->authorize('delete_video', Videos::class);
+
         get_model_delete('video', $request);
 
         return redirect()->back();

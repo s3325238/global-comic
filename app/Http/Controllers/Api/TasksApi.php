@@ -11,9 +11,16 @@ class TasksApi extends Controller
 {
     public function getPersonalTask()
     {
-        $task = Tasks::select('id','description','priority')->personal()->orWhere->assigned()->status('0')->get();
+        $tasks = Tasks::personal()->orWhere->assigned()->status('0')->get();
 
-        return load_personal_task_data_table($task);
+        return load_personal_task_data_table($tasks);
+    }
+
+    public function getMemberTask()
+    {
+        $tasks = Tasks::member()->get();
+
+        return load_member_task_data_table($tasks);
     }
 
     public function getTaskAjaxUpdate(Request $request)

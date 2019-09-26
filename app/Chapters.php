@@ -21,6 +21,11 @@ class Chapters extends Model
 
     protected static $submitEmptyLogs = false;
 
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Chapter has been {$eventName}";
+    }
+
     protected $casts = [
         'source' => 'array', // or 'object' if you like
     ];
@@ -36,15 +41,6 @@ class Chapters extends Model
     {
         return $query->select(array_diff($this->getColumns(), (array) $value));
     }
-
-    // public function sluggable()
-    // {
-    //     return [
-    //         'slug' => [
-    //             'source' => 'name',
-    //         ],
-    //     ];
-    // }
 
     public function belongsToManga()
     {

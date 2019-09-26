@@ -60,7 +60,7 @@ if (!function_exists('get_model_delete')) {
                 return $copyright->save();
                 break;
             case 'video':
-                $video = Videos::find($id);
+                $video = Videos::where('uniqueString', $id)->first();
 
                 $member = Leader_members::select('leader_id','member_id')->where('member_id',$video->uploaded_by)->first();
 
@@ -110,7 +110,19 @@ if (!function_exists('get_member')) {
         return Leader_members::where('leader_id', '=', $auth_id)->get();
     }
 }
-// get_pending_video
+// Get video
+if (!function_exists('get_published_video')) {
+    function get_published_video()
+    {
+        $group = TranslateGroup::where('leader_id', Auth::id())->first();
+
+        return Videos::where([
+            ['group_id', '=', $group->id],
+            ['published_time', '!=', null],
+        ])->get();
+    }
+}
+
 if (!function_exists('get_pending_video')) {
     function get_pending_video()
     {
@@ -127,10 +139,6 @@ if (!function_exists('get_pending_video')) {
 if (!function_exists('get_personal_video')) {
     function get_personal_video()
     {
-        // $is_member = Leader_members::where('member_id', Auth::id())->first();
-
-        // $group = TranslateGroup::where('leader_id', $is_member->leader_id)->first();
-
         return Videos::where([
             ['uploaded_by', '=', Auth::id()]
         ])->get();

@@ -23,6 +23,15 @@ class Videos extends Model
         return $columns;
     }
 
+    protected static $logOnlyDirty = true;
+
+    protected static $submitEmptyLogs = false;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Video has been {$eventName}";
+    }
+
     public function scopeExclude($query, $value = array())
     {
         return $query->select(array_diff($this->getColumns(), (array) $value));

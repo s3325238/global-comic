@@ -19,6 +19,7 @@ class CreateVideosTable extends Migration
             $table->string('slug');
 
             $table->text('source');
+            $table->string('uniqueString');
             $table->unsignedBigInteger('manga_id');
 
             $table->foreign('manga_id')->references('id')->on('mangas')->onDelete('cascade');
@@ -31,6 +32,7 @@ class CreateVideosTable extends Migration
             $table->string('slug')->unique();
             $table->string('chapter');
             $table->string('source');
+            $table->string('uniqueString');
             $table->unsignedBigInteger('manga_id');
             $table->unsignedBigInteger('group_id');
             $table->unsignedBigInteger('chapter_id')->nullable(true);

@@ -25,8 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('video:published')->everyFifteenMinutes();
-        $schedule->command('video:delete')->weekly();
+        $schedule->command('video:published')->everyFiveMinutes()->withoutOverlapping();
+        // $schedule->command('video:delete')->weekly();
         $schedule->command('activitylog:clean')->weekly();
         // $schedule->call(function () {
         //     DB::table('password_resets')->delete();

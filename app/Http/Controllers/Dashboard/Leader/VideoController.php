@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Dashboard\Leader;
 
 use App\Chapters;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\Leader_members;
 use App\Manga;
+use Str;
 
 // Model
 use App\Settings;
@@ -29,6 +31,8 @@ class VideoController extends Controller
     public function index()
     {
         $this->authorize('only_leader', Videos::class);
+
+        return view('admin.video.index');
     }
 
     /**
@@ -39,12 +43,6 @@ class VideoController extends Controller
     public function pending()
     {
         $this->authorize('only_leader', Videos::class);
-
-        $group = TranslateGroup::where('leader_id', Auth::id())->first();
-
-        if (!isset($group)) {
-            return redirect(route('dashboard'));
-        }
 
         return view('admin.video.pending');
     }
@@ -158,6 +156,8 @@ class VideoController extends Controller
 
         $chapter->slug = slugging_manually($chapter->name);
 
+        $chapter->uniqueString = Hash::make(Str::random(20)).Str::random(40).'_'.time();
+
         $path = $this->getStorage() . $group->slug . '/' . $manga_slug->slug . '/' . $chapter->slug;
 
         $chapter->source = storage_store('multiple', $request->images, $path);
@@ -188,6 +188,10 @@ class VideoController extends Controller
 
         $video->chapter_id = $get_latest_chapter->id;
 
+        $string = Hash::make(Str::random(20)).Str::random(40).'_'.time();
+
+        $video->uniqueString = $string;
+
         $video->save(); // Video table save function
 
         // if ($carbon->format('d-m-Y H:i')->diffInDays($video->published_time)) {
@@ -202,8 +206,11 @@ class VideoController extends Controller
         //     echo "False";
         // }
         // dd($carbon->format('d-m-Y H:i'));
-
-        return redirect(route('dashboard'));
+        if (Auth::user()->role_id == '3') {
+            return redirect(route('video.pending'));
+        } else {
+            return redirect(route('video.member.personal'));
+        }
         // dd($video->getMimeType());
     }
 
@@ -224,13 +231,15 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($slug)
+    public function edit($uniqueString)
     {
         $this->authorize('update_video', Videos::class);
 
-        $video = Videos::where('slug', $slug)->first();
+        // dd($uniqueString);
 
-        if (isset($video)) {
+        $video = Videos::where('uniqueString', $uniqueString)->first();
+
+        if (Auth::user()->can('can_update', $video)) {
             return view('admin.video.edit', compact(['video']));
         } else {
             abort(404);
@@ -253,11 +262,15 @@ class VideoController extends Controller
         ]);
         $video = Videos::find($id);
 
-        $video->published_time = $request->published_time;
+        if (Auth::user()->can('can_update', $video)) {
+            $video->published_time = $request->published_time;
 
-        $video->save();
+            $video->save();
 
-        return redirect(route('video.pending'));
+            return redirect(route('video.pending'));
+        } else {
+            abort(404);
+        }
     }
 
     /**

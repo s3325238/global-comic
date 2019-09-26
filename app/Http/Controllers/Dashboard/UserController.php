@@ -43,6 +43,8 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('access_create_form', User::class);
+
         $roles = Role::select('id','role_name')->except_admin()->get() ;
 
         // $status = [];
@@ -113,7 +115,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $this->authorize('access_edit_form', User::class);
     }
 
     /**

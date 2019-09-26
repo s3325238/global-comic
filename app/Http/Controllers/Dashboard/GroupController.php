@@ -3,21 +3,20 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Gate;
-use File;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Route;
-use Spatie\Activitylog\Contracts\Activity;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Auth;
-use Storage;
-
-// Model
-use App\User;
 use App\Settings;
 use App\TranslateGroup;
+use App\User;
+use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
+use Spatie\Activitylog\Contracts\Activity;
 
+// Model
+use Spatie\Activitylog\Traits\LogsActivity;
+use Storage;
+use Str;
 
 // Test
 use \Illuminate\Http\Response;
@@ -43,7 +42,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $this->authorize('view_lists', TranslateGroup::class);
+        $this->authorize('view_group', TranslateGroup::class);
 
         return view('admin.group.index');
     }
@@ -55,15 +54,15 @@ class GroupController extends Controller
      */
     public function create()
     {
-        $this->authorize('create_form', TranslateGroup::class);
-        
+        $this->authorize('create_group', TranslateGroup::class);
+
         return view('admin.group.create');
     }
 
     public function leaderForm()
     {
-        $this->authorize('create_form', TranslateGroup::class);
-        
+        $this->authorize('create_group', TranslateGroup::class);
+
         return view('admin.group.leadForm');
     }
 
@@ -76,7 +75,7 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         //
-        $this->authorize('create_form', TranslateGroup::class);
+        $this->authorize('create_group', TranslateGroup::class);
 
         $request->validate([
             'group_name' => 'required|string|min:5|max:255',
@@ -91,9 +90,11 @@ class GroupController extends Controller
 
         $group->slug = $request->slug;
 
+        $group->uniqueString = Hash::make(Str::random(20)) . Str::random(40) . '_' . time();
+
         $group->language_translate = $request->group_language;
 
-        $group->logo = storage_store('single', $request->logo, $this->getStorage().$request->slug);
+        $group->logo = storage_store('single', $request->logo, $this->getStorage() . $request->slug);
 
         $group->save();
 
@@ -109,7 +110,7 @@ class GroupController extends Controller
      */
     public function loadGroups(Request $request)
     {
-        $this->authorize('create_form', TranslateGroup::class);
+        $this->authorize('create_group', TranslateGroup::class);
 
         $groups = TranslateGroup::select('id', 'name')->select_language($request->language)->leader('=', null)->get();
         return response()->json($groups);
@@ -141,8 +142,8 @@ class GroupController extends Controller
 
     public function updateLeader(Request $request)
     {
-        $this->authorize('update_form', TranslateGroup::class);
-        
+        $this->authorize('update_group', TranslateGroup::class);
+
         $request->validate([
             'group_language' => 'required',
             'group_name' => 'required',
@@ -150,7 +151,7 @@ class GroupController extends Controller
         ]);
 
         $group = TranslateGroup::findOrFail($request->group_name);
-        
+
         $group->update(['leader_id' => $request->group_leader]);
 
         activity()
@@ -160,7 +161,7 @@ class GroupController extends Controller
                 [
                     'attributes' => [
                         'name' => $group->name,
-                        'leader_id' => $request->group_leader
+                        'leader_id' => $request->group_leader,
                     ],
                 ]
             )
@@ -188,7 +189,7 @@ class GroupController extends Controller
      */
     public function edit($id)
     {
-        $this->authorize('update_form', TranslateGroup::class);
+        $this->authorize('update_group', TranslateGroup::class);
 
         $group = TranslateGroup::find($id);
 
@@ -208,7 +209,7 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->authorize('update_form', TranslateGroup::class);
+        $this->authorize('update_group', TranslateGroup::class);
 
         $group = TranslateGroup::find($id);
 
@@ -243,10 +244,10 @@ class GroupController extends Controller
     public function resetFollows($lang)
     {
         TranslateGroup::query()->select_Language($lang)
-                    ->update([
-                        'follows' => '0',
-                        'points' => '0'
-                    ]);
+            ->update([
+                'follows' => '0',
+                'points' => '0',
+            ]);
         return redirect()->back();
     }
 }

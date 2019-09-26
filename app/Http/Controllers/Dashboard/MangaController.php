@@ -8,6 +8,8 @@ use App\Settings;
 use App\Trade_marks;
 use App\TranslateGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Str;
 
 // Model
 use Storage;
@@ -122,6 +124,8 @@ class MangaController extends Controller
         $manga->name = $request->manga_title;
         $manga->slug = $request->slug;
         $manga->language = $request->language;
+
+        $manga->uniqueString = Hash::make(Str::random(20)) . Str::random(40) . '_' . time();
 
         $manga->logo = storage_store('single', $request->logo, $this->getStorage() . 'logo');
 

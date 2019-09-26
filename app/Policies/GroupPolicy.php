@@ -19,7 +19,7 @@ class GroupPolicy
         //
     }
 
-    public function view_lists($user)
+    public function view_group($user)
     {
         if ($user->role->view_group == TRUE) {
             return true;
@@ -27,7 +27,7 @@ class GroupPolicy
         abort(404);
     }
 
-    public function create_form($user)
+    public function create_group($user)
     {
         if ($user->role->create_group == TRUE) {
             return true;
@@ -35,7 +35,7 @@ class GroupPolicy
         abort(404);
     }
 
-    public function update_form($user)
+    public function update_group($user)
     {
         if ($user->role->update_group == TRUE) {
             return true;
@@ -43,7 +43,7 @@ class GroupPolicy
         abort(404);
     }
 
-    public function delete_form($user)
+    public function delete_group($user)
     {
         if ($user->role->delete_group == TRUE) {
             return true;

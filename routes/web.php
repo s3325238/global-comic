@@ -60,7 +60,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
     ]);
 
     Route::resource('video', 'Dashboard\Leader\VideoController', ['parameters' => [
-        'id' => 'slug'
+        'id' => 'uniqueString'
     ]])->except(['show','destroy']);
 
     Route::get('video/pending', 'Dashboard\Leader\VideoController@pending')->name('video.pending');
@@ -117,6 +117,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard']], functio
     Route::group(['prefix' => 'leader'], function () {
         Route::get('/lists/member', 'Api\LeaderApi@getMember')->name('api.member.table');
 
+        Route::get('video/published', 'Api\LeaderApi@getPublishedVideo')->name('api.video.published');
         Route::get('video/pending', 'Api\LeaderApi@getPendingVideo')->name('api.video.pending');
         Route::get('video/personal', 'Api\LeaderApi@getPersonalVideo')->name('api.video.member');
 

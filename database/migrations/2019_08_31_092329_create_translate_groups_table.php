@@ -18,6 +18,7 @@ class CreateTranslateGroupsTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('language_translate',3);
+            $table->string('uniqueString');
             $table->integer('leader_id')->nullable();
             $table->string('logo')->default('default.png');
             $table->integer('follows')->default("0");
@@ -31,6 +32,7 @@ class CreateTranslateGroupsTable extends Migration
             $table->string('slug')->unique();
             $table->string('logo')->default('default.png');
             $table->string('language','3');
+            $table->string('uniqueString');
             $table->unsignedBigInteger('group_id')->nullable(true);
             $table->foreign('group_id')->references('id')->on('translate_groups')->onDelete('set null');
             $table->timestamps();

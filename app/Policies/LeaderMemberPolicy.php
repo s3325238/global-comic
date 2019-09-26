@@ -2,9 +2,10 @@
 
 namespace App\Policies;
 
-use App\User;
+use App\Leader_members;
 use App\TranslateGroup;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class LeaderMemberPolicy
 {
@@ -20,20 +21,78 @@ class LeaderMemberPolicy
         //
     }
 
-    public function group_null($user)
+    public function can_create($user)
     {
-        $group = TranslateGroup::where('leader_id', $user->id)->first();
+        if ($user->role->create_video == true) {
+            if (Auth::user()->role_id == '3') {
 
-        if (!isset($group)) {
-            return redirect(route('dashboard'));
+                $group = TranslateGroup::select('id')->where('leader_id', '=', Auth::id())->first();
+    
+                if (!isset($group)) {
+                    abort(404);
+                }
+                return true;
+
+            } else if (Auth::user()->role_id == '4') {
+    
+                $leader = Leader_members::select('leader_id')->where('member_id', Auth::id())->first();
+    
+                $group = TranslateGroup::select('id')->where('leader_id', '=', $leader->leader_id)->first();
+    
+                if (!isset($group)) {
+                    return redirect(route('dashboard'));
+                } else {
+                    $mangas = $group->mangas;
+    
+                    return view('admin.video.upload', compact(['mangas']));
+                }
+            } else {
+                abort(404);
+            }
+        }
+        abort(404);
+    }
+
+    public function can_update($user, $video)
+    {
+        if ($user->role_id == '3') {
+            if ($user->role->update_video == true) {
+                $group = TranslateGroup::where('leader_id', Auth::id())->first();
+
+                if (!isset($group)) { // Does not have group
+                    abort(404);
+                } else { // Have a group
+                    if ($video->group_id == $group->id) { // Belong to group
+                        if ($video->uploaded_by == Auth::id()) { // Self upload
+                            return true;
+                        } else { // Upload by member
+                            $is_member = Leader_members::where('member_id', $video->uploaded_by)->first();
+                            if ($user->id == $is_member->leader_id) {
+                                return true;
+                            } else {
+                                abort(404);
+                            }
+                        }
+                    } else {
+                        abort(404);
+                    }
+                }
+            } else {
+                abort(404);
+            }
         } else {
-            return true;
+            abort(404);
         }
     }
 
     public function only_leader($user)
     {
         if ($user->role_id == '3') {
+            $group = TranslateGroup::where('leader_id', Auth::id())->first();
+
+            if (!isset($group)) {
+                abort(404);
+            }
             return true;
         }
         abort(404);
@@ -42,6 +101,17 @@ class LeaderMemberPolicy
     public function only_member($user)
     {
         if ($user->role_id == '4') {
+            $is_member = Leader_members::where('member_id', Auth::id())->first();
+
+            if (!isset($is_member)) {
+                abort(404);
+            }
+
+            $group = TranslateGroup::where('leader_id', $is_member->leader_id)->first();
+
+            if (!isset($group)) {
+                return redirect(route('dashboard'));
+            }
             return true;
         }
         abort(404);
@@ -57,7 +127,7 @@ class LeaderMemberPolicy
 
     public function view_list($user)
     {
-        if ($user->role->view_video == TRUE) {
+        if ($user->role->view_video == true) {
             return true;
         }
         abort(404);
@@ -65,7 +135,7 @@ class LeaderMemberPolicy
 
     public function create_video($user)
     {
-        if ($user->role->create_video == TRUE) {
+        if ($user->role->create_video == true) {
             return true;
         }
         abort(404);
@@ -73,7 +143,7 @@ class LeaderMemberPolicy
 
     public function update_video($user)
     {
-        if ($user->role->update_video == TRUE) {
+        if ($user->role->update_video == true) {
             return true;
         }
         abort(404);
@@ -81,7 +151,7 @@ class LeaderMemberPolicy
 
     public function delete_video($user)
     {
-        if ($user->role->delete_video == TRUE) {
+        if ($user->role->delete_video == true) {
             return true;
         }
         abort(404);

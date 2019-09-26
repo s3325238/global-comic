@@ -324,6 +324,35 @@ if (!function_exists('load_other_log_data_table')) {
     }
 }
 
+if (!function_exists('load_published_video_data_table')) {
+    function load_published_video_data_table($video)
+    {
+        return DataTables::of($video)
+            ->addColumn('manga', function (Videos $video) {
+                return ucfirst($video->belongsToManga->name);
+            })
+            ->addColumn('chapter', function (Videos $video) {
+                return $video->getChapter->name;
+            })
+            ->addColumn('name', function ($video) {
+                return $video->name;
+            })
+            ->addColumn('publish', function ($video) {
+                if ($video->is_published == false) {
+                    return $video->published_time . '&nbsp;' . '<span class="badge badge-pill badge-danger"><i class="fas fa-exclamation"></i>&nbsp;&nbsp;Pending</span>';
+                } else {
+                    return $video->published_time . '&nbsp;' . '<span class="badge badge-pill badge-success"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;Published</span>';
+                }
+
+            })
+            ->addColumn('action', function ($video) {
+                return '<button type="submit" class="btn btn-danger update"><i class="fas fa-power-off"></i>&nbsp;Revert</button>';
+            })
+            ->rawColumns(['publish', 'action'])
+            ->make(true);
+    }
+}
+
 if (!function_exists('load_pending_video_data_table')) {
     function load_pending_video_data_table($video)
     {
@@ -346,8 +375,8 @@ if (!function_exists('load_pending_video_data_table')) {
                 return $video->created_at->diffForHumans();
             })
             ->addColumn('action', function ($video) {
-                return '<a href="' . route('video.edit', $video->slug) . '" class="btn btn-link btn-warning btn-just-icon edit"><i class="fas fa-eye"></i></a>
-                        <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $video->id . '"><i class="fas fa-minus-circle"></i></a>';
+                return '<a href="' . route('video.edit', $video->uniqueString) . '" class="btn btn-link btn-warning btn-just-icon edit"><i class="fas fa-eye"></i></a>
+                        <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $video->uniqueString . '"><i class="fas fa-minus-circle"></i></a>';
             })
             ->rawColumns(['uploaded_by', 'action'])
             ->make(true);

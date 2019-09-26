@@ -72,8 +72,8 @@
             <!-- Group Management -->
             <div class="user">
                 @can('only-leader', Auth::user())
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">
+                <li class="nav-item {{ setSideBarActive(['dashboard/video'],'active') }}">
+                    <a class="nav-link" href="{{ route('video.index') }}">
                         <span class="sidebar-mini">
                             <i class="fas fa-play"></i>
                         </span>
@@ -83,7 +83,8 @@
                         </span>
                     </a>
                 </li>
-                <li class="nav-item {{ setSideBarActive(['dashboard/video/pending', 'dashboard/video/*/edit'],'active') }}">
+                <li
+                    class="nav-item {{ setSideBarActive(['dashboard/video/pending', 'dashboard/video/*/edit'],'active') }}">
                     <a class="nav-link" href="{{route('video.pending')}}">
                         <span class="sidebar-mini">
                             <i class="fas fa-pause-circle"></i>
@@ -91,9 +92,9 @@
                         <span class="sidebar-normal">
                             <p> Pending video&nbsp;&nbsp;
                                 @if (pending_video_count() > 0)
-                                    <span class="badge badge-pill badge-info">
-                                        {{ pending_video_count() }}
-                                    </span>
+                                <span class="badge badge-pill badge-info">
+                                    {{ pending_video_count() }}
+                                </span>
                                 @endif
                             </p>
                         </span>
@@ -107,7 +108,7 @@
                             <i class="fas fa-list-ul"></i>
                         </span>
                         <span class="sidebar-normal">
-                            <p> Personal Uploaded Video </p>
+                            <p> Personal video </p>
                         </span>
                     </a>
                 </li>
@@ -119,7 +120,7 @@
                             <i class="fas fa-upload"></i>
                         </span>
                         <span class="sidebar-normal">
-                            <p> Upload new video </p>
+                            <p> Upload video </p>
                         </span>
                     </a>
                 </li>
@@ -183,13 +184,15 @@
                         </span>
                     </a>
                 </li>
+                @endcan
+                @can('both-leader-member', Auth::user())
                 <li class="nav-item ">
                     <a class="nav-link" href="#">
                         <span class="sidebar-mini">
                             <i class="fas fa-upload"></i>
                         </span>
                         <span class="sidebar-normal">
-                            <p> Upload new chapter </p>
+                            <p> Upload manga </p>
                         </span>
                     </a>
                 </li>

@@ -16,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\TranslateGroup' => 'App\Policies\GroupPolicy',
         'App\Manga' => 'App\Policies\MangaPolicy',
         'App\Videos' => 'App\Policies\LeaderMemberPolicy',
+        'App\User' => 'App\Policies\UserPolicy',
     ];
 
     /**

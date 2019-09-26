@@ -17,6 +17,11 @@ class LeaderApi extends Controller
         return load_member_data_table(get_member(Auth::id()));
     }
 
+    public function getPublishedVideo()
+    {
+        return load_published_video_data_table(get_published_video());
+    }
+
     public function getPendingVideo()
     {
         return load_pending_video_data_table(get_pending_video());
@@ -25,11 +30,15 @@ class LeaderApi extends Controller
     public function getPersonalVideo()
     {
         # code...
+        $this->authorize('only_member', Videos::class);
+
         return load_member_video_data_table(get_personal_video());
     }
 
     public function removeVideo(Request $request)
     {
+        $this->authorize('delete_video', Videos::class);
+        
         get_model_delete('video', $request);
 
         return redirect()->back();

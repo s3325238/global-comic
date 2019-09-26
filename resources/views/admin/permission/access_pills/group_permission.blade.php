@@ -19,7 +19,7 @@
                             </label>
                         </div>
                     </td>
-                    <td>View Group</td>
+                    <td>View</td>
                 </tr>
     
                 <tr>
@@ -35,7 +35,7 @@
                             </label>
                         </div>
                     </td>
-                    <td>Create Group</td>
+                    <td>Create</td>
                 </tr>
     
                 <tr>
@@ -51,7 +51,7 @@
                             </label>
                         </div>
                     </td>
-                    <td>Update Group</td>
+                    <td>Update</td>
                 </tr>
     
                 <tr>
@@ -67,7 +67,7 @@
                             </label>
                         </div>
                     </td>
-                    <td>Delete Group</td>
+                    <td>Delete</td>
                 </tr>
             </table>
         </div>

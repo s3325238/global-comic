@@ -77,7 +77,7 @@ class RoleController extends Controller
 
         $role = new Role();
 
-        $role = add_role_helper($role, $request->mangas, $request->groups, $request->users, $request->others);
+        $role = add_role_helper($role, $request->mangas, $request->groups, $request->users, $request->videos, $request->others);
 
         $role->id = $request->id;
         $role->role_name = $request->role_name;
@@ -108,8 +108,6 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
 
-        $index_title = "Edit permission";
-
         $permission = [];
 
         $selected = Role::where('id', '=', $id)->exclude(['id', 'role_name', 'created_at', 'updated_at'])->first();
@@ -127,7 +125,7 @@ class RoleController extends Controller
         }
 
         if ($role) {
-            return view('admin.permission.edit', compact(['role', 'index_title', 'permission']));
+            return view('admin.permission.edit', compact(['role','permission']));
         } else {
             return redirect()->route('permission.index');
         }
@@ -151,7 +149,7 @@ class RoleController extends Controller
             'role_name' => 'required|string',
         ]);
 
-        $role = role_update_helper(Role::find($id), $based, $diff, $this->getColumns(), $request->mangas, $request->groups, $request->users, $request->others);
+        $role = role_update_helper(Role::find($id), $based, $diff, $this->getColumns(), $request->mangas, $request->groups, $request->users, $request->videos, $request->others);
 
         if ($role->update()) {
             return redirect()->route('permission.index');

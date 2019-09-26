@@ -8,7 +8,7 @@ if (!function_exists('role_update_helper')) {
      * @param
      * @return
      */
-    function role_update_helper($role, Array $based, Array $diff, Array $columns ,$mangas, $groups, $users, $others)
+    function role_update_helper($role, Array $based, Array $diff, Array $columns ,$mangas, $groups, $users, $videos, $others)
     {
         if ($mangas != NULL) {
             
@@ -39,6 +39,16 @@ if (!function_exists('role_update_helper')) {
             }
         }
 
+        // Video
+        if ($videos != NULL) {
+            
+            $based = array_merge($based, $videos);
+
+            foreach ($videos as $video) {
+                $role->$video = TRUE;
+            }
+        }
+
         // Other
         if ($others != NULL) {
             
@@ -60,7 +70,7 @@ if (!function_exists('role_update_helper')) {
     }
 } 
 if (!function_exists('add_role_helper')) {
-    function add_role_helper($role, $mangas, $groups, $users, $others) {
+    function add_role_helper($role, $mangas, $groups, $users, $videos, $others) {
 
         if ($mangas != NULL) {
             foreach ($mangas as $manga) {
@@ -82,6 +92,14 @@ if (!function_exists('add_role_helper')) {
             foreach ($users as $user) {
 
                 $role->$user = TRUE;
+                
+            }
+        }
+
+        if ($videos != NULL) {
+            foreach ($videos as $video) {
+
+                $role->$video = TRUE;
                 
             }
         }

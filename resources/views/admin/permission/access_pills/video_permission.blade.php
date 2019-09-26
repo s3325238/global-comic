@@ -1,7 +1,7 @@
 <div class="card">
-    <div class="card-header card-header-text card-header-warning">
+    <div class="card-header card-header-text card-header-danger">
         <div class="card-text">
-            <h4 class="card-title">Manga</h4>
+            <h4 class="card-title">Video</h4>
         </div>
     </div>
     <div class="card-body">
@@ -10,9 +10,9 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input permission" 
-                                    name="mangas[]" type="checkbox" 
-                                    value="view_manga" {{ in_array('view_manga',$permission)? "checked": "" }}>
+                            <input class="form-check-input" 
+                                    name="videos[]" type="checkbox" 
+                                    value="view_video" {{ in_array('view_video',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>
                             </span>
@@ -26,9 +26,9 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input permission" 
-                                    name="mangas[]" type="checkbox" 
-                                    value="create_manga" {{ in_array('create_manga',$permission)? "checked": "" }}>
+                            <input class="form-check-input" 
+                                    name="videos[]" type="checkbox" 
+                                    value="create_video" {{ in_array('create_video',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>
                             </span>
@@ -42,9 +42,9 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input permission" 
-                                    name="mangas[]" type="checkbox"
-                                    value="update_manga" {{ in_array('update_manga',$permission)? "checked": "" }}>
+                            <input class="form-check-input" 
+                                    name="videos[]" type="checkbox" 
+                                    value="update_video" {{ in_array('update_video',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>
                             </span>
@@ -58,9 +58,9 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input permission" 
-                                    name="mangas[]" type="checkbox" 
-                                    value="delete_manga" {{ in_array('delete_manga',$permission)? "checked": "" }}>
+                            <input class="form-check-input" 
+                                    name="videos[]" type="checkbox" 
+                                    value="delete_video" {{ in_array('delete_video',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>
                             </span>

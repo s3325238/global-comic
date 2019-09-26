@@ -32,9 +32,15 @@ class RolesTableSeeder extends Seeder
                 'update_user' => false,
                 'delete_user' => false,
 
+                'create_video' => false,
+                'view_video' => false,
+                'update_video' => false,
+                'delete_video' => false,
+
                 'add_copyright' => false,
                 'view_settings' => false,
                 'assign_task' => false,
+                'access_finance' => false,
 
                 "created_at" => date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s')
@@ -58,9 +64,15 @@ class RolesTableSeeder extends Seeder
                 'update_user' => false,
                 'delete_user' => false,
 
+                'create_video' => false,
+                'view_video' => false,
+                'update_video' => false,
+                'delete_video' => false,
+
                 'add_copyright' => false,
                 'view_settings' => false,
                 'assign_task' => false,
+                'access_finance' => false,
 
                 "created_at" => date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s')
@@ -83,9 +95,15 @@ class RolesTableSeeder extends Seeder
                 'update_user' => false,
                 'delete_user' => false,
 
+                'create_video' => false,
+                'view_video' => false,
+                'update_video' => false,
+                'delete_video' => false,
+
                 'add_copyright' => false,
                 'view_settings' => false,
                 'assign_task' => false,
+                'access_finance' => false,
 
                 "created_at" => date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s')
@@ -109,9 +127,15 @@ class RolesTableSeeder extends Seeder
                 'update_user' => false,
                 'delete_user' => false,
 
+                'create_video' => false,
+                'view_video' => false,
+                'update_video' => false,
+                'delete_video' => false,
+
                 'add_copyright' => false,
                 'view_settings' => false,
                 'assign_task' => false,
+                'access_finance' => false,
 
                 "created_at" => date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s')
@@ -135,9 +159,15 @@ class RolesTableSeeder extends Seeder
                 'update_user' => true,
                 'delete_user' => true,
 
+                'create_video' => true,
+                'view_video' => true,
+                'update_video' => true,
+                'delete_video' => true,
+
                 'add_copyright' => true,
                 'view_settings' => true,
                 'assign_task' => true,
+                'access_finance' => true,
 
                 "created_at" => date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s')

@@ -101,7 +101,7 @@
                     </a>
                 </li>
                 @endcan
-                @can('leader-member', Auth::user())
+                @can('both_leader_member', Auth::user())
                 <li class="nav-item {{ setSideBarActive(['dashboard/video/create'],'active') }}">
                     <a class="nav-link" href="{{route('video.create')}}">
                         <span class="sidebar-mini">

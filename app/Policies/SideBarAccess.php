@@ -27,17 +27,17 @@ class SideBarAccess
         return false;
     }
 
-    public function leader_member($user)
+    public function only_leader($user)
     {
-        if ($user->role_id == '3' || $user->role_id == '4') {
+        if ($user->role_id == '3') {
             return true;
         }
         return false;
     }
 
-    public function only_leader($user)
+    public function both_leader_member($user)
     {
-        if ($user->role_id == '3') {
+        if ($user->role_id == '3' || $user->role_id == '4') {
             return true;
         }
         return false;
@@ -62,6 +62,14 @@ class SideBarAccess
     public function changeSettings($user)
     {
         if ($user->role->view_settings == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public function accessFinance($user)
+    {
+        if ($user->role->access_finance == TRUE) {
             return true;
         }
         return false;
@@ -172,6 +180,40 @@ class SideBarAccess
     public function deleteUser($user)
     {
         if ($user->role->delete_user == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    // Video CRUD
+
+    public function viewVideoLists($user)
+    {
+        if ($user->role->view_video == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public function createVideo($user)
+    {
+        if ($user->role->create_video == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public function updateVideo($user)
+    {
+        if ($user->role->update_video == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteVideo($user)
+    {
+        if ($user->role->delete_video == TRUE) {
             return true;
         }
         return false;

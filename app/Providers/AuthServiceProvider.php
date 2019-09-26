@@ -36,8 +36,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('assign-task', 'App\Policies\SideBarAccess@assignTask');
         Gate::define('edit-all', 'App\Policies\SideBarAccess@editAll');
         Gate::define('change-settings', 'App\Policies\SideBarAccess@changeSettings');
+        Gate::define('access-finance', 'App\Policies\SideBarAccess@accessFinance');
         
-        Gate::define('leader-member','App\Policies\SideBarAccess@leader_member');
+        Gate::define('both_leader_member','App\Policies\SideBarAccess@both_leader_member');
         Gate::define('only-leader', 'App\Policies\SideBarAccess@only_leader');
         Gate::define('only-member', 'App\Policies\SideBarAccess@only_member');
         // Manga Permission
@@ -57,5 +58,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('create-user', 'App\Policies\SideBarAccess@createNewUser');
         Gate::define('update-user', 'App\Policies\SideBarAccess@updateUser');
         Gate::define('delete-user', 'App\Policies\SideBarAccess@deleteUser');
+        // Video Permission
+        Gate::define('view-video', 'App\Policies\SideBarAccess@viewVideoLists');
+        Gate::define('create-video', 'App\Policies\SideBarAccess@createVideo');
+        Gate::define('update-video', 'App\Policies\SideBarAccess@updateVideo');
+        Gate::define('delete-video', 'App\Policies\SideBarAccess@deleteVideo');
     }
 }

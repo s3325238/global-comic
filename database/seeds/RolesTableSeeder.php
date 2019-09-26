@@ -95,10 +95,10 @@ class RolesTableSeeder extends Seeder
                 'update_user' => false,
                 'delete_user' => false,
 
-                'create_video' => false,
-                'view_video' => false,
-                'update_video' => false,
-                'delete_video' => false,
+                'create_video' => true,
+                'view_video' => true,
+                'update_video' => true,
+                'delete_video' => true,
 
                 'add_copyright' => false,
                 'view_settings' => false,
@@ -127,8 +127,8 @@ class RolesTableSeeder extends Seeder
                 'update_user' => false,
                 'delete_user' => false,
 
-                'create_video' => false,
-                'view_video' => false,
+                'create_video' => true,
+                'view_video' => true,
                 'update_video' => false,
                 'delete_video' => false,
 
@@ -159,10 +159,10 @@ class RolesTableSeeder extends Seeder
                 'update_user' => true,
                 'delete_user' => true,
 
-                'create_video' => true,
-                'view_video' => true,
-                'update_video' => true,
-                'delete_video' => true,
+                'create_video' => false,
+                'view_video' => false,
+                'update_video' => false,
+                'delete_video' => false,
 
                 'add_copyright' => true,
                 'view_settings' => true,

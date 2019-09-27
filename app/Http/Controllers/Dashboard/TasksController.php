@@ -56,6 +56,10 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'description' => 'required',
+            'priority' => 'required',
+        ]);
 
         $task = new Tasks();
 

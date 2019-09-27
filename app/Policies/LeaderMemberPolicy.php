@@ -100,7 +100,7 @@ class LeaderMemberPolicy
 
     public function only_member($user)
     {
-        if ($user->role_id == '5') {
+        if ($user->role->member == true) {
             $is_member = Leader_members::where('member_id', Auth::id())->first();
 
             if (!isset($is_member)) {

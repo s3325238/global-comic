@@ -43,4 +43,9 @@ class LeaderApi extends Controller
 
         return redirect()->back();
     }
+
+    public function cancelVideo(Request $request)
+    {
+        $this->authorize('delete_video', Videos::class);
+    }
 }

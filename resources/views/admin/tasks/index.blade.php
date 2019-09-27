@@ -5,7 +5,20 @@
 @section('content')
 <div class="content">
     <div class="container-fluid">
-        <img src="" alt="">
+        @if (count($errors) > 0)
+        @foreach ($errors->all() as $error)
+        <div class="row">
+            <div class="col-md-6 ml-auto mr-auto justify-content-center">
+                <div class="alert alert-danger alert-dismissible fade show errorAlert" id="errorAlert" role="alert">
+                    <strong>{{ $error }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        @endif
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 @include('admin.tasks.include.create')
@@ -33,6 +46,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $(".errorAlert").fadeTo(2000, 700).slideUp(700, function(){
+            $(".errorAlert").slideUp(700);
+        });
         $('#personal').DataTable({
             processing: true,
             serverSide: true,

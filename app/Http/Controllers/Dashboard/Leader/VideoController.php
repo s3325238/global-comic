@@ -69,7 +69,7 @@ class VideoController extends Controller
     {
         $this->authorize('create_video', Videos::class);
 
-        if (Auth::user()->role_id == '3') {
+        if (Auth::user()->role->leader == true) {
 
             $group = TranslateGroup::select('id')->where('leader_id', '=', Auth::id())->first();
 
@@ -80,7 +80,7 @@ class VideoController extends Controller
 
                 return view('admin.video.upload', compact(['mangas']));
             }
-        } else if (Auth::user()->role_id == '4') {
+        } else if (Auth::user()->role->member == true) {
 
             $leader = Leader_members::select('leader_id')->where('member_id', Auth::id())->first();
 
@@ -126,17 +126,19 @@ class VideoController extends Controller
 
         $chapter_existed = Chapters::where('manga_id', '=', $request->manga)->get();
 
-        if (Auth::user()->role_id == '3') {
+        if (Auth::user()->role->leader == true) {
 
             $group = TranslateGroup::where('leader_id', Auth::id())->first();
 
-        } else if (Auth::user()->role_id == '4') {
+        } else if (Auth::user()->role->member == true) {
 
             $belong_to_leader = Leader_members::select('leader_id')->where('member_id', Auth::id())->first();
 
+            // dd($belong_to_leader);
+
             $group = TranslateGroup::where('leader_id', $belong_to_leader->leader_id)->first();
 
-        }
+        } 
 
         if ($manga_slug->group_id != $group->id) {
             return redirect()->back()->withErrors(['Manga is not existed. Please choose again.']);
@@ -162,7 +164,8 @@ class VideoController extends Controller
 
         $chapter->slug = slugging_manually($chapter->name);
 
-        $chapter->uniqueString = Hash::make(Str::random(20)).Str::random($this->unique->chapter_length).str_shuffle(time());
+        // $chapter->uniqueString = Hash::make(Str::random(20)).Str::random($this->unique->chapter_length).str_shuffle(time());
+        $chapter->uniqueString = Str::random($this->unique->chapter_length).str_shuffle(time());
 
         $path = $this->getStorage() . $group->slug . '/' . $manga_slug->slug . '/' . $chapter->slug;
 
@@ -196,9 +199,9 @@ class VideoController extends Controller
 
         // $string = str_shuffle(Str::random(60)).str_shuffle(time());
 
-        $string = Hash::make(Str::random(20)).Str::random($this->unique->video_length).str_shuffle(time());
+        // $string = Hash::make(Str::random(20)).Str::random($this->unique->video_length).str_shuffle(time());
 
-        $video->uniqueString = $string;
+        $video->uniqueString = Str::random($this->unique->video_length).str_shuffle(time());
 
         $video->save(); // Video table save function
 
@@ -214,7 +217,7 @@ class VideoController extends Controller
         //     echo "False";
         // }
         // dd($carbon->format('d-m-Y H:i'));
-        if (Auth::user()->role_id == '3') {
+        if (Auth::user()->role->leader == true) {
             return redirect(route('video.pending'));
         } else {
             return redirect(route('video.member.personal'));
@@ -247,10 +250,16 @@ class VideoController extends Controller
 
         $video = Videos::where('uniqueString', $uniqueString)->first();
 
+        if ($video == null) {
+            return redirect()->back()->withErrors(['System cannot find video']);
+        }
+
         if (Auth::user()->can('can_update', $video)) {
             return view('admin.video.edit', compact(['video']));
         } else {
-            abort(404);
+            echo "Failed here!";
+            die;
+            // abort(404);
         }
     }
 

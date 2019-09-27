@@ -19,6 +19,11 @@ class Role extends Model
         return $query->select(array_diff($this->getColumns(), (array) $value));
     }
 
+    public function scopeType($query, $type)
+    {
+        return $query->where($type,true);
+    }
+
     public function scopeExcept_Admin($query)
     {
         return $query->where('id','!=','99');

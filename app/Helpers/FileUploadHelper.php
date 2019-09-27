@@ -45,7 +45,7 @@ if (!function_exists('storage_store')) {
             case 'single':
                 # code...
                 if ($image != null) {
-                    $fileNameToStore = time().'_'.md5_file($image->getRealPath()); // Making hash
+                    $fileNameToStore = str_shuffle(time()).md5_file($image->getRealPath()); // Making hash
 
                     $image->storeAs($path, $fileNameToStore);
                 } else {
@@ -58,7 +58,7 @@ if (!function_exists('storage_store')) {
                 $fileArray = [];
                 foreach ($image as $item) {
 
-                    $fileNameToStore = time().'_'.md5_file($item->getRealPath()); // Making hash
+                    $fileNameToStore = str_shuffle(time()).md5_file($item->getRealPath()); // Making hash
         
                     // $item->move($path, $hash);
 

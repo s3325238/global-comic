@@ -270,6 +270,16 @@
                         <span class="sidebar-normal"> Member Lists </span>
                     </a>
                 </li>
+                <li class="nav-item {{ setSideBarActive(['dashboard/member/change'],'active') }}">
+                    <a class="nav-link" href="{{route('member.change')}}">
+                        {{-- {{ setSideBarActive(['dashboard/user'],'active') }} --}}
+                        {{-- {{ route('user.index') }} --}}
+                        <span class="sidebar-mini">
+                            <i class="fas fa-universal-access"></i>
+                        </span>
+                        <span class="sidebar-normal"> Change permission </span>
+                    </a>
+                </li>
                 <li class="nav-item {{ setSideBarActive(['dashboard/member/create'],'active') }}">
                     <a class="nav-link" href="{{route('member.create')}}">
                         <span class="sidebar-mini">

@@ -6,6 +6,7 @@ use App\Chapters;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Leader_members;
+use App\Unique_Length;
 use App\Manga;
 use Str;
 
@@ -19,6 +20,11 @@ use Session;
 
 class VideoController extends Controller
 {
+    public function __construct()
+    {
+        $this->unique = Unique_Length::find(1);
+    }
+
     protected function getStorage()
     {
         return Settings::findOrFail(1)->STORAGE_PATH;
@@ -133,8 +139,7 @@ class VideoController extends Controller
         }
 
         if ($manga_slug->group_id != $group->id) {
-            Session::flash('status', 'Manga is not existed. Please choose again.');
-            return redirect()->back();
+            return redirect()->back()->withErrors(['Manga is not existed. Please choose again.']);
         }
         // Constructor
         $chapter = new Chapters();
@@ -149,14 +154,15 @@ class VideoController extends Controller
         if (isset($chapter_existed)) {
             foreach ($chapter_existed as $item) {
                 if ($item->slug == slugging_manually($chapter->name)) {
-                    return redirect()->back()->with('info', 'Chapter has existed! Contact your leader for more information!');
+                    return redirect()->back()->withErrors(['Chapter has existed. Pleae contact your leader!']);
+                    // return redirect()->back()->with('info', 'Chapter has existed! Contact your leader for more information!');
                 }
             }
         }
 
         $chapter->slug = slugging_manually($chapter->name);
 
-        $chapter->uniqueString = Hash::make(Str::random(20)).Str::random(40).'_'.time();
+        $chapter->uniqueString = Hash::make(Str::random(20)).Str::random($this->unique->chapter_length).str_shuffle(time());
 
         $path = $this->getStorage() . $group->slug . '/' . $manga_slug->slug . '/' . $chapter->slug;
 
@@ -188,7 +194,9 @@ class VideoController extends Controller
 
         $video->chapter_id = $get_latest_chapter->id;
 
-        $string = Hash::make(Str::random(20)).Str::random(40).'_'.time();
+        // $string = str_shuffle(Str::random(60)).str_shuffle(time());
+
+        $string = Hash::make(Str::random(20)).Str::random($this->unique->video_length).str_shuffle(time());
 
         $video->uniqueString = $string;
 

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingTableSeeder::class);
         $this->call(UserTableSeeder::class);
         $this->call(PositionTableSeeder::class);
+        $this->call(UniqueLengthTableSeeder::class);
         
     }
 }

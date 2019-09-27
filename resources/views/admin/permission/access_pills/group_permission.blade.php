@@ -11,7 +11,7 @@
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input class="form-check-input" 
-                                        name="groups[]" type="checkbox" 
+                                        name="permissions[]" type="checkbox" 
                                         value="view_group" {{ in_array('view_group',$permission)? "checked": "" }}>
                                 <span class="form-check-sign">
                                 <span class="check"></span>
@@ -27,7 +27,7 @@
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input class="form-check-input" 
-                                        name="groups[]" type="checkbox" 
+                                        name="permissions[]" type="checkbox" 
                                         value="create_group" {{ in_array('create_group',$permission)? "checked": "" }}>
                                 <span class="form-check-sign">
                                 <span class="check"></span>
@@ -43,7 +43,7 @@
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input class="form-check-input" 
-                                        name="groups[]" type="checkbox" 
+                                        name="permissions[]" type="checkbox" 
                                         value="update_group" {{ in_array('update_group',$permission)? "checked": "" }}>
                                 <span class="form-check-sign">
                                 <span class="check"></span>
@@ -59,7 +59,7 @@
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input class="form-check-input" 
-                                        name="groups[]" type="checkbox" 
+                                        name="permissions[]" type="checkbox" 
                                         value="delete_group" {{ in_array('delete_group',$permission)? "checked": "" }}>
                                 <span class="form-check-sign">
                                 <span class="check"></span>

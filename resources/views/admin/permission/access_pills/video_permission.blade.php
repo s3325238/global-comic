@@ -11,7 +11,7 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input" 
-                                    name="videos[]" type="checkbox" 
+                                    name="permissions[]" type="checkbox" 
                                     value="view_video" {{ in_array('view_video',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>
@@ -27,7 +27,7 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input" 
-                                    name="videos[]" type="checkbox" 
+                                    name="permissions[]" type="checkbox" 
                                     value="create_video" {{ in_array('create_video',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>
@@ -43,7 +43,7 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input" 
-                                    name="videos[]" type="checkbox" 
+                                    name="permissions[]" type="checkbox" 
                                     value="update_video" {{ in_array('update_video',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>
@@ -59,7 +59,7 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input" 
-                                    name="videos[]" type="checkbox" 
+                                    name="permissions[]" type="checkbox" 
                                     value="delete_video" {{ in_array('delete_video',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>

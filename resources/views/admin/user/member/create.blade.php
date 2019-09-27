@@ -38,13 +38,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Username</label>
-                                        <input type="text" name="name" class="form-control" value="{{ old('name') }}">
+                                        <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Email address</label>
-                                        <input type="email" name="email" class="form-control"
+                                        <input type="email" id="email" name="email" class="form-control"
                                             value="{{ old('email') }}">
                                     </div>
                                 </div>
@@ -83,12 +83,23 @@
                         <div class="card-body">
                             <table class="table customTableBorder" cellspacing="0" cellpadding="0" style="border:none;">
                                 <tr>
+                                    <td>Permission</td>
+                                    <td>
+                                        <select class="selectpicker" name="permission"
+                                            data-style="btn btn-primary btn-round" title="Choose permission">
+                                            @foreach ($allow_permission as $permission)
+                                            <option value="{{ $permission->uniqueString }}">{{ $permission->role_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Position</td>
                                     <td>
                                         <select class="selectpicker" name="position"
-                                            data-style="btn btn-primary btn-round" title="Choose Position">
+                                            data-style="btn btn-primary btn-round" title="Choose position">
                                             @foreach ($positions as $position)
-                                                <option value="{{ $position->id }}">{{ $position->name }}</option>
+                                            <option value="{{ $position->id }}">{{ $position->name }}</option>
                                             @endforeach
                                         </select>
                                     </td>
@@ -106,9 +117,9 @@
 @push('customJs')
 <script>
     $(document).ready(function() {
-            $(".errorAlert").fadeTo(2000, 700).slideUp(700, function(){
-                $(".errorAlert").slideUp(700);
-            });
+        $(".errorAlert").fadeTo(2000, 700).slideUp(700, function(){
+            $(".errorAlert").slideUp(700);
         });
+    });
 </script>
 @endpush

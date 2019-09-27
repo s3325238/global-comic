@@ -11,7 +11,7 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input" 
-                                    name="users[]" type="checkbox" 
+                                    name="permissions[]" type="checkbox" 
                                     value="view_user" {{ in_array('view_user',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>
@@ -27,7 +27,7 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input" 
-                                    name="users[]" type="checkbox" 
+                                    name="permissions[]" type="checkbox" 
                                     value="create_user" {{ in_array('create_user',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>
@@ -43,7 +43,7 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input" 
-                                    name="users[]" type="checkbox" 
+                                    name="permissions[]" type="checkbox" 
                                     value="update_user" {{ in_array('update_user',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>
@@ -59,7 +59,7 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input" 
-                                    name="users[]" type="checkbox"
+                                    name="permissions[]" type="checkbox"
                                     value="delete_user" {{ in_array('delete_user',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>

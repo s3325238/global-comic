@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Settings;
 use App\TranslateGroup;
+use App\Leader_members;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -135,7 +136,7 @@ class GroupController extends Controller
             $array = Arr::prepend($array, $group->leader_id);
         }
 
-        $leaders = User::select('id', 'name')->language($request->language)->role_datatable('3')->whereNotIn('id', $array)->get();
+        $leaders = User::select('id', 'name')->language($request->language)->get_leader()->whereNotIn('id', $array)->get();
 
         return response()->json($leaders);
     }
@@ -193,7 +194,7 @@ class GroupController extends Controller
 
         $group = TranslateGroup::find($id);
 
-        $leaders = User::select('id', 'name', 'email')->language($group->language_translate)->role_datatable('4')->whereNotIn('id', [$group->leader_id])->get();
+        $leaders = User::select('id', 'name', 'email')->language($group->language_translate)->role_datatable('3')->whereNotIn('id', [$group->leader_id])->get();
 
         // dd($leaders);
 
@@ -213,6 +214,14 @@ class GroupController extends Controller
 
         $group = TranslateGroup::find($id);
 
+        Leader_members::query()->where('leader_id', $group->leader_id)->update([
+            'leader_id' => $request->leader
+        ]);
+
+        User::query()->where('id',$group->leader_id)->update([
+            'role_id' => '1'
+        ]);
+
         $group->name = $request->name;
 
         if ($request->slug != null) {
@@ -224,7 +233,7 @@ class GroupController extends Controller
         }
 
         $group->leader_id = $request->leader;
-
+        
         $group->update();
 
         return redirect(route('group.index'));

@@ -9,7 +9,7 @@
             <div class="col-md-3 col-sm-6">
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <input class="form-check-input" name="others[]" type="checkbox" value="add_copyright"
+                        <input class="form-check-input" name="permissions[]" type="checkbox" value="add_copyright"
                             {{ in_array('add_copyright',$permission)? "checked": "" }}> Add
                         Copyright
                         <span class="form-check-sign">
@@ -21,7 +21,7 @@
             <div class="col-md-3 col-sm-6">
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <input class="form-check-input" name="others[]" type="checkbox" value="view_settings"
+                        <input class="form-check-input" name="permissions[]" type="checkbox" value="view_settings"
                             {{ in_array('view_settings',$permission)? "checked": "" }}>
                         View Setting
                         <span class="form-check-sign">
@@ -33,7 +33,7 @@
             <div class="col-md-3 col-sm-6">
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <input class="form-check-input" name="others[]" type="checkbox" value="assign_task"
+                        <input class="form-check-input" name="permissions[]" type="checkbox" value="assign_task"
                             {{ in_array('assign_task',$permission)? "checked": "" }}>
                         Assign Task
                         <span class="form-check-sign">
@@ -45,7 +45,7 @@
             <div class="col-md-3 col-sm-6">
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <input class="form-check-input" name="others[]" type="checkbox" value="access_finance"
+                        <input class="form-check-input" name="permissions[]" type="checkbox" value="access_finance"
                             {{ in_array('access_finance',$permission)? "checked": "" }}>
                         Finance
                         <span class="form-check-sign">

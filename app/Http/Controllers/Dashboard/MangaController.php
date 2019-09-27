@@ -7,6 +7,7 @@ use App\Manga;
 use App\Settings;
 use App\Trade_marks;
 use App\TranslateGroup;
+use App\Unique_Length;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Str;
@@ -19,6 +20,7 @@ class MangaController extends Controller
     public function __construct()
     {
         $this->middleware(['dashboard']);
+        $this->unique = Unique_Length::find(1);
     }
 
     protected function getStorage()
@@ -125,7 +127,7 @@ class MangaController extends Controller
         $manga->slug = $request->slug;
         $manga->language = $request->language;
 
-        $manga->uniqueString = Hash::make(Str::random(20)) . Str::random(40) . '_' . time();
+        $manga->uniqueString = Hash::make(Str::random(20)) . Str::random($this->unique->manga_length) . '_' . time();
 
         $manga->logo = storage_store('single', $request->logo, $this->getStorage() . 'logo');
 

@@ -49,8 +49,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
 
     // Testing route resource
     Route::resources([
-        'permission' => 'Dashboard\RoleController',
         'user' => 'Dashboard\UserController',
+        'permission' => 'Dashboard\RoleController',
         'group' => 'Dashboard\GroupController',
         'manga' => 'Dashboard\MangaController',
         'logs' => 'Dashboard\ActivityController',
@@ -60,11 +60,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
     ]);
 
     Route::resource('video', 'Dashboard\Leader\VideoController', ['parameters' => [
-        'id' => 'uniqueString'
-    ]])->except(['show','destroy']);
+        'id' => 'uniqueString',
+    ]])->except(['show', 'destroy']);
 
     Route::get('video/pending', 'Dashboard\Leader\VideoController@pending')->name('video.pending');
     Route::get('video/personal', 'Dashboard\Leader\VideoController@personal')->name('video.member.personal');
+
+    Route::get('member/change', 'Dashboard\Leader\MemberController@changeView')->name('member.change');
+    Route::post('member/change', 'Dashboard\Leader\MemberController@changeSubmission')->name('member.change');
 
     Route::apiResource('task', 'Dashboard\TasksController')->except(['show', 'destroy']);
 
@@ -109,7 +112,6 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth', 'dashboard']], functio
 
     Route::group(['prefix' => 'permission'], function () {
         Route::get('/lists', 'Api\Permission@getLists')->name('api.permission.lists');
-        Route::get('/lists/edit', 'Api\Permission@editData')->name('api.permission.lists.edit');
 
         Route::get('/lists/remove', 'Api\Permission@removeData')->name('api.permission.lists.remove');
     });

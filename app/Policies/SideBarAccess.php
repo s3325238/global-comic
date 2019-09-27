@@ -21,7 +21,7 @@ class SideBarAccess
 
     public function only_member($user)
     {
-        if ($user->role_id == '4') {
+        if ($user->role->member == TRUE) {
             return true;
         }
         return false;
@@ -29,7 +29,7 @@ class SideBarAccess
 
     public function only_leader($user)
     {
-        if ($user->role_id == '3') {
+        if ($user->role->leader == TRUE) {
             return true;
         }
         return false;
@@ -37,7 +37,7 @@ class SideBarAccess
 
     public function both_leader_member($user)
     {
-        if ($user->role_id == '3' || $user->role_id == '4') {
+        if ($user->role->leader == TRUE || $user->role->member == TRUE) {
             return true;
         }
         return false;

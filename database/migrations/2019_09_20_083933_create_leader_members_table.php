@@ -18,7 +18,7 @@ class CreateLeaderMembersTable extends Migration
 
             $table->unsignedBigInteger('leader_id')->nullable(true);
             $table->unsignedBigInteger('member_id')->unique();
-            $table->integer('position');
+            $table->integer('position')->nullable(true);
 
             $table->foreign('leader_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('member_id')->references('id')->on('users')->onDelete('cascade');

@@ -11,7 +11,7 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input permission" 
-                                    name="mangas[]" type="checkbox" 
+                                    name="permissions[]" type="checkbox" 
                                     value="view_manga" {{ in_array('view_manga',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>
@@ -27,7 +27,7 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input permission" 
-                                    name="mangas[]" type="checkbox" 
+                                    name="permissions[]" type="checkbox" 
                                     value="create_manga" {{ in_array('create_manga',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>
@@ -43,7 +43,7 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input permission" 
-                                    name="mangas[]" type="checkbox"
+                                    name="permissions[]" type="checkbox"
                                     value="update_manga" {{ in_array('update_manga',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>
@@ -59,7 +59,7 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input permission" 
-                                    name="mangas[]" type="checkbox" 
+                                    name="permissions[]" type="checkbox" 
                                     value="delete_manga" {{ in_array('delete_manga',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
                             <span class="check"></span>

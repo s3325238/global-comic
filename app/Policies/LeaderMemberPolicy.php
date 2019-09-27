@@ -55,7 +55,7 @@ class LeaderMemberPolicy
 
     public function can_update($user, $video)
     {
-        if ($user->role_id == '3') {
+        if ($user->role->leader == TRUE) {
             if ($user->role->update_video == true) {
                 $group = TranslateGroup::where('leader_id', Auth::id())->first();
 
@@ -87,7 +87,7 @@ class LeaderMemberPolicy
 
     public function only_leader($user)
     {
-        if ($user->role_id == '3') {
+        if ($user->role->leader == TRUE) {
             $group = TranslateGroup::where('leader_id', Auth::id())->first();
 
             if (!isset($group)) {
@@ -100,7 +100,7 @@ class LeaderMemberPolicy
 
     public function only_member($user)
     {
-        if ($user->role_id == '4') {
+        if ($user->role_id == '5') {
             $is_member = Leader_members::where('member_id', Auth::id())->first();
 
             if (!isset($is_member)) {
@@ -119,7 +119,7 @@ class LeaderMemberPolicy
 
     public function both_leader_member($user)
     {
-        if ($user->role_id == '3' || $user->role_id == '4') {
+        if ($user->role->leader == TRUE || $user->role_id == '5') {
             return true;
         }
         abort(404);

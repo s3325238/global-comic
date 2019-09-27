@@ -17,6 +17,12 @@ class CreateRolesTable extends Migration
             $table->integer('id')->unique();
             // 15
             $table->string('role_name',15);
+            $table->string('uniqueString');
+            // type
+            $table->boolean('moderator')->default(false);
+            $table->boolean('leader')->default(false);
+            $table->boolean('vice_leader')->default(false);
+            $table->boolean('member')->default(false);
             // Manga Permission
             $table->boolean('create_manga')->default(false);
             $table->boolean('view_manga')->default(false);

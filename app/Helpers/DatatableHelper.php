@@ -60,7 +60,21 @@ if (!function_exists('load_member_data_table')) {
             ->addColumn('email', function (Leader_members $member) {
                 return $member->member->email;
             })
+            ->addColumn('role', function (Leader_members $member) {
+                switch ($member->member->role->vice_leader) {
+                    case true:
+                        return '<span class="badge badge-rose">Vice leader</span>';
+                        break;
+                    
+                    default:
+                        return '<span class="badge badge-success">Member</span>';
+                        break;
+                }
+            })
             ->addColumn('position', function (Leader_members $member) {
+                if ($member->position == null) {
+                    return '';
+                }
                 return '<span class="badge badge-' . $member->belongsToPosition->badge . '">' . $member->belongsToPosition->name . '</span>';
             })
             ->addColumn('status', function (Leader_members $member) {
@@ -81,13 +95,10 @@ if (!function_exists('load_member_data_table')) {
                             <button type="submit" class="btn btn-danger update"><i class="fas fa-ban"></i>&nbsp;&nbsp;Kick</button>
                         </form>';
             })
-            ->editColumn('created_at', function (Leader_members $member) {
-                return $member->created_at->diffForHumans();
-            })
             ->editColumn('updated_at', function (Leader_members $member) {
                 return $member->updated_at->diffForHumans();
             })
-            ->rawColumns(['position', 'status', 'action'])
+            ->rawColumns(['role','position', 'status', 'action'])
             ->make(true);
     }
 }
@@ -97,16 +108,12 @@ if (!function_exists('load_role_data_table')) {
     function load_role_data_table($role)
     {
         return DataTables::of($role)
-            ->addColumn('id', function ($role) {
-                return $role->id;
-            })
             ->addColumn('role_name', function ($role) {
                 return $role->role_name;
             })
             ->addColumn('action', function ($role) {
-                return '<a href="#" class="btn btn-link btn-info btn-just-icon info" id="' . $role->id . '"><i class="material-icons">info</i></a>
-                        <a href="' . route('permission.edit', $role->id) . '" class="btn btn-link btn-warning btn-just-icon edit" id="' . $role->id . '"><i class="material-icons">edit</i></a>
-                        <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $role->id . '"><i class="material-icons">close</i></a>';
+                return '<a href="' . route('permission.edit', $role->id) . '" class="btn btn-link btn-warning btn-just-icon edit" id="' . $role->uniqueString . '"><i class="material-icons">edit</i></a>
+                        <a href="" class="btn btn-link btn-danger btn-just-icon remove" id="' . $role->uniqueString . '"><i class="material-icons">close</i></a>';
             })
             ->editColumn('created_at', function (Role $role) {
                 return $role->created_at->diffForHumans();

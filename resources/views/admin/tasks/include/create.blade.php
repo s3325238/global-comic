@@ -32,9 +32,9 @@
                                 <option value="{{$member->member->id}}">{{$member->member->name}}</option>
                             @endforeach
                         @else
-                        @foreach ($can_assign as $member)
-                            <option value="{{$member->id}}">{{$member->name}}</option>
-                        @endforeach
+                            @foreach ($can_assign as $member)
+                                <option value="{{$member->id}}">{{$member->name}}</option>
+                            @endforeach
                         @endcan
                         
                     </select>

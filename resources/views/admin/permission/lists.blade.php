@@ -30,7 +30,6 @@
                                     cellspacing="0" width="100%" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>ID&nbsp;&nbsp;&nbsp;</th>
                                             <th>Name</th>
                                             <th>Created At</th>
                                             <th>Updated At</th>
@@ -40,7 +39,6 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>ID&nbsp;&nbsp;&nbsp;</th>
                                             <th>Name</th>
                                             <th>Created At</th>
                                             <th>Updated At</th>
@@ -82,7 +80,6 @@
                     [10, 25, 50, "All"]
                 ],
                 columns: [
-                    { data: 'id', name: 'id' },
                     { data: 'role_name', name: 'role_name' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'updated_at', name: 'updated_at' },
@@ -102,28 +99,6 @@
 
         });
 
-        // Press edit button
-        // $(document).on('click','.edit', function(e) {
-        //     e.preventDefault();
-        //     var id = $(this).attr('id');
-            
-        //     console.log(id);
-
-        //     $.ajax({
-        //         url:'{!! route('api.permission.lists.edit') !!}',
-        //         method: "GET" ,
-        //         data:{
-        //             id:id
-        //         },
-        //         success:function(data) {
-        //             console.log(data);
-        //         },
-        //         error: function(xhr, status, error){
-        //             var errorMessage = xhr.status + ': ' + xhr.statusText
-        //             alert('Error - ' + errorMessage);
-        //         }
-        //     })
-        // });
         // Delete a record
         $(document).on('click', '.remove', function(e){
 

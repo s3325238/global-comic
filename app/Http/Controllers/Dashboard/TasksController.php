@@ -10,6 +10,7 @@ use Auth;
 use Spatie\Activitylog\Contracts\Activity;
 
 use App\Tasks;
+use App\Role;
 use App\User;
 use App\Leader_members;
 
@@ -26,12 +27,21 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        if (Gate::allows('assign-task', $user)) {
-            if ($user->role_id == '3') {
+        if (Gate::allows('assign-task', Auth::user())) {
+            $array = [1];
+
+            $roles = Role::query()->type('moderator')->orWhere->type('member')->get();
+
+            foreach ($roles as $role) {
+                array_push($array, $role->id);
+            }
+            array_push($array, 99);
+
+            if (Auth::user()->role->leader == TRUE) {
                 $can_assign = Leader_members::where('leader_id', Auth::id())->get();
             } else {
-                $can_assign = User::whereNotIn('role_id',['1','4','99', $user->role_id])->get();
+                array_push($array, 99);
+                $can_assign = User::whereNotIn('role_id', $array)->get();
             }
             return view('admin.tasks.index', compact(['can_assign']));
         } else {

@@ -102,9 +102,9 @@ if (!function_exists('make_member_list_data_table')) {
             <thead>
                 <tr>
                     <th>Email</th>
+                    <th>Role</th>
                     <th>Position</th>
                     <th>Status</th>
-                    <th>Created At</th>
                     <th>Updated At</th>
 
                     <th class="disabled-sorting text-center">Actions</th>
@@ -113,9 +113,9 @@ if (!function_exists('make_member_list_data_table')) {
             <tfoot>
                 <tr>
                     <th>Email</th>
+                    <th>Role</th>
                     <th>Position</th>
                     <th>Status</th>
-                    <th>Created At</th>
                     <th>Updated At</th>
 
                     <th class="text-center">Actions</th>

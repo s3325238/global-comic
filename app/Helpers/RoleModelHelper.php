@@ -8,54 +8,15 @@ if (!function_exists('role_update_helper')) {
      * @param
      * @return
      */
-    function role_update_helper($role, Array $based, Array $diff, Array $columns ,$mangas, $groups, $users, $videos, $others)
+    function role_update_helper($role, Array $based, Array $diff, Array $columns ,$permissions)
     {
-        if ($mangas != NULL) {
-            
-            $based = array_merge($based, $mangas);
-
-            foreach ($mangas as $manga) {
-                $role->$manga = TRUE;
-            }
-        }
-
-        // Group
-        if ($groups != NULL) {
-            
-            $based = array_merge($based, $groups);
-
-            foreach ($groups as $group) {
-                $role->$group = TRUE;
-            }
-        }
-
-        // User
-        if ($users != NULL) {
-            
-            $based = array_merge($based, $users);
-
-            foreach ($users as $user) {
-                $role->$user = TRUE;
-            }
-        }
-
-        // Video
-        if ($videos != NULL) {
-            
-            $based = array_merge($based, $videos);
-
-            foreach ($videos as $video) {
-                $role->$video = TRUE;
-            }
-        }
-
         // Other
-        if ($others != NULL) {
+        if ($permissions != NULL) {
             
-            $based = array_merge($based, $others);
+            $based = array_merge($based, $permissions);
 
-            foreach ($others as $other) {
-                $role->$other = TRUE;
+            foreach ($permissions as $permission) {
+                $role->$permission = TRUE;
             }
         }
 
@@ -70,44 +31,12 @@ if (!function_exists('role_update_helper')) {
     }
 } 
 if (!function_exists('add_role_helper')) {
-    function add_role_helper($role, $mangas, $groups, $users, $videos, $others) {
+    function add_role_helper($role, $permissions) {
 
-        if ($mangas != NULL) {
-            foreach ($mangas as $manga) {
+        if ($permissions != NULL) {
+            foreach ($permissions as $permission) {
 
-                $role->$manga = TRUE;
-                
-            }
-        }
-
-        if ($groups != NULL) {
-            foreach ($groups as $group) {
-
-                $role->$group = TRUE;
-                
-            }
-        }
-
-        if ($users != NULL) {
-            foreach ($users as $user) {
-
-                $role->$user = TRUE;
-                
-            }
-        }
-
-        if ($videos != NULL) {
-            foreach ($videos as $video) {
-
-                $role->$video = TRUE;
-                
-            }
-        }
-
-        if ($others != NULL) {
-            foreach ($others as $other) {
-
-                $role->$other = TRUE;
+                $role->$permission = TRUE;
                 
             }
         }

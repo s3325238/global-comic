@@ -19,10 +19,10 @@
         </div>
         @endforeach
         @endif
-        <div class="row">
-            <form action="{{ route('permission.update',$role->id) }}" method="post">
-                @csrf
-                @method('PUT')
+        <form action="{{ route('permission.update',$role->id) }}" method="post">
+            @csrf
+            @method('PUT')
+            <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-rose card-header-text">
@@ -59,6 +59,11 @@
                         </div>
                         <div class="card-body ">
                             <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @include('admin.permission.access_pills.role_type')
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-3 col-md-6 col-sm-6">
                                     @include('admin.permission.access_pills.manga_permission')
                                 </div>
@@ -84,8 +89,8 @@
                     <button type="submit" class="btn btn-success btn-lg"><i
                             class="fas fa-save"></i>&nbsp;&nbsp;Update</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

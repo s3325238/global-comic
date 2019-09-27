@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Role;
 
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\Traits\CausesActivity;
@@ -69,6 +70,14 @@ class User extends Authenticatable
     public function scopeRole_Datatable($query, $role_id)
     {
         return $query->where('role_id', '=', $role_id);
+    }
+
+    public function scopeGet_Leader($query)
+    {
+        $is_leader = Role::query()->where([
+            ['leader','=',true]
+        ])->first();
+        return $query->where('role_id', '=', $is_leader->id);
     }
 
     public function scopeActive($query)

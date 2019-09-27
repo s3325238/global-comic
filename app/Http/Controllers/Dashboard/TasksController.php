@@ -35,7 +35,6 @@ class TasksController extends Controller
             foreach ($roles as $role) {
                 array_push($array, $role->id);
             }
-            array_push($array, 99);
 
             if (Auth::user()->role->leader == TRUE) {
                 $can_assign = Leader_members::where('leader_id', Auth::id())->get();

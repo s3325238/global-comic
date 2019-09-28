@@ -10,7 +10,7 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" 
+                            <input class="form-check-input leaders members" 
                                     name="permissions[]" type="checkbox" 
                                     value="view_video" {{ in_array('view_video',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
@@ -26,7 +26,7 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" 
+                            <input class="form-check-input leaders members" 
                                     name="permissions[]" type="checkbox" 
                                     value="create_video" {{ in_array('create_video',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
@@ -42,7 +42,7 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" 
+                            <input class="form-check-input leaders" 
                                     name="permissions[]" type="checkbox" 
                                     value="update_video" {{ in_array('update_video',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
@@ -58,7 +58,7 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" 
+                            <input class="form-check-input leaders" 
                                     name="permissions[]" type="checkbox" 
                                     value="delete_video" {{ in_array('delete_video',$permission)? "checked": "" }}>
                             <span class="form-check-sign">

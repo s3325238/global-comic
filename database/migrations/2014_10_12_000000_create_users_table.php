@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable(false)->default('default-avatar.png');
 
             $table->integer('role_id')->nullable(false)->default("1");
+            $table->string('random')->nullable(true);
             $table->rememberToken();
             $table->timestamps();
         });

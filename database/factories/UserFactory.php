@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Faker\Generator as Faker;
 
 /*
@@ -17,6 +18,7 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+    DB::connection()->disableQueryLog();
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,

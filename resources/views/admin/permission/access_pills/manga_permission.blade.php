@@ -10,7 +10,7 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input permission" 
+                            <input class="form-check-input moderator" 
                                     name="permissions[]" type="checkbox" 
                                     value="view_manga" {{ in_array('view_manga',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
@@ -26,7 +26,7 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input permission" 
+                            <input class="form-check-input moderator" 
                                     name="permissions[]" type="checkbox" 
                                     value="create_manga" {{ in_array('create_manga',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
@@ -42,7 +42,7 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input permission" 
+                            <input class="form-check-input moderator" 
                                     name="permissions[]" type="checkbox"
                                     value="update_manga" {{ in_array('update_manga',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
@@ -58,7 +58,7 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input permission" 
+                            <input class="form-check-input moderator" 
                                     name="permissions[]" type="checkbox" 
                                     value="delete_manga" {{ in_array('delete_manga',$permission)? "checked": "" }}>
                             <span class="form-check-sign">

@@ -8,6 +8,8 @@ use App\Manga;
 use App\Tasks;
 use App\TranslateGroup;
 use App\Videos;
+use App\User;
+use App\Role;
 
 // External
 use Auth;
@@ -21,21 +23,33 @@ class IndexController extends Controller
     {
         $tasks = Tasks::select('id')->personal()->orWhere->assigned()->status('0')->get();
         $this->middleware('dashboard');
+        $this->i = 0;
     }
 
     public function index()
-    {
-        $index_title = "Dashboard";
+    {   
+        // User::chunk(1000, function ($users){
+        //     $role = Role::select('id','role_name','uniqueString')->where('role_name', 'viewers')->first();
+            
+        //     foreach ($users as $user) {
+        //         if ($user->role_id != '99') {
+        //             $user->role_id = $role->id;
+        //             $user->random = $role->uniqueString;
 
+        //             $user->save();
+        //         }
+        //     }
+        // });
+        // die;
         if (Auth::user()->can('isAdmin')) {
             $users_by_language = DB::table('users')
                 ->select('language', DB::raw('count(*) as total'))
                 ->where('role_id', '=', '1')
                 ->groupBy('language')
                 ->get();
-            return view('admin.index', compact(['users_by_language', 'index_title', 'tasks']));
+            return view('admin.index', compact(['users_by_language', 'tasks']));
         } else {
-            return view('admin.index', compact(['index_title', 'tasks']));
+            return view('admin.index', compact(['tasks']));
         }
     }
 

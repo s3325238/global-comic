@@ -5,6 +5,7 @@
 @push('customJs')
 <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
 <script src="{{ asset('admin/js/plugins/bootstrap-selectpicker.js') }}"></script>
+<script src="{{asset('js/check.js')}}"></script>
 @endpush
 
 @section('content')

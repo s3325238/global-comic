@@ -10,7 +10,7 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" 
+                            <input class="form-check-input moderator" 
                                     name="permissions[]" type="checkbox" 
                                     value="view_user" {{ in_array('view_user',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
@@ -26,7 +26,7 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" 
+                            <input class="form-check-input moderator" 
                                     name="permissions[]" type="checkbox" 
                                     value="create_user" {{ in_array('create_user',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
@@ -42,7 +42,7 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" 
+                            <input class="form-check-input moderator" 
                                     name="permissions[]" type="checkbox" 
                                     value="update_user" {{ in_array('update_user',$permission)? "checked": "" }}>
                             <span class="form-check-sign">
@@ -58,7 +58,7 @@
                 <td>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" 
+                            <input class="form-check-input moderator" 
                                     name="permissions[]" type="checkbox"
                                     value="delete_user" {{ in_array('delete_user',$permission)? "checked": "" }}>
                             <span class="form-check-sign">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Role;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -100,14 +101,19 @@ class RegisterController extends Controller
     {
         // return $verifyToken;
         $user = User::where(['email' => $email, 'verifyToken' => $verifyToken])->first();
+        $role = Role::find($user->role_id);
 
         if ($user)
         {
-            User::where(['email' => $email, 'verifyToken' => $verifyToken])->update(['status' => '1','verifyToken' => NULL]);
+            User::where(['email' => $email, 'verifyToken' => $verifyToken])->update([
+                'status' => '1',
+                'verifyToken' => NULL,
+                'random' => $role->uniqueString
+            ]);
             Session::flash('status','Verification Completed! You can now login');
             return redirect(route('login'));
         }else {
-            return 'User not found';
+            abort(404);
         }
     }
 }

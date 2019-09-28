@@ -23,8 +23,8 @@ class LeaderMemberPolicy
 
     public function can_create($user)
     {
-        if ($user->role->create_video == true) {
-            if (Auth::user()->role_id == '3') {
+        if ($user->role->create_video == TRUE) {
+            if (Auth::user()->role->leader == TRUE) {
 
                 $group = TranslateGroup::select('id')->where('leader_id', '=', Auth::id())->first();
     
@@ -33,7 +33,7 @@ class LeaderMemberPolicy
                 }
                 return true;
 
-            } else if (Auth::user()->role_id == '4') {
+            } else if (Auth::user()->role->member == TRUE) {
     
                 $leader = Leader_members::select('leader_id')->where('member_id', Auth::id())->first();
     
@@ -56,7 +56,7 @@ class LeaderMemberPolicy
     public function can_update($user, $video)
     {
         if ($user->role->leader == TRUE) {
-            if ($user->role->update_video == true) {
+            if ($user->role->update_video == TRUE) {
                 $group = TranslateGroup::where('leader_id', Auth::id())->first();
 
                 if (!isset($group)) { // Does not have group
@@ -100,7 +100,7 @@ class LeaderMemberPolicy
 
     public function only_member($user)
     {
-        if ($user->role->member == true) {
+        if ($user->role->member == TRUE) {
             $is_member = Leader_members::where('member_id', Auth::id())->first();
 
             if (!isset($is_member)) {
@@ -119,7 +119,7 @@ class LeaderMemberPolicy
 
     public function both_leader_member($user)
     {
-        if ($user->role->leader == TRUE || $user->role_id == '5') {
+        if ($user->role->leader == TRUE || $user->role->member == TRUE) {
             return true;
         }
         abort(404);
@@ -127,7 +127,7 @@ class LeaderMemberPolicy
 
     public function view_list($user)
     {
-        if ($user->role->view_video == true) {
+        if ($user->role->view_video == TRUE) {
             return true;
         }
         abort(404);
@@ -135,7 +135,7 @@ class LeaderMemberPolicy
 
     public function create_video($user)
     {
-        if ($user->role->create_video == true) {
+        if ($user->role->create_video == TRUE) {
             return true;
         }
         abort(404);
@@ -143,7 +143,7 @@ class LeaderMemberPolicy
 
     public function update_video($user)
     {
-        if ($user->role->update_video == true) {
+        if ($user->role->update_video == TRUE) {
             return true;
         }
         abort(404);
@@ -151,7 +151,7 @@ class LeaderMemberPolicy
 
     public function delete_video($user)
     {
-        if ($user->role->delete_video == true) {
+        if ($user->role->delete_video == TRUE) {
             return true;
         }
         abort(404);

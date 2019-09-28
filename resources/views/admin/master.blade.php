@@ -8,11 +8,10 @@
     <title>@yield('title') | {{ env('APP_NAME') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSS Files -->
-    <link href="{{ asset('admin/css/material-dashboard.css') }}" rel="stylesheet" />
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link href="{{ asset('admin/css/material-dashboard-pro.min.css') }}" rel="stylesheet" />
+    
     <script src="https://kit.fontawesome.com/33730d10d7.js"></script>
+    
     @stack('customCSS')
 </head>
 

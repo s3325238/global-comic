@@ -39,7 +39,7 @@ class RolesTableSeeder extends Seeder
                 'update_video' => false,
                 'delete_video' => false,
 
-                'add_copyright' => false,
+                'access_copyright' => false,
                 'view_settings' => false,
                 'assign_task' => false,
                 'access_finance' => false,
@@ -203,7 +203,7 @@ class RolesTableSeeder extends Seeder
                 'update_video' => false,
                 'delete_video' => false,
 
-                'add_copyright' => true,
+                'access_copyright' => true,
                 'view_settings' => true,
                 'assign_task' => true,
                 'access_finance' => true,

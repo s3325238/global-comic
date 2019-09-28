@@ -4,9 +4,6 @@ namespace Illuminate\Foundation\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
-use App\Rules\Captcha;
-
-use App\Settings;
 
 trait SendsPasswordResetEmails
 {
@@ -17,8 +14,7 @@ trait SendsPasswordResetEmails
      */
     public function showLinkRequestForm()
     {
-        $key = Settings::find(1)->CAPTCHA_KEY;
-        return view('ui.auth.email',compact('key'));
+        return view('auth.passwords.email');
     }
 
     /**
@@ -51,10 +47,7 @@ trait SendsPasswordResetEmails
      */
     protected function validateEmail(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'g-recaptcha-response' => new Captcha(),
-        ]);
+        $request->validate(['email' => 'required|email']);
     }
 
     /**

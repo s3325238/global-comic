@@ -71,6 +71,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'dashboard']], f
 
     Route::apiResource('task', 'Dashboard\TasksController')->except(['show', 'destroy']);
 
+    // Route::group(['prefix' => 'copyright'], function () {
+
+    //     Route::group(['prefix' => 'action'], function () {
+            
+    //     });
+    // });
+
     Route::group(['prefix' => 'manga'], function () {
         Route::get('copyright', 'Dashboard\MangaController@copyrightIndex')->name('manga.copyright');
 

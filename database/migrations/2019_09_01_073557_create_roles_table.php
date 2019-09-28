@@ -45,7 +45,7 @@ class CreateRolesTable extends Migration
             $table->boolean('delete_video')->default(false);
 
             // Other permission
-            $table->boolean('add_copyright')->default(false);
+            $table->boolean('access_copyright')->default(false);
             $table->boolean('view_settings')->default(false);
             $table->boolean('assign_task')->default(false);
             $table->boolean('access_finance')->default(false);

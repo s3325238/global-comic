@@ -3,9 +3,7 @@
 @section('title','Add new permission')
 
 @push('customJs')
-<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-<script src="{{ asset('admin/js/plugins/bootstrap-selectpicker.js') }}"></script>
-<script src="{{asset('js/check.js')}}"></script>
+    <script src="{{asset('admin/js/custom.min.js')}}"></script>
 @endpush
 
 @section('content')
@@ -54,7 +52,7 @@
                     <div class="card ">
                         <div class="card-header card-header-rose card-header-text">
                             <div class="card-text">
-                                <h4 class="card-title">Access Permission</h4>
+                                <h4 class="card-title">Basic Permission</h4>
                             </div>
                         </div>
                         <div class="card-body ">

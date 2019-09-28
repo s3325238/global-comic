@@ -18,6 +18,37 @@ class UserPolicy
     {
         //
     }
+    public function read($user)
+    {
+        if ($user->role->view_user == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public function create($user)
+    {
+        if ($user->role->create_user == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public function update($user)
+    {
+        if ($user->role->update_user == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    public function delete($user)
+    {
+        if ($user->role->delete_user == TRUE) {
+            return true;
+        }
+        return false;
+    }
     
     public function access_create_form($user)
     {

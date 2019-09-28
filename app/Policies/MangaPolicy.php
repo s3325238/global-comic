@@ -53,7 +53,7 @@ class MangaPolicy
 
     public function copyright($user)
     {
-        if ($user->role->add_copyright == TRUE) {
+        if ($user->role->access_copyright == TRUE) {
             return true;
         }
         abort(404);

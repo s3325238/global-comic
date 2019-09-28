@@ -63,10 +63,8 @@
 <script src="{{ asset('admin/js/plugins/jquery.dataTables.min.js') }}"></script>
 <!-- Forms Validations Plugin -->
 <script src="{{ asset('admin/js/plugins/jquery.validate.min.js') }}"></script>
-<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-<script src="{{ asset('admin/js/plugins/bootstrap-selectpicker.js') }}"></script>
-<!-- Plugin for Sweet Alert -->
-<script src="{{ asset('admin/js/plugins/sweetalert2.js') }}"></script>
+
+<script src="{{asset('admin/js/select-notify-sweet.min.js')}}"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

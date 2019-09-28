@@ -19,6 +19,30 @@ class SideBarAccess
         //
     }
 
+    public function editAll($user)
+    {
+        if ($user->role_id == '99') {
+            return true;
+        }
+        return false;
+    }
+
+    public function access_admin_right($user)
+    {
+        if ($user->role_id == '99') {
+            return true;
+        }
+        return false;
+    }
+
+    public function access_copyright($user)
+    {
+        if ($user->role->access_copyright == TRUE) {
+            return true;
+        }
+        return false;
+    }
+
     public function only_member($user)
     {
         if ($user->role->member == TRUE) {
@@ -46,14 +70,6 @@ class SideBarAccess
     public function assignTask($user)
     {
         if ($user->role->assign_task == TRUE) {
-            return true;
-        }
-        return false;
-    }
-
-    public function editAll($user)
-    {
-        if ($user->role_id == '99') {
             return true;
         }
         return false;
@@ -104,14 +120,6 @@ class SideBarAccess
     public function deleteManga($user)
     {
         if ($user->role->delete_manga == TRUE) {
-            return true;
-        }
-        return false;
-    }
-
-    public function accessCopyright($user)
-    {
-        if ($user->role->add_copyright == TRUE) {
             return true;
         }
         return false;

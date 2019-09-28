@@ -126,7 +126,7 @@ class GroupController extends Controller
      */
     public function loadLeaders(Request $request)
     {
-        // $this->authorize('create_form', TranslateGroup::class);
+        $this->authorize('create_group', TranslateGroup::class);
 
         $array = [];
 

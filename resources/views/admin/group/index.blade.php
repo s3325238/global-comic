@@ -32,7 +32,7 @@
                     <div class="card-body ">
                         <div class="tab-content">
                             <div class="tab-pane active" id="vietnamese">
-                                @can('edit-all', Auth::user())
+                                @can('access-admin-right', Auth::user())
                                 <div class="row">
                                     <div class="col-md-12">
                                         <form action="{{route('follows.reset','vi')}}" method="post">
@@ -45,7 +45,7 @@
                                 {!! make_group_data_table('vi') !!}
                             </div>
                             <div class="tab-pane" id="english">
-                                @can('edit-all', Auth::user())
+                                @can('access-admin-right', Auth::user())
                                 <div class="row">
                                     <div class="col-md-12">
                                         <form action="{{route('follows.reset','en')}}" method="post">
@@ -58,7 +58,7 @@
                                 {!! make_group_data_table('en') !!}
                             </div>
                             <div class="tab-pane" id="japanese">
-                                @can('edit-all', Auth::user())
+                                @can('access-admin-right', Auth::user())
                                 <div class="row">
                                     <div class="col-md-12">
                                         <form action="{{route('follows.reset','jp')}}" method="post">
@@ -71,7 +71,7 @@
                                 {!! make_group_data_table('jp') !!}
                             </div>
                             <div class="tab-pane" id="korean">
-                                @can('edit-all', Auth::user())
+                                @can('access-admin-right', Auth::user())
                                 <div class="row">
                                     <div class="col-md-12">
                                         <form action="{{route('follows.reset','kr')}}" method="post">
@@ -96,10 +96,8 @@
 <script src="{{ asset('admin/js/plugins/jquery.dataTables.min.js') }}"></script>
 <!-- Forms Validations Plugin -->
 <script src="{{ asset('admin/js/plugins/jquery.validate.min.js') }}"></script>
-<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-<script src="{{ asset('admin/js/plugins/bootstrap-selectpicker.js') }}"></script>
-<!-- Plugin for Sweet Alert -->
-<script src="{{ asset('admin/js/plugins/sweetalert2.js') }}"></script>
+
+<script src="{{asset('admin/js/select-notify-sweet.min.js')}}"></script>
 
 <script type="text/javascript">
     function table_view(target) {

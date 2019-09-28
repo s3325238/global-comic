@@ -32,8 +32,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $index_title = "Active User Lists Management";
-        return view('admin.user.index',compact(['index_title']));
+        $this->authorize('read', User::class);
+        return view('admin.user.index');
     }
 
     /**
@@ -43,7 +43,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $this->authorize('access_create_form', User::class);
+        $this->authorize('create', User::class);
 
         $roles = Role::select('id','role_name')->except_admin()->get() ;
 
@@ -59,7 +59,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', User::class);
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -115,7 +115,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $this->authorize('access_edit_form', User::class);
+        $this->authorize('update', User::class);
     }
 
     /**

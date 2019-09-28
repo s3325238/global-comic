@@ -11,19 +11,8 @@
     <script src="{{ asset('admin/js/plugins/jquery-jvectormap.js') }}"></script>
     <!-- Library for adding dinamically elements -->
     <script src="{{ asset('admin/js/plugins/arrive.min.js') }}"></script>
-
-    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-    <script src="{{ asset('admin/js/plugins/bootstrap-selectpicker.js') }}"></script>
     <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
     <script src="{{asset('admin/js/plugins/jasny-bootstrap.min.js')}}"></script>
-@endpush
-
-@push('notification')
-<a class="dropdown-item" href="#">Mike John responded to your email</a>
-<a class="dropdown-item" href="#">You have 5 new tasks</a>
-<a class="dropdown-item" href="#">You're now friend with Andrew</a>
-<a class="dropdown-item" href="#">Another Notification</a>
-<a class="dropdown-item" href="#">Another One</a>
 @endpush
 
 @section('content')

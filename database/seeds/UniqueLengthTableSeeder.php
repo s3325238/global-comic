@@ -17,7 +17,7 @@ class UniqueLengthTableSeeder extends Seeder
                 'chapter_length' => 40,
                 'manga_length' => 40,
                 'role_length' => 40,
-                'random_array' => '[2,3,4,5]',
+                'random_array' => '[99]',
                 'random_number' => 99,
                 "created_at" => date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s')

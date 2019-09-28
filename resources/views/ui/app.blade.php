@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>E-Commerce</title>
-  @include('ui.partials._stylesheet')
+  <link href="{{ asset('site/css/material-kit.min.css') }}" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/33730d10d7.js"></script>
+  {{-- @include('ui.partials._stylesheet') --}}
 </head>
 
 <body class="sections-page sidebar-collapse">
@@ -28,12 +30,12 @@
     </div>
     @include('ui.partials._footer')
     <!--   Core JS Files   -->
-    <script src="{{ asset('js/core/jquery.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/core/popper.min.js')}}" type="text/javascript"></script>
-    <script src="{{ asset('js/core/bootstrap-material-design.min.js')}}" type="text/javascript"></script>
-    <script src="{{ asset('js/plugins/moment.min.js')}}"></script>
+    <script src="{{ asset('site/js/core/jquery.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('site/js/core/popper.min.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('site/js/core/bootstrap-material-design.min.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('site/js/plugins/moment.min.js')}}"></script>
     <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
-    <script src="{{ asset('js/material-kit.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('site/js/material-kit.min.js')}}" type="text/javascript"></script>
 </body>
 
 </html>

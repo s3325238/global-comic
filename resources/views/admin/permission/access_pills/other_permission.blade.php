@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header card-header-text card-header-info">
         <div class="card-text">
-            <h4 class="card-title">Others</h4>
+            <h4 class="card-title">Advance Permission</h4>
         </div>
     </div>
     <div class="card-body">
@@ -9,8 +9,8 @@
             <div class="col-md-3 col-sm-6">
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <input class="form-check-input moderator" name="permissions[]" type="checkbox" value="add_copyright"
-                            {{ in_array('add_copyright',$permission)? "checked": "" }}> Add
+                        <input class="form-check-input moderator" name="permissions[]" type="checkbox" value="access_copyright"
+                            {{ in_array('access_copyright',$permission)? "checked": "" }}> Access
                         Copyright
                         <span class="form-check-sign">
                             <span class="check"></span>
@@ -33,7 +33,7 @@
             <div class="col-md-3 col-sm-6">
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <input class="form-check-input leader moderator" name="permissions[]" type="checkbox" value="assign_task"
+                        <input class="form-check-input leader moderator leaders" name="permissions[]" type="checkbox" value="assign_task"
                             {{ in_array('assign_task',$permission)? "checked": "" }}>
                         Assign Task
                         <span class="form-check-sign">

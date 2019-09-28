@@ -157,7 +157,7 @@ if (!function_exists('make_causer_log_data_table')) {
     }
 }
 
-if (!function_exists('make_log_data_table')) {
+if (!function_exists('log_data_table')) {
     function make_log_data_table($id)
     {
         return '<div class="row">
@@ -165,7 +165,7 @@ if (!function_exists('make_log_data_table')) {
                 <form action="' . route('api.log.user.delete', 'App\User') . '" method="post">
                     ' . csrf_field() . '
                     <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="btn btn-danger">Clean Null Causer</button>
+                    <button type="submit" class="btn btn-danger">Clean Self registered user logs</button>
                 </form>
             </div>
         </div>

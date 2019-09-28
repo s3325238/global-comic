@@ -35,8 +35,11 @@ class AuthServiceProvider extends ServiceProvider
 
     public function registerSideBarAccess()
     {
+        Gate::define('access-admin-right', 'App\Policies\SideBarAccess@access_admin_right');
+        // Copyright Permission
+        Gate::define('access-copyright', 'App\Policies\SideBarAccess@access_copyright');
+
         Gate::define('assign-task', 'App\Policies\SideBarAccess@assignTask');
-        Gate::define('edit-all', 'App\Policies\SideBarAccess@editAll');
         Gate::define('change-settings', 'App\Policies\SideBarAccess@changeSettings');
         Gate::define('access-finance', 'App\Policies\SideBarAccess@accessFinance');
         
@@ -48,8 +51,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('create-manga', 'App\Policies\SideBarAccess@createNewManga');
         Gate::define('update-manga', 'App\Policies\SideBarAccess@updateManga');
         Gate::define('delete-manga', 'App\Policies\SideBarAccess@deleteManga');
-        // Copyright Permission
-        Gate::define('access-copyright', 'App\Policies\SideBarAccess@accessCopyright');
+        
         // Group Permission
         Gate::define('view-group', 'App\Policies\SideBarAccess@viewGroupLists');
         Gate::define('create-group', 'App\Policies\SideBarAccess@createNewGroup');

@@ -83,8 +83,7 @@
                         </span>
                     </a>
                 </li>
-                <li
-                    class="nav-item {{ setSideBarActive(['dashboard/video/pending', 'dashboard/video/*/edit'],'active') }}">
+                <li class="nav-item {{ setSideBarActive(['dashboard/video/pending', 'dashboard/video/*/edit'],'active') }}">
                     <a class="nav-link" href="{{route('video.pending')}}">
                         <span class="sidebar-mini">
                             <i class="fas fa-pause-circle"></i>
@@ -308,7 +307,7 @@
                                     <span class="sidebar-normal"> Normal User Lists </span>
                                 </a>
                             </li>
-                            @can('edit-all', Auth::user())
+                            @can('access-admin-right', Auth::user())
                             <li class="nav-item  ">
                                 <a class="nav-link" href="#">
                                     {{-- {{ setSideBarActive(['dashboard/user'],'active') }} --}}
@@ -335,7 +334,7 @@
                     </div>
                 </li>
                 @endcan
-                @can('edit-all', Auth::user())
+                @can('access-admin-right', Auth::user())
                 <li class="nav-item {{ setSideBarActive(['dashboard/permission*'],'active') }} ">
                     <a class="nav-link" data-toggle="collapse" href="#permission"
                         aria-expanded="{{ setSideBarActive(['dashboard/permission*'],'true') }}">
@@ -371,7 +370,7 @@
                 @endcan
             </div>
             {{-- @endcan --}}
-            @can('edit-all', Auth::user())
+            @can('access-admin-right', Auth::user())
             <li class="nav-item {{ setSideBarActive(['dashboard/logs*'],'active') }}">
                 <a class="nav-link" href="{{route('logs.index')}}">
                     <i class="fas fa-history"></i>

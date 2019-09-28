@@ -110,8 +110,8 @@
 
 <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
 <script src="{{asset('admin/js/plugins/jasny-bootstrap.min.js')}}"></script>
-<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-<script src="{{ asset('admin/js/plugins/bootstrap-selectpicker.js') }}"></script>
+
+<script src="{{asset('admin/js/select-notify-sweet.min.js')}}"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {

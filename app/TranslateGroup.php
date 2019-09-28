@@ -58,11 +58,6 @@ class TranslateGroup extends Model
         ];
     }
 
-    // public function related()
-    // {
-    //     return $this->belongsTo('App\Relationship', 'id');
-    // }
-
     public function user_lead()
     {
         return $this->hasOne('App\User', 'id', 'leader_id');
@@ -71,11 +66,6 @@ class TranslateGroup extends Model
     public function mangas()
     {
         return $this->hasMany('App\Manga','group_id','id');
-    }
-
-    public function videos()
-    {
-        return $this->hasMany('App\Group_Manga_Videos','group_id','id');
     }
     // user_id 
     // group_id
